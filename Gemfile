@@ -8,7 +8,6 @@ gem 'rails', '3.2.8'
 group :development, :test do
   gem 'sqlite3'
   gem 'factory_girl_rails', '~>2.0'
-  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'launchy'
 end
 
@@ -40,7 +39,7 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+  gem 'debugger'
 
 group :test do
   gem 'cucumber-rails', :require => false

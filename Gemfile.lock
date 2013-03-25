@@ -29,7 +29,6 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.3)
-    archive-tar-minitar (0.5.2)
     arel (3.0.2)
     builder (3.0.4)
     capybara (2.0.2)
@@ -62,6 +61,12 @@ GEM
     cucumber-rails-training-wheels (1.0.0)
       cucumber-rails (>= 1.1.1)
     database_cleaner (0.9.1)
+    debugger (1.5.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.1)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -85,8 +90,6 @@ GEM
     json (1.7.7)
     launchy (2.2.0)
       addressable (~> 2.3)
-    linecache19 (0.5.12)
-      ruby_core_source (>= 0.1.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -132,16 +135,6 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
-    ruby-debug-base19 (0.11.25)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
-    ruby_core_source (0.1.5)
-      archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.9)
     sass (3.2.7)
     sass-rails (3.2.6)
@@ -184,6 +177,7 @@ DEPENDENCIES
   cucumber-rails
   cucumber-rails-training-wheels
   database_cleaner
+  debugger
   factory_girl_rails (~> 2.0)
   haml
   jquery-rails
@@ -191,7 +185,6 @@ DEPENDENCIES
   pg
   rails (= 3.2.8)
   rspec-rails
-  ruby-debug19
   sass-rails (~> 3.2.3)
   simplecov
   sqlite3
