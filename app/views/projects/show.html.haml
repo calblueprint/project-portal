@@ -1,0 +1,22 @@
+%p#notice
+.row-fluid
+  #project-card.span12
+    %a#project-user-edit
+      %i.icon-edit
+    .content
+      %img.img-polaroid.span2
+      .span9
+        %p.project-title
+          =@project.title
+        %p
+          ="#{t(:company_website)}:"
+          =link_to(@project.company_site, url_with_http(@project.company_site), :target => "_blank")
+        %p 
+          Description:
+          =@project.description
+
+  #project-tools.span12
+    %a{:href => "/projects/1/edit"} Edit
+    |
+    %a{:href => "/projects"} Back
+  

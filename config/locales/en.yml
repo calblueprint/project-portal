@@ -3,3 +3,8 @@
 
 en:
   update_project: "Update Project Details"
+  show: "Show"
+  back: "Back"
+  company_website: "Organization's Website"
+  github_website: "Github"
+  application_website: "Application's Website"
