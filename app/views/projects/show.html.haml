@@ -1,8 +1,9 @@
 %p#notice
 .row-fluid
   #project-card.span12
-    %a#project-user-edit
-      %i.icon-edit
+    #project-user-edit
+      =link_to user_edit_project_path(@project) do
+        %i.icon-edit
     .content
       .span2
         %img.img-polaroid{:src => "http://www.calblueprint.org/assets/paw.png"}
