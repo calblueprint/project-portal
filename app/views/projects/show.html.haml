@@ -12,19 +12,34 @@
         %br
         .row-fluid
           .span4  
+            %p 
+              %b
+                ="#{t(:organization)}:"
+              /=@project.company
+              Placeholder for now
             %p
-              ="#{t(:company_site)}:"
+              %b
+                ="#{t(:nonprofit)}:"
+              =yes_no(@project.nonprofit)
+            %p
+              %b
+                ="#{t(:company_site)}:"
               =link_to(@project.company_site, url_with_http(@project.company_site), :target => "_blank")
             %p
-              ="#{t(:github_site)}:"
+              %b
+                ="#{t(:github_site)}:"
               =link_to(@project.github_site, url_with_http(@project.github_site), :target => "_blank")
             %p
-              ="#{t(:application_site)}:"
+              %b
+                ="#{t(:application_site)}:"
               =link_to(@project.application_site, url_with_http(@project.application_site), :target => "_blank")
           .span7
-            %p 
-              Description:
+            %p
+              %b
+                ="#{t(:description)}:"
+              %br
               =@project.description
+
 
 #project-tools
   %a{:href => "/projects/1/edit"} Edit
