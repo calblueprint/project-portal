@@ -4,19 +4,30 @@
     %a#project-user-edit
       %i.icon-edit
     .content
-      %img.img-polaroid.span2
-      .span9
+      .span2
+        %img.img-polaroid{:src => "http://www.calblueprint.org/assets/paw.png"}
+      .span10
         %p.project-title
           =@project.title
-        %p
-          ="#{t(:company_website)}:"
-          =link_to(@project.company_site, url_with_http(@project.company_site), :target => "_blank")
-        %p 
-          Description:
-          =@project.description
+        %br
+        .row-fluid
+          .span4  
+            %p
+              ="#{t(:company_site)}:"
+              =link_to(@project.company_site, url_with_http(@project.company_site), :target => "_blank")
+            %p
+              ="#{t(:github_site)}:"
+              =link_to(@project.github_site, url_with_http(@project.github_site), :target => "_blank")
+            %p
+              ="#{t(:application_site)}:"
+              =link_to(@project.application_site, url_with_http(@project.application_site), :target => "_blank")
+          .span7
+            %p 
+              Description:
+              =@project.description
 
-  #project-tools.span12
-    %a{:href => "/projects/1/edit"} Edit
-    |
-    %a{:href => "/projects"} Back
+#project-tools
+  %a{:href => "/projects/1/edit"} Edit
+  |
+  %a{:href => "/projects"} Back
   
