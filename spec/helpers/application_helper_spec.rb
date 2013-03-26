@@ -17,3 +17,12 @@ describe "url with http" do
     expect(helper.url_with_http("http://www.google.com")).to eq("http://www.google.com")
   end
 end
+
+describe "displaying image" do
+  it "should display default when no image present" do
+    expect(helper.img_or_default(false)).to eq(DEFAULT_IMG)
+  end
+  it "should display image when url present" do
+    expect(helper.img_or_default("imageurl")).to eq("imageurl")
+  end
+end

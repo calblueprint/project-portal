@@ -6,7 +6,9 @@
         %i.icon-edit
     .content
       .span2
-        %img.img-polaroid{:src => "http://www.calblueprint.org/assets/paw.png"}
+        .img-polaroid
+          =image_tag img_or_default(false)
+          /Placeholder need to change to actual @project.photo.url or something like that
       .span10
         %p.project-title
           =@project.title
