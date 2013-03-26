@@ -5,10 +5,12 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-
-group :development do
+group :development, :test do
   gem 'sqlite3'
+  gem 'factory_girl_rails', '~>2.0'
+  gem 'launchy'
 end
+
 
 group :production do
   gem 'pg'
@@ -23,6 +25,33 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+
+
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+  gem 'debugger'
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'rspec-rails'
+  gem 'simplecov'
+end
+
+# our app specific gems
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'haml'
