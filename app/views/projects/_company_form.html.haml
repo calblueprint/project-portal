@@ -9,10 +9,11 @@
           %li= msg
   =f.input :title
   =f.input :company_site
-  =f.input :questions
   .inline
     =f.input :nonprofit
-  =f.input :avail_speak_weekly
+  -QUESTIONS.keys.each do |q|
+    =f.input q, label: QUESTIONS[q][:question]
+  =f.input :avail_weekly
   =f.button  :submit
 
 
