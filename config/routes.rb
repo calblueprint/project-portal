@@ -1,4 +1,8 @@
 ProjectPortal::Application.routes.draw do
+  resources :issues
+
+  match '/createIssue', :to => 'issues#new'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,2 +1,4 @@
-= @issue.title
-= @issue.description
+
+%h4= best_in_place @issue, :title
+
+%div= best_in_place @issue, :description, type: :textarea
