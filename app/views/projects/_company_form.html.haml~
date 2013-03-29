@@ -17,7 +17,7 @@
   =f.input :github_site
   =f.input :company_site
   =f.input :company_address
-  =f.input :application_site
+  =f.input :app_site
   =f.input :mission_statement
   =f.input :contact_name
   =f.input :contact_position
