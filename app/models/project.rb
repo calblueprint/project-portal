@@ -4,6 +4,14 @@ class Project < ActiveRecord::Base
 
   attr_accessor :avail_weekly
 
+
+  validates :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address,
+  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
+  :contact_hours, :avail_weekly, :presence => true
+  validates :title, :questions, :mission_statement, :length => { :minimum => 4 }
+  validates :title, :github_site, :application_site, :uniqueness => true
+  # validate URLs
+  # validate emails
   
   QUESTIONS.keys.each do |q|
     attr_accessible q.to_sym
