@@ -39,9 +39,13 @@
           .span7
             %p
               %b
-                ="#{t(:description)}:"
+                ="#{t(:questions)}:"
               %br
-              =@project.questions
+              -@project.questions.each do |q|
+                %b
+                  ="#{QUESTIONS[q[0]][:subject]}:"
+                =q[1]
+                %br
 
 
 #project-tools

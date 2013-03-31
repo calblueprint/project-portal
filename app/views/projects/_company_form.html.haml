@@ -12,9 +12,9 @@
   .inline
     =f.input :nonprofit
   -QUESTIONS.keys.each do |q|
-    =f.input q, label: QUESTIONS[q][:question]
-  =f.input :avail_weekly
+    =f.input q, label: QUESTIONS[q][:question], :as => QUESTIONS[q][:as], :input_html => {:rows => 4 }
   =f.button  :submit
+
 
 
   

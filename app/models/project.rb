@@ -1,8 +1,7 @@
 class Project < ActiveRecord::Base
-  attr_accessible :questions, :title, :nonprofit, :github_site, :company_site, :application_site, :avail_weekly
+  attr_accessible :questions, :title, :nonprofit, :github_site, :company_site, :application_site
 
-  attr_accessor :avail_weekly
-
+  serialize :questions, Hash
   
   QUESTIONS.keys.each do |q|
     attr_accessible q.to_sym
@@ -15,10 +14,11 @@ class Project < ActiveRecord::Base
 
 
   def merge_questions
+    questions = {}
     QUESTIONS.each do |q|
-      #do something
-      p self.send(q)
+      questions[q[0]] = self.send(q[0])
     end
+    self.questions = questions
   end
 
 end
