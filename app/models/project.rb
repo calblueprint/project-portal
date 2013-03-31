@@ -9,9 +9,6 @@ class Project < ActiveRecord::Base
   end
   
   before_save :merge_questions
-  
-  
-
 
   def merge_questions
     questions = {}
