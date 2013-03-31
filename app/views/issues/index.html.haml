@@ -1,0 +1,23 @@
+%h4 Open Issues
+- if @openIssues.nil? or @openIssues.count < 1
+	No Open Issues
+- else
+	- @openIssues.each do |issue|
+		= link_to issue.title, issue_path(issue.id)
+		%br
+
+%h4 Pending issues
+- if @pendingIssues.nil? or @pendingIssues.count < 1
+	No Pending Issues
+- else
+	- @pendingIssues.each do |issue|
+		= link_to issue.title, issue_path(issue.id)
+		%br
+
+%h4 Resolved Issues
+- if @resolvedIssues.nil? or @resolvedIssues.count < 1
+	No Resolved Issues =(
+- else
+	- @resolvedIssues.each do |issue|
+		= link_to issue.title, issue_path(issue.id)
+		%br

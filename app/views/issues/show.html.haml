@@ -1,4 +1,5 @@
 
-%h4= best_in_place @issue, :title
+%h4= best_in_place @issue, :title, :classes => 'highlight_on_success'
 
-%div= best_in_place @issue, :description, type: :textarea
+%div= best_in_place @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success'
+
