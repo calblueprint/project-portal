@@ -1,7 +1,12 @@
 ProjectPortal::Application.routes.draw do
-  resources :issues, :projects
+  resources :projects, :issues
 
-  match '/createIssue', :to => 'issues#new'
+  match 'projects/:proj_id/createIssue' => 'issues#new'
+  match 'projects/:proj_id/issues' => 'issues#index'
+  match 'issues/:id/resolve' => 'issues#resolve', :as => :resolve_issue
+  match 'issues/:id/accept' => 'issues#accept', :as => :accept_issue
+  match 'issues/:id/deny' => 'issues#deny', :as => :deny_issue
+
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
 
   # The priority is based upon order of creation:

@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  has_many :issues
   attr_accessible :questions, :title, :nonprofit, :github_site, :company_site, :application_site
 
   serialize :questions, Hash
