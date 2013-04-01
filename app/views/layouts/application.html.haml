@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %title ProjectPortal
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    - flash.sort.each do |key,msgs|
+      - if msgs.respond_to?(:each)
+        - msgs.each do |msg|
+          %div{:id => key, :class=>'flash-msg'}= msg
+        - else
+          %div{:id => key, :class=>'flash-msg'}= msgs
+
+    = yield
