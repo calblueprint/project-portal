@@ -56,4 +56,4 @@ end
 
 # our app specific gems
 gem 'haml'
-
+gem 'devise'
