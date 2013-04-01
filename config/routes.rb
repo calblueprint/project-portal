@@ -1,7 +1,8 @@
 ProjectPortal::Application.routes.draw do
-  resources :issues
+  resources :issues, :projects
 
   match '/createIssue', :to => 'issues#new'
+  match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

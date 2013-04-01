@@ -21,4 +21,23 @@ ActiveRecord::Schema.define(:version => 20130328231514) do
     t.integer  "resolved",    :default => 0
   end
 
+  create_table "projects", :force => true do |t|
+    t.string   "title"
+    t.text     "questions"
+    t.string   "github_site"
+    t.string   "company_site"
+    t.string   "company_address"
+    t.string   "application_site"
+    t.boolean  "nonprofit"
+    t.boolean  "five_01c3"
+    t.string   "mission_statement"
+    t.string   "contact_name"
+    t.string   "contact_position"
+    t.string   "contact_number"
+    t.string   "contact_email"
+    t.string   "contact_hours"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
 end
