@@ -1,4 +1,6 @@
 ProjectPortal::Application.routes.draw do
+  devise_for :users
+
   resources :projects
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
 
