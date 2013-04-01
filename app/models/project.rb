@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
     attr_accessor q.to_sym
   end
   
-  before_save :merge_questions
+  before_save :merge_questions 
 
   def merge_questions
     questions = {}

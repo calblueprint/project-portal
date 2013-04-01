@@ -37,15 +37,16 @@
                 ="#{t(:application_site)}:"
               =link_to(@project.application_site, url_with_http(@project.application_site), :target => "_blank")
           .span7
-            %p
-              %b
-                ="#{t(:questions)}:"
-              %br
-              -@project.questions.each do |q|
+            #questions
+              %p
                 %b
-                  ="#{QUESTIONS[q[0]][:subject]}:"
-                =q[1]
+                  ="#{t(:questions)}:"
                 %br
+                -@project.questions.each do |q|
+                  %b
+                    ="#{QUESTIONS[q[0]][:subject]}:"
+                  =q[1]
+                  %br
 
 
 #project-tools
