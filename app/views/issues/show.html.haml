@@ -1,6 +1,6 @@
 .backdrop
 %h4= best_in_place @issue, :title, :classes => 'highlight_on_success'
-
+= render 'layouts/messages'
 %div= best_in_place @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success'
 %br
 - if @issue.resolved == 2
@@ -21,6 +21,7 @@
 	%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Deny
 - elsif @issue.resolved == 2	#if resolved
 	%a{:class=>"btn btn-success disabled", :ref=>"#"} Solved
+	%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Reopen
 
 
 .box 

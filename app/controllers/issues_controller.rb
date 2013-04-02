@@ -27,9 +27,10 @@ class IssuesController < ApplicationController
     @issue.description = params[:issue][:description]
 
     if @issue.save
-      flash[:notice] = "Issue Added"
+      flash[:notice] = "Your Issue was Added"
       redirect_to(:action => 'show', :id => @issue)
     else
+      flash[:error] = "Error in Saving. Please retry."
       render action: "new"
     end
   end
@@ -55,10 +56,16 @@ class IssuesController < ApplicationController
     @issue.resolved = 1
     @issue.authors = params[:solution][:author]
     @issue.github = params[:solution][:github]
-    if @issue.save
-      flash[:notice] = "Solution Submitted"
+
+    #update latest repo for the project
+    @project = Project.find(@issue.project_id)
+    @project.github_site = params[:solution][:github]
+
+    if @project.save and @issue.save 
+      flash[:notice] = "Your Solution was Submitted"
       redirect_to(:action => 'show', :id => @issue)
     else
+      flash[:error] = "Error in Saving. Please retry."
       redirect_to(:action => 'show', :id => @issue)
     end
   end
@@ -68,9 +75,10 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issue.resolved = 2
     if @issue.save
-      flash[:notice] = "Soution Accepted"
+      flash[:notice] = "The Solution was Accepted"
       redirect_to(:action => 'show', :id => @issue)
     else
+      flash[:error] = "Error in Saving. Please retry."
       redirect_to(:action => 'show', :id => @issue)
     end
   end
@@ -80,9 +88,10 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issue.resolved = 0
     if @issue.save
-      flash[:notice] = "Soution Denyed"
+      flash[:warning] = "The Solution was Denied"
       redirect_to(:action => 'show', :id => @issue)
     else
+      flash[:error] = "Error in Saving. Please retry."
       redirect_to(:action => 'show', :id => @issue)
     end
   end
