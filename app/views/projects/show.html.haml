@@ -1,56 +1,8 @@
 %p#notice
-.row-fluid
-  #project-card.span12
-    #project-user-edit
-      =link_to user_edit_project_path(@project) do
-        %i.icon-edit
-    .content
-      .span2
-        .img-polaroid
-          =image_tag img_or_default(false)
-          /Placeholder need to change to actual @project.photo.url or something like that
-      .span10
-        %p.project-title
-          =@project.title
-        %br
-        .row-fluid
-          .span4  
-            %p 
-              %b
-                ="#{t(:organization)}:"
-              /=@project.company
-              Placeholder for now
-            %p
-              %b
-                ="#{t(:nonprofit)}:"
-              =yes_no(@project.nonprofit)
-            %p
-              %b
-                ="#{t(:company_site)}:"
-              =link_to(@project.company_site, url_with_http(@project.company_site), :target => "_blank")
-            %p
-              %b
-                ="#{t(:github_site)}:"
-              =link_to(@project.github_site, url_with_http(@project.github_site), :target => "_blank")
-            %p
-              %b
-                ="#{t(:application_site)}:"
-              =link_to(@project.application_site, url_with_http(@project.application_site), :target => "_blank")
-          .span7
-            #questions
-              %p
-                %b
-                  ="#{t(:questions)}:"
-                %br
-                -@project.questions.each do |q|
-                  %b
-                    ="#{QUESTIONS[q[0]][:subject]}:"
-                  =q[1]
-                  %br
-
-
+=render :partial => 'shared/project_card', :locals => {:project => @project}
 #project-tools
-  %a{:href => "/projects/1/edit"} Edit
-  |
+  - if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+    =link_to "Edit", edit_project_path(@project)
+    |
   %a{:href => "/projects"} Back
   
