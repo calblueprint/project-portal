@@ -1,14 +1,13 @@
 class Project < ActiveRecord::Base
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address,
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :avail_weekly
+  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours
   belongs_to :user
-
-  attr_accessor :avail_weekly
+  has_many :issues
 
 
   validates :title, :github_site, :company_site, :company_address,
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
-  :contact_hours, :avail_weekly, :presence => true
+  :contact_hours, :presence => true
   validates :title, :mission_statement, :length => { :minimum => 4 }
   validates :title, :github_site, :application_site, :uniqueness => true
 

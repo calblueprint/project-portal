@@ -1,0 +1,25 @@
+=# proj_id
+- if params[:proj_id] == 2
+	HERE
+.issues-list
+	%ul.nav.nav-list
+		%li.nav-header Open Issues
+		- if @openIssues.nil? or @openIssues.count < 1
+			%li No Open Issues
+		- else
+			- @openIssues.each do |issue|
+				%li= link_to issue.title, issue_path(issue.id)
+
+		%li.nav-header Pending issues
+		- if @pendingIssues.nil? or @pendingIssues.count < 1
+			%li No Pending Issues
+		- else
+			- @pendingIssues.each do |issue|
+				%li= link_to issue.title, issue_path(issue.id)
+
+		%li.nav-header Resolved Issues
+		- if @resolvedIssues.nil? or @resolvedIssues.count < 1
+			%li No Resolved Issues =(
+		- else
+			- @resolvedIssues.each do |issue|
+				%li= link_to issue.title, issue_path(issue.id)

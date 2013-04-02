@@ -1,0 +1,63 @@
+// Place all the styles related to the Issues controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.purr {
+  position: fixed;
+  top: 30px;
+  right: 100px;
+  width: 250px;
+  padding: 20px;
+  background-color: #FCC;
+  border: solid 2px #666;
+  &:first-letter { text-transform: uppercase };
+}
+
+.error-title{
+	text-align: center;
+	border-bottom: solid 1px #E60000;
+}
+.error-list{
+	text-indent:10px;
+}
+
+.backdrop
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background:#000;
+	opacity: .0;
+	filter:alpha(opacity=0);
+	z-index:50;
+	display:none;
+}
+ 
+ 
+.box
+{
+	position:absolute;
+	top:20%;
+	left:30%;
+	width:500px;
+	height:300px;
+	background:#ffffff;
+	z-index:51;
+	padding:10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow:0px 0px 5px #444444;
+	-webkit-box-shadow:0px 0px 5px #444444;
+	box-shadow:0px 0px 5px #444444;
+	display:none;
+}
+ 
+.close
+{
+	float:right;
+	margin-right:6px;
+	cursor:pointer;
+}

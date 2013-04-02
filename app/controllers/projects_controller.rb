@@ -4,6 +4,10 @@ class ProjectsController < ApplicationController
   
   def show
     @project = Project.find(params[:id])
+
+    @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.id], :order => "created_at")
+    @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.id], :order => "created_at")
+    @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.id], :order => "created_at")
   end
 
   def show_all
@@ -26,8 +30,6 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    #@project = Project.new(params[:id])
-	  #@project.attributes = params[:project]
     @project = Project.new(params[:project])
     @project["user_id"] = current_user.id
     if @project.save
