@@ -1,0 +1,4 @@
+%h1= "All Projects"
+- if @all_projects
+  - @all_projects.each do |p| 
+    =render :partial=>"shared/project_card", :locals => {:project => p}

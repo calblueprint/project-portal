@@ -4,6 +4,10 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
+  def show_all
+    @all_projects = Project.find(:all)
+  end
+
   def new
     @project = Project.new
   end

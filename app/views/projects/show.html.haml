@@ -1,5 +1,5 @@
 %p#notice
-=render 'project_card'
+=render :partial => 'shared/project_card', :locals => {:project => @project}
 #project-tools
   - if user_signed_in? and @project.user_id and current_user.id == @project.user.id
     =link_to "Edit", edit_project_path(@project)
