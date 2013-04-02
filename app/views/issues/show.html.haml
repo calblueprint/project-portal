@@ -4,41 +4,44 @@
 %div= best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success'
 %br
 - if @issue.resolved == 2
-	Solved by:
-	= "#{@issue.authors}"
-	%br
-	%br
-	Github Link:
-	= "#{@issue.github}"
-	%br
-	%br
+  Solved by:
+  = "#{@issue.authors}"
+  %br
+  %br
+  Github Link:
+  = "#{@issue.github}"
+  %br
+  %br
 
 - # TODO: Add session checks!
--if @issue.resolved == 0		#if unresolved
-	%a{:class => "lightbox btn btn-success", :ref => "#" } Submit
-- elsif @issue.resolved == 1	#if pending
-	-if @canEdit
-		%a{:class=>"btn btn-primary", :href=>accept_issue_path(@issue.id)} Accept
-		%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Deny
-	-else
-		%a{:class=>"btn btn-primary disabled", :ref=>"#"} Pending
-- elsif @issue.resolved == 2	#if resolved
-	%a{:class=>"btn btn-success disabled", :ref=>"#"} Solved
-	-if @canEdit
-		%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Reopen
+-if @issue.resolved == 0    #if unresolved
+  -if user_signed_in?
+    %a{:class => "lightbox btn btn-success", :ref => "#" } Submit
+  -else
+    %a{:class => "btn btn-success", :href => new_user_session_path } Submit
+- elsif @issue.resolved == 1  #if pending
+  -if @canEdit
+    %a{:class=>"btn btn-primary", :href=>accept_issue_path(@issue.id)} Accept
+    %a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Deny
+  -else
+    %a{:class=>"btn btn-primary disabled", :ref=>"#"} Pending
+- elsif @issue.resolved == 2  #if resolved
+  %a{:class=>"btn btn-success disabled", :ref=>"#"} Solved
+  -if @canEdit
+    %a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Reopen
 
 
 .box 
-	.close x
-	%h4 Resolve this Issue
-	= form_tag(resolve_issue_path(@issue.id), :method => :post) do
-		= label :solution, :author, 'Author(s):'
-		= text_field :solution, :author
-		= label :solution, :github, 'Github Link:'
-		= text_field :solution, :github
-		%br
-		%br
-		= submit_tag 'Resolve', :class => "button"
+  .close x
+  %h4 Resolve this Issue
+  = form_tag(resolve_issue_path(@issue.id), :method => :post) do
+    = label :solution, :author, 'Author(s):'
+    = text_field :solution, :author
+    = label :solution, :github, 'Github Link:'
+    = text_field :solution, :github
+    %br
+    %br
+    = submit_tag 'Resolve', :class => "button"
 
 
 

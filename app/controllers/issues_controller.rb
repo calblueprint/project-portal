@@ -10,6 +10,9 @@ class IssuesController < ApplicationController
   end
 
   def new
+    if not user_signed_in?
+      redirect_to new_user_session_path, notice: "You must be logged in to create an issue."
+    end
     @title = "Create an Issue"
     @issue = Issue.new
     #@issue.resolved = false
@@ -95,7 +98,7 @@ class IssuesController < ApplicationController
   end
 
   def isOwner(project)
-    if not (current_user.admin? or (project.user_id and current_user.id == project.user.id))
+    if not (user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id)))
       return false
     else
       return true
