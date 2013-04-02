@@ -8,17 +8,33 @@
     = javascript_include_tag "bootstrap"
     = csrf_meta_tags
   %body
-    - flash.sort.each do |key,msgs|
-      - if msgs.respond_to?(:each)
-        - msgs.each do |msg|
-          %div{:id => key, :class=>'flash-msg'}= msg
-      - else
-        %div{:id => key, :class=>'flash-msg'}= msgs
-    - if user_signed_in?
-      = link_to 'Logout', destroy_user_session_path, :method => :delete
-      = link_to 'Edit Account', edit_user_registration_path
-    - else
-      = link_to 'Login', new_user_session_path
-      = link_to 'Signup', new_user_registration_path
+    %div{:class=>"navbar navbar-fixed-top navbar-inverse"}
+      %div.navbar-inner
+        %div.container
+          %a{:class=>"brand", :href=>"#"}= "Project Portal"
+          %ul.nav
+            %li= link_to "Home", root_path
+            %li= link_to "My Dashboard", ""
+            %li= link_to "Search Projects", ""
+            %li= link_to "Submit A Project", new_project_path 
+          %ul{:class=>"nav pull-right"}
+            - if user_signed_in?
+              %li.dropdown
+                %a{:class=>"dropdown-toggle", "data-toggle"=>"dropdown"}
+                  Account 
+                  %b.caret
+                %ul{:class=>"dropdown-menu pull-right"}
+                  %li= link_to 'Settings', edit_user_registration_path
+                  %li= link_to 'Logout', destroy_user_session_path, :method => :delete
 
-    = yield
+            - else
+              %li= link_to 'Login', new_user_session_path
+    %div.container     
+      %div.flash
+        - flash.sort.each do |key,msgs|
+          - if msgs.respond_to?(:each)
+            - msgs.each do |msg|
+              %div{:id => key, :class=>'flash-msg'}= msg
+          - else
+            %div{:id => key, :class=>'flash-msg'}= msgs
+      = yield
