@@ -2,15 +2,23 @@
 %html
   %head
     %title ProjectPortal
-    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag  "application", :media => "all"
+    = stylesheet_link_tag "bootstrap", :media => "all"
     = javascript_include_tag "application"
+    = javascript_include_tag "bootstrap"
     = csrf_meta_tags
   %body
     - flash.sort.each do |key,msgs|
       - if msgs.respond_to?(:each)
         - msgs.each do |msg|
           %div{:id => key, :class=>'flash-msg'}= msg
-        - else
-          %div{:id => key, :class=>'flash-msg'}= msgs
+      - else
+        %div{:id => key, :class=>'flash-msg'}= msgs
+    - if user_signed_in?
+      = link_to 'Logout', destroy_user_session_path, :method => :delete
+      = link_to 'Edit Account', edit_user_registration_path
+    - else
+      = link_to 'Login', new_user_session_path
+      = link_to 'Signup', new_user_registration_path
 
     = yield
