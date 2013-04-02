@@ -49,7 +49,8 @@
 
 
 #project-tools
-  %a{:href => "/projects/1/edit"} Edit
-  |
+  - if user_signed_in? and @project.user_id and current_user.id == @project.user.id
+    =link_to "Edit", edit_project_path(@project)
+    |
   %a{:href => "/projects"} Back
   
