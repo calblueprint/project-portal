@@ -11,8 +11,10 @@ class Project < ActiveRecord::Base
   validates :title, :mission_statement, :length => { :minimum => 4 }
   validates :title, :github_site, :application_site, :uniqueness => true
 
-  # validate URLs, regex from StackOverflow (http://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails-3)
-  validates :company_site, :github_site, :format => /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+  # validate URLs
+  validates :company_site, :github_site, :format => /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/ # from http://blog.mattheworiordan.com/post/13174566389/url-regular-expression-for-links-with-or-without-the
+
+  # method from StackOverflow (http://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails-3)
   # URI::regexp(%w(http https))
 
 
