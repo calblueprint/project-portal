@@ -1,12 +1,6 @@
 class IssuesController < ApplicationController
   respond_to :html, :json
 
-  def index
-    @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, params[:proj_id]], :order => "created_at")
-    @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, params[:proj_id]], :order => "created_at")
-    @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, params[:proj_id]], :order => "created_at")
-  end
-
     #displays a specfic issue 
   def show
     @issue = Issue.find(params[:id])
@@ -65,7 +59,7 @@ class IssuesController < ApplicationController
 
     #TODO: @project.save and 
     #@project.update_attributes(params[:project])
-    if @project.save! && @issue.save 
+    if @project.save && @issue.save 
       flash[:notice] = "Your Solution was Submitted"
       redirect_to(:action => 'show', :id => @issue)
     else

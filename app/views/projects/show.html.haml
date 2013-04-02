@@ -1,5 +1,7 @@
 %p#notice
 =render :partial => 'shared/project_card', :locals => {:project => @project}
+=# render :inline, :controller => "issues", :action => "index"
+=render :partial => 'shared/project_issues', :locals => {:project => @project}
 #project-tools
   - if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
     =link_to "Edit", edit_project_path(@project)
