@@ -5,6 +5,7 @@ ProjectPortal::Application.routes.draw do
 
   resources :projects
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
+  match 'dashboard' => 'user#show', :as => :dashboard
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
