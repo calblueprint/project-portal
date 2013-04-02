@@ -43,7 +43,8 @@
               %br
               -project.questions.each do |q|
                 %b
-                  ="#{QUESTIONS[q[0]][:subject]}:"
+                  -if QUESTIONS[q[0]]
+                    ="#{QUESTIONS[q[0]][:subject]}:"
                 =q[1]
                 %br
 
