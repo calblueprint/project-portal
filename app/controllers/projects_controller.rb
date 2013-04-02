@@ -4,12 +4,19 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
+  def show_all
+    @all_projects = Project.find(:all)
+  end
+
   def new
     @project = Project.new
   end
 
   def edit
     @project = Project.find(params[:id])
+    if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+      redirect_to @project, notice: 'You do not have permission to edit this project.' 
+    end
   end
   
   def user_edit
@@ -17,8 +24,10 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(params[:id])
-	@project.attributes = params[:project]
+    #@project = Project.new(params[:id])
+	  #@project.attributes = params[:project]
+    @project = Project.new(params[:project])
+    @project["user_id"] = current_user.id
     if @project.save
       redirect_to @project, notice: 'Project was successfully created.' 
     else
@@ -28,10 +37,14 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    if @project.update_attributes(params[:project])
-      redirect_to @project, notice: 'Project was successfully updated.' 
-    else
-      render action: "edit" 
+    if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+      if @project.update_attributes(params[:project])
+        redirect_to @project, notice: 'Project was successfully updated.' 
+      else
+        render action: "edit" 
+      end
+      else
+        redirect_to @project, notice: 'You do not have permission to edit this project.'
     end
   end
 

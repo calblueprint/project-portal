@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address,
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :avail_weekly
+  belongs_to :user
 
   attr_accessor :avail_weekly
 
