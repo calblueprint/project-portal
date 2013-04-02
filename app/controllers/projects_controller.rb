@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    if not @project.user_id or current_user.id != @project.user.id
+    if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
   end
@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    if @project.user_id and current_user.id == @project.user.id
+    if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       if @project.update_attributes(params[:project])
         redirect_to @project, notice: 'Project was successfully updated.' 
       else
