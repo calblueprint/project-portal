@@ -1,11 +1,8 @@
-.project-title { 
-  font-size: 28px;
-}
+.project-title {
+  font-size: 28px; }
 
 #project-card {
-  @extend .hero-unit;
-  padding: 20px;
-}
+  padding: 20px; }
 
 #project-user-edit {
   margin: -15px;
@@ -14,16 +11,13 @@
   font: menu;
   display: inline-block;
   background: transparent;
-  color: #333333;
-}
+  color: #333333; }
 
 #project-user-edit:hover {
   cursor: pointer;
-  color: #333333;
-}
+  color: #333333; }
 
 .edit-options {
   padding-top: 10px;
   font-size: 13px;
-  text-align: center;
-}
+  text-align: center; }
