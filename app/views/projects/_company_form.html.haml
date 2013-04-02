@@ -13,7 +13,7 @@
     =f.input :nonprofit
     =f.input :five_01c3
   -QUESTIONS.keys.each do |q|
-    =f.input q, label: QUESTIONS[q][:question], :as => QUESTIONS[q][:as], :input_html => {:rows => 4 }
+    =f.input q, label: QUESTIONS[q][:question], :as => QUESTIONS[q][:as], :input_html => {:rows => 4, :value => @project.questions[q] }
   =f.input :github_site
   =f.input :company_address
   =f.input :application_site
