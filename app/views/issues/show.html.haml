@@ -1,7 +1,7 @@
 .backdrop
-%h4= best_in_place @issue, :title, :classes => 'highlight_on_success'
-= render 'layouts/messages'
-%div= best_in_place @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success'
+%h4= best_in_place_if @canEdit, @issue, :title, :classes => 'highlight_on_success'
+
+%div= best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success'
 %br
 - if @issue.resolved == 2
 	Solved by:
@@ -11,17 +11,21 @@
 	Github Link:
 	= "#{@issue.github}"
 	%br
+	%br
 
-%br
 - # TODO: Add session checks!
 -if @issue.resolved == 0		#if unresolved
 	%a{:class => "lightbox btn btn-success", :ref => "#" } Submit
 - elsif @issue.resolved == 1	#if pending
-	%a{:class=>"btn btn-primary", :href=>accept_issue_path(@issue.id)} Accept
-	%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Deny
+	-if @canEdit
+		%a{:class=>"btn btn-primary", :href=>accept_issue_path(@issue.id)} Accept
+		%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Deny
+	-else
+		%a{:class=>"btn btn-primary disabled", :ref=>"#"} Pending
 - elsif @issue.resolved == 2	#if resolved
 	%a{:class=>"btn btn-success disabled", :ref=>"#"} Solved
-	%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Reopen
+	-if @canEdit
+		%a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Reopen
 
 
 .box 

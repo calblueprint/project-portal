@@ -1,6 +1,10 @@
 ProjectPortal::Application.routes.draw do
   resources :projects, :issues
 
+  get "home/index"
+  
+  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
+
   match 'projects/:proj_id/createIssue' => 'issues#new'
   match 'projects/:proj_id/issues' => 'issues#index'
   match 'issues/:id/resolve' => 'issues#resolve', :as => :resolve_issue
@@ -8,6 +12,10 @@ ProjectPortal::Application.routes.draw do
   match 'issues/:id/deny' => 'issues#deny', :as => :deny_issue
 
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
+  get "user/show"
+  match 'dashboard' => 'user#show', :as => :dashboard
+  get "projects/show_all"
+  match 'browse' => 'projects#show_all', :as => :browse
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -58,7 +66,7 @@ ProjectPortal::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
 

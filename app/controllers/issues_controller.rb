@@ -10,6 +10,9 @@ class IssuesController < ApplicationController
     #displays a specfic issue 
   def show
     @issue = Issue.find(params[:id])
+    #check if you can edit the issue
+    @project = Project.find(@issue.project_id)
+    @canEdit = isOwner(@project)
   end
 
   def new
@@ -37,7 +40,6 @@ class IssuesController < ApplicationController
 
   #saves the changes
   def update
-    #TODO: make sure company can only edit theirs!
     @issue = Issue.find(params[:id])
     respond_to do |format|
       if @issue.update_attributes(params[:issue])
@@ -61,7 +63,9 @@ class IssuesController < ApplicationController
     @project = Project.find(@issue.project_id)
     @project.github_site = params[:solution][:github]
 
-    if @project.save and @issue.save 
+    #TODO: @project.save and 
+    #@project.update_attributes(params[:project])
+    if @project.save! && @issue.save 
       flash[:notice] = "Your Solution was Submitted"
       redirect_to(:action => 'show', :id => @issue)
     else
@@ -88,13 +92,22 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issue.resolved = 0
     if @issue.save
-      flash[:warning] = "The Solution was Denied"
+      flash[:warning] = "The Solution was Rejected"
       redirect_to(:action => 'show', :id => @issue)
     else
       flash[:error] = "Error in Saving. Please retry."
       redirect_to(:action => 'show', :id => @issue)
     end
   end
+
+  def isOwner(project)
+    if not (current_user.admin? or (project.user_id and current_user.id == project.user.id))
+      return false
+    else
+      return true
+    end
+  end
+
 end
 
 

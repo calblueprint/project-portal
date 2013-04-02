@@ -57,5 +57,6 @@ end
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'haml'
+gem 'devise'
 gem 'simple_form'
 
