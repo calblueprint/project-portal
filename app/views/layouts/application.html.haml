@@ -11,9 +11,8 @@
     %div{:class=>"navbar navbar-fixed-top navbar-inverse"}
       %div.navbar-inner
         %div.container
-          %a{:class=>"brand", :href=>"#"}= "Project Portal"
+          %a{:class=>"brand", :href=>root_path}= "Project Portal"
           %ul.nav
-            %li= link_to "Home", root_path
             %li= link_to "My Dashboard", dashboard_path
             %li= link_to "Search Projects", browse_path
             %li= link_to "Submit A Project", new_project_path 
