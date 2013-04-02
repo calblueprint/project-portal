@@ -11,10 +11,17 @@
   =f.input :company_site
   .inline
     =f.input :nonprofit
+    =f.input :five_01c3
   -QUESTIONS.keys.each do |q|
     =f.input q, label: QUESTIONS[q][:question], :as => QUESTIONS[q][:as], :input_html => {:rows => 4 }
+  =f.input :github_site
+  =f.input :company_address
+  =f.input :application_site
+  =f.input :mission_statement
+  =f.input :contact_name
+  =f.input :contact_position
+  =f.input :contact_email
+  =f.input :contact_number
+  =f.input :contact_hours
+  =f.input :avail_weekly
   =f.button  :submit
-
-
-
-  

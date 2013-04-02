@@ -56,4 +56,3 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'haml'
 gem 'simple_form'
-
