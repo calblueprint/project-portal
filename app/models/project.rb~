@@ -5,18 +5,19 @@ class Project < ActiveRecord::Base
   attr_accessor :avail_weekly
 
 
-  validates :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address,
+  validates :title, :github_site, :company_site, :company_address,
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
   :contact_hours, :avail_weekly, :presence => true
-  validates :title, :questions, :mission_statement, :length => { :minimum => 4 }
+  validates :title, :mission_statement, :length => { :minimum => 4 }
   validates :title, :github_site, :application_site, :uniqueness => true
 
   # validate URLs, regex from StackOverflow (http://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails-3)
-  validates :company_site, :github_site, :format => URI::regexp(%w(http https))
+  validates :company_site, :github_site, :format => /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+  # URI::regexp(%w(http https))
 
 
   # validate emails, regex from StackOverflow (http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address)
-  validates_format_of :contact_email, :with => ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$
+  validates_format_of :contact_email, :with => /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/
 
 
   
