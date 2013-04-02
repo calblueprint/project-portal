@@ -1,0 +1,39 @@
+!!!
+%html
+  %head
+    %title ProjectPortal
+    = stylesheet_link_tag  "application", :media => "all"
+    = stylesheet_link_tag "bootstrap", :media => "all"
+    = javascript_include_tag "application"
+    = javascript_include_tag "bootstrap"
+    = csrf_meta_tags
+  %body
+    %div{:class=>"navbar navbar-fixed-top navbar-inverse"}
+      %div.navbar-inner
+        %div.container
+          %a{:class=>"brand", :href=>"#"}= "Project Portal"
+          %ul.nav
+            %li= link_to "Home", ""
+            %li= link_to "My Dashboard", ""
+            %li= link_to "Search Projects", ""
+            %li= link_to "Submit A Project", "" 
+          %ul{:class=>"nav pull-right"}
+            - if user_signed_in?
+              %li.dropdown
+              %a{:class=>"dropdown-toggle", "data-toggle"=>"dropdown"}= "Account"
+              %b.caret
+              %ul.dropdown-menu
+              %li= link_to 'Settings', edit_user_registration_path
+              %li= link_to 'Logout', destroy_user_session_path, :method => :delete
+
+            - else
+              %li= link_to 'Login', new_user_session_path
+    %div.container     
+      %div.flash
+        - flash.sort.each do |key,msgs|
+          - if msgs.respond_to?(:each)
+            - msgs.each do |msg|
+              %div{:id => key, :class=>'flash-msg'}= msg
+          - else
+            %div{:id => key, :class=>'flash-msg'}= msgs
+      = yield
