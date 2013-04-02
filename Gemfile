@@ -9,6 +9,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'factory_girl_rails', '~>2.0'
   gem 'launchy'
+  gem 'rspec-rails'
 end
 
 
@@ -25,7 +26,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-
+gem 'jquery-rails'
+gem 'twitter-bootstrap-rails'
+gem 'best_in_place'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -47,7 +50,6 @@ group :test do
   gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'rspec-rails'
   gem 'simplecov'
 end
 

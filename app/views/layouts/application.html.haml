@@ -30,10 +30,5 @@
               %li= link_to 'Login', new_user_session_path
     %div.container     
       %div.flash
-        - flash.sort.each do |key,msgs|
-          - if msgs.respond_to?(:each)
-            - msgs.each do |msg|
-              %div{:id => key, :class=>'flash-msg'}= msg
-          - else
-            %div{:id => key, :class=>'flash-msg'}= msgs
+        =render 'layouts/messages'
       = yield
