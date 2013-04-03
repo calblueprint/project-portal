@@ -1,4 +1,6 @@
 ProjectPortal::Application.routes.draw do
+  resources :questions
+
   resources :projects, :issues
 
   get "home/index"

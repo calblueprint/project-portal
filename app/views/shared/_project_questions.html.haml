@@ -4,7 +4,8 @@
   -project.questions.each do |q|
     %p
       %b
-        -if QUESTIONS[q[0]]
-          ="#{QUESTIONS[q[0]][:subject]}:"
+        ="#{Question.find(Project.get_question_id(q)).subject}:"
+        /-if QUESTIONS[q[0]]
+        /  ="#{QUESTIONS[q[0]][:subject]}:"
       =q[1]
       %br
