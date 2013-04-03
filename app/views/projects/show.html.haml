@@ -1,5 +1,11 @@
 %p#notice
 =render :partial => 'shared/project_card', :locals => {:project => @project}
 =# render :inline, :controller => "issues", :action => "index"
-=render :partial => 'shared/project_issues', :locals => {:project => @project}
+.row-fluid
+  .span4
+    =render :partial => 'shared/project_issues', :locals => {:project => @project}
+  .span8
+    =render :partial => 'shared/project_contact', :locals => {:project => @project}
+  .span8
+    =render :partial => 'shared/project_questions', :locals => {:project => @project}
  
