@@ -1,8 +1,9 @@
 class Project < ActiveRecord::Base
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address,
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours
+  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo
   belongs_to :user
   has_many :issues
+  mount_uploader :photo, PhotoUploader
 
 
   validates :title, :github_site, :company_site, :company_address,
