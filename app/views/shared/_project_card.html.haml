@@ -7,7 +7,7 @@
     .content
       .span2
         .img-polaroid
-          =image_tag img_or_default(project.photo_url.to_s)
+          =image_tag project.photo_url.to_s
           /Placeholder need to change to actual project.photo.url or something like that
         .edit-options
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))

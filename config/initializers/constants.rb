@@ -1,4 +1,3 @@
-DEFAULT_IMG = "default_img.png"
 QUESTIONS = {
   :fully_commit => {
     :question => "If selected, will you and your organization fully commit to an engagement with CS169 for 8 weeks in Fall 2012?", 
