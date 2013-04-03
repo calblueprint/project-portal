@@ -9,6 +9,9 @@
         .img-polaroid
           =image_tag img_or_default(false)
           /Placeholder need to change to actual project.photo.url or something like that
+        .edit-options
+          - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
+            =link_to "Modify Project Details", edit_project_path(project)
       .span10
         %p.project-title
           =link_to project.title, project_path(project)
