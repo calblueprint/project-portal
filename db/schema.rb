@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(:version => 20130403204424) do
 
   create_table "questions", :force => true do |t|
     t.string   "question"
-    t.string   "subject"
     t.string   "input_type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
