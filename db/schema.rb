@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(:version => 20130403224108) do
     t.string   "photo"
   end
 
+  create_table "questions", :force => true do |t|
+    t.string   "question"
+    t.string   "input_type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false

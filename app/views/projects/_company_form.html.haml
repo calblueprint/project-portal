@@ -12,8 +12,8 @@
   .inline.form-inline
     =f.input :nonprofit
     =f.input :five_01c3
-  -QUESTIONS.keys.each do |q|
-    =f.input q, label: QUESTIONS[q][:question], :as => QUESTIONS[q][:as], :input_html => {:rows => 4, :value => @project.questions[q] }
+  -Question.all.each do |q|
+    =f.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
   =f.input :github_site
   =f.input :company_address
   =f.input :application_site
@@ -24,4 +24,4 @@
   =f.input :contact_number
   =f.input :contact_hours
   =f.file_field :photo
-  =f.button  :submit
+  =f.button  :submit, :class => "btn"
