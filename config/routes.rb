@@ -14,8 +14,6 @@ ProjectPortal::Application.routes.draw do
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
   get "user/show"
   match 'dashboard' => 'user#show', :as => :dashboard
-  get "projects/show_all"
-  match 'browse' => 'projects#show_all', :as => :browse
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
