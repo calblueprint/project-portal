@@ -1,0 +1,10 @@
+.project-details
+  %h4.details-title
+    ="#{t(:questions)}"
+  -project.questions.each do |q|
+    %p
+      %b
+        -if QUESTIONS[q[0]]
+          ="#{QUESTIONS[q[0]][:subject]}:"
+      =q[1]
+      %br
