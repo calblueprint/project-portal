@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.id], :order => "created_at")
   end
 
-  def show_all
+  def index 
     @all_projects = Project.find(:all)
   end
 
