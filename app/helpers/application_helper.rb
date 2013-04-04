@@ -11,8 +11,4 @@ module ApplicationHelper
   def yes_no(bool)
     bool ? "Yes" : "No"
   end
-  
-  def img_or_default(img)
-    img ? img : DEFAULT_IMG
-  end
 end
