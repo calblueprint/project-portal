@@ -14,7 +14,7 @@
           %a{:class=>"brand", :href=>root_path}= "Project Portal"
           %ul.nav
             %li= link_to "My Dashboard", dashboard_path
-            %li= link_to "Search Projects", browse_path
+            %li= link_to "Search Projects", projects_path
             %li= link_to "Submit A Project", new_project_path 
           %ul{:class=>"nav pull-right"}
             - if user_signed_in?
