@@ -1,5 +1,4 @@
 =simple_form_for @question do |f|
-  =f.input :question
-  =f.input :subject
-  =f.input :input_type
-  =f.button :submit
+  =f.input :question, as: :text, :input_html => {:rows => 6}
+  =f.input :input_type, collection: ['text', 'string', 'date'], as: :select, selected: 'text'
+  =f.button :submit, :class => "btn"
