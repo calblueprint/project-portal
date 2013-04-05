@@ -5,10 +5,10 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many :issues
   
-  attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address,
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo
+  attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
+  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo, :company_name
   
-  validates :title, :company_site, :company_address,
+  validates :title, :company_site, :company_address, :company_name,
   :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
   :contact_hours, :presence => true
   validates :title, :mission_statement, :length => { :minimum => 4 }
