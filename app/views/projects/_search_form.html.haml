@@ -1,0 +1,9 @@
+= form_tag(search_path, :method => 'get') do
+  = label_tag :title, 'Title:'
+  = text_field_tag :title
+  = label_tag :application_site, 'Application Website:'
+  = text_field_tag :application_site
+  = label_tag :mission_statement, 'Organization Mission Statement:'
+  = text_field_tag :mission_statement
+  = submit_tag 'Search'
+    

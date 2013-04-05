@@ -1,4 +1,5 @@
 ProjectPortal::Application.routes.draw do
+  get 'search' => "projects#search", :as => :search
   resources :projects, :issues
 
   get "home/index"

@@ -37,5 +37,9 @@ class Project < ActiveRecord::Base
     end
     self.questions = questions
   end
+  
+  def self.search(params)
+    Project.find(:all, :conditions => ['title LIKE ?', "%#{params[:title]}%"])
+  end
 
 end
