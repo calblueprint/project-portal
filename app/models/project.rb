@@ -5,14 +5,15 @@ class Project < ActiveRecord::Base
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address,
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo
   
-  validates :title, :github_site, :company_site, :company_address,
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
+  validates :title, :company_site, :company_address,
+  :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
   :contact_hours, :presence => true
   validates :title, :mission_statement, :length => { :minimum => 4 }
-  validates :title, :github_site, :application_site, :uniqueness => true
+  validates :title, :github_site, :application_site, :uniqueness => true, :allow_blank => true
 
   # validate URLs
-  validates :company_site, :github_site, :format => /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/ # regex from http://blog.mattheworiordan.com/post/13174566389/url-regular-expression-for-links-with-or-without-the
+  validates :company_site, :github_site, :allow_blank => true,
+  :format => /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/ # regex from http://blog.mattheworiordan.com/post/13174566389/url-regular-expression-for-links-with-or-without-the
 
   # method from StackOverflow (http://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails-3)
   # URI::regexp(%w(http https))
