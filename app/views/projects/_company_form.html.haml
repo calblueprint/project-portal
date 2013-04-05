@@ -7,21 +7,33 @@
       %ul
         - @project.errors.full_messages.each do |msg|
           %li= msg
-  =f.input :title
-  =f.input :company_site
-  .inline.form-inline
-    =f.input :nonprofit
-    =f.input :five_01c3
-  -Question.all.each do |q|
-    =f.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
-  =f.input :github_site
-  =f.input :company_address
-  =f.input :application_site
-  =f.input :mission_statement
-  =f.input :contact_name
-  =f.input :contact_position
-  =f.input :contact_email
-  =f.input :contact_number
-  =f.input :contact_hours
-  =f.file_field :photo
+  .hero-section
+    %h4.details-title
+      ="#{t(:organization)}"
+    =f.input :title, label: "Project Title"
+    =f.input :company_name, label: "Organization's Name"
+    =f.input :company_site, label: "Organization's Website"
+    .inline.form-inline
+      =f.input :nonprofit
+      =f.input :five_01c3
+    =f.input :company_address, label: "Organization's Address"
+    =f.input :mission_statement, label: "Mission Statement", as: :text, :input_html => {:rows => 6}
+  .hero-section
+    %h4.details-title
+      ="#{t(:contact)}"
+    =f.input :contact_name
+    =f.input :contact_position
+    =f.input :contact_email
+    =f.input :contact_number
+    =f.input :contact_hours
+  .hero-section
+    %h4.details-title
+      ="#{t(:questions)}"
+    -Question.all.each do |q|
+      =f.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, |
+      :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
+  .hero-section
+    %h4.details-title
+      ="#{t(:upload_photo)}"
+    =f.file_field :photo
   =f.button  :submit, :class => "btn"
