@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
   def show
     @issue = Issue.find(params[:id])
     #check if you can edit the issue
-    @project = Project.find(@issue.project_id)
+    @project = Project.find(params[:project_id])
     @canEdit = isOwner(@project)
   end
 
@@ -15,20 +15,19 @@ class IssuesController < ApplicationController
     end
     @title = "Create an Issue"
     @issue = Issue.new
-    #@issue.resolved = false
   end
 
   #actually creates a new issue
   def create
     @issue = Issue.new(params[:id])
-    @issue.project_id = params[:proj_id]
+    @issue.project_id = params[:project_id]
     @issue.resolved = 0
     @issue.title = params[:issue][:title]
     @issue.description = params[:issue][:description]
-
+    p @issue
     if @issue.save
       flash[:notice] = "Your Issue was Added"
-      redirect_to(:action => 'show', :id => @issue)
+      redirect_to(:controller => "projects", :action => 'show', :id => @issue.project_id)
     else
       flash[:error] = "Error in Saving. Please retry."
       render action: "new"
@@ -64,10 +63,10 @@ class IssuesController < ApplicationController
     #@project.update_attributes(params[:project])
     if @project.save && @issue.save 
       flash[:notice] = "Your Solution was Submitted"
-      redirect_to(:action => 'show', :id => @issue)
+      redirect_to project_issue_path(@project.slug,@issue.id)
     else
       flash[:error] = "Error in Saving. Please retry."
-      redirect_to(:action => 'show', :id => @issue)
+      redirect_to project_issue_path(@project.slug,@issue.id)
     end
   end
 
@@ -77,10 +76,10 @@ class IssuesController < ApplicationController
     @issue.resolved = 2
     if @issue.save
       flash[:notice] = "The Solution was Accepted"
-      redirect_to(:action => 'show', :id => @issue)
+      redirect_to project_issue_path(@issue.project_id,@issue.id)
     else
       flash[:error] = "Error in Saving. Please retry."
-      redirect_to(:action => 'show', :id => @issue)
+      redirect_to project_issue_path(@issue.project_id,@issue.id)
     end
   end
 
@@ -90,10 +89,10 @@ class IssuesController < ApplicationController
     @issue.resolved = 0
     if @issue.save
       flash[:warning] = "The Solution was Rejected"
-      redirect_to(:action => 'show', :id => @issue)
+      redirect_to project_issue_path(@issue.project_id,@issue.id)
     else
       flash[:error] = "Error in Saving. Please retry."
-      redirect_to(:action => 'show', :id => @issue)
+      redirect_to project_issue_path(@issue.project_id,@issue.id)
     end
   end
 
