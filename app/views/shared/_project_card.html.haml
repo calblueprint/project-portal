@@ -12,12 +12,14 @@
         .edit-options
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =link_to "Modify Project Details", edit_project_path(project)
+          - if user_signed_in? and current_user.admin?
+            =render :partial => 'projects/short_approval_form', :locals => {:project => project}
       .span10
         %p.project-title
           =link_to project.title, project_path(project)
         %br
         .row-fluid
-          .span5  
+          .span6
             %p 
               %b
                 ="#{t(:organization)}:"
@@ -42,7 +44,7 @@
               %b
                 ="#{t(:application_site)}:"
               =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
-          .span5
+          .span6
             %p
               %b
                 ="#{t(:mission_statement)}:"
