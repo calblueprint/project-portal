@@ -1,7 +1,7 @@
 .backdrop
-%h4= best_in_place_if @canEdit, @issue, :title, :classes => 'highlight_on_success'
+%h4= best_in_place_if @canEdit, @issue, :title, :classes => 'highlight_on_success', :path => project_issue_path(@issue.id)
 
-%div= best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success'
+%div= best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success', :path => project_issue_path(@issue.id)
 %br
 - if @issue.resolved == 2
   Solved by:
@@ -13,7 +13,6 @@
   %br
   %br
 
-- # TODO: Add session checks!
 -if @issue.resolved == 0    #if unresolved
   -if user_signed_in?
     %a{:class => "lightbox btn btn-success", :ref => "#" } Submit
