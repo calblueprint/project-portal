@@ -17,7 +17,7 @@
           =link_to project.title, project_path(project)
         %br
         .row-fluid
-          .span5  
+          .span6
             %p 
               %b
                 ="#{t(:organization)}:"
@@ -42,7 +42,7 @@
               %b
                 ="#{t(:application_site)}:"
               =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
-          .span5
+          .span6
             %p
               %b
                 ="#{t(:mission_statement)}:"
