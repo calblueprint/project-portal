@@ -96,6 +96,13 @@ class IssuesController < ApplicationController
     end
   end
 
+  def destroy
+    @issue = Issue.find(params[:id])
+    @issue.destroy
+    flash[:notice] = "The Issue was Deleted"
+    redirect_to(:controller => "projects", :action => 'show', :id => @issue.project_id)
+  end
+
   def isOwner(project)
     if not (user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id)))
       return false
