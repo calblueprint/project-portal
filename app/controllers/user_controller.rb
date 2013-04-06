@@ -6,4 +6,10 @@ class UserController < ApplicationController
       redirect_to new_user_session_path, notice: 'Please log in to view your dashboard.'
     end
   end
+  
+  def settings
+    @questions = Question.all
+    @unapproved_projects = Project.unapproved_projects
+    @denied_projects = Project.denied_projects
+  end
 end

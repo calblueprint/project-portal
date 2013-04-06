@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   end
 
   def index 
-    @all_projects = Project.find(:all)
+    @all_projects = Project.where(:approved => true)
   end
 
   def new

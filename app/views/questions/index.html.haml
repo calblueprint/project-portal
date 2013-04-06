@@ -2,16 +2,7 @@
 %h1
   Project Form Questions
 
-=link_to 'New Question', new_question_path, class: "btn btn-info"
-%br
-%br
+=render :partial => 'question_list'
 
--@questions.each do |q| 
-  .question-card
-    =q.question
-    %br
-    =link_to 'Edit', edit_question_path(q)
-    |
-    =link_to 'Destroy', q, method: :delete, data: {confirm: 'Are you sure?' }
     
   

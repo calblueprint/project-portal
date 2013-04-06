@@ -6,7 +6,7 @@ class Project < ActiveRecord::Base
   has_many :issues
   
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo, :company_name
+  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo, :company_name, :approved
   
   validates :title, :company_site, :company_address, :company_name,
   :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
@@ -53,6 +53,13 @@ class Project < ActiveRecord::Base
     end
   end
   
+  def self.unapproved_projects
+    Project.where(:approved => nil)
+  end
+  
+  def self.denied_projects
+    Project.where(:approved => false)
+  end
   
   Project.virtualize_questions
 end
