@@ -1,0 +1,24 @@
+.pagination.pagination-centered.pagination-large
+  %ul
+    -if @page == @start
+      %li.disabled
+        %a{:ref=>"#"} Prev
+    -else
+      %li
+        = link_to "Prev", issues_path(:pageNum => @page-1)
+
+    -while @start < @end
+      -if @start == @page
+        %li.disabled
+          %a{:ref=>"#"}=@start
+      -else
+        %li
+          = link_to "#{@start}", issues_path(:pageNum => @start)
+      -@start = @start + 1
+
+    -if @page == @end - 1
+      %li.disabled
+        %a{:ref=>"#"} Next
+    -else
+      %li
+        = link_to "Next", issues_path(:pageNum => @page+1)

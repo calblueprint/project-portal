@@ -6,11 +6,11 @@ class ProjectsController < ApplicationController
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
-    if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
-      @canEdit = false 
-    else
-      @canEdit = true 
-    end
+    # if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+    #   @canEdit = false 
+    # else
+    #   @canEdit = true 
+    # end
   end
 
   def index 

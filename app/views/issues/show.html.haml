@@ -1,16 +1,16 @@
 .backdrop
-.row-fluid
-  .span3.center
-    .title= best_in_place_if @canEdit, @issue, :title, :classes => 'highlight_on_success', :path => project_issue_path(@issue.id), :activator => "#edit1"
-  .span2
-    -if @canEdit
+%h1
+  = best_in_place_if @canEdit, @issue, :title, :classes => 'highlight_on_success', :path => project_issue_path(@issue.id), :activator => "#edit1"
+  -if @canEdit
+    %title_edit
       %a{:ref => "#", :id => "edit1"} edit
-.row-fluid
-  .span2
-    = best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success', :path => project_issue_path(@issue.id), :activator => "#edit2"
-  .span2
-    -if @canEdit
+%description_show
+  = best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success', :path => project_issue_path(@issue.id), :activator => "#edit2"
+
+  -if @canEdit
+    %description_edit
       %a{:ref => "#", :id => "edit2"} edit
+%br
 %br
 - if @issue.resolved == 2
   Solved by:

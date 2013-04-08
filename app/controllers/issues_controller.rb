@@ -1,6 +1,31 @@
 class IssuesController < ApplicationController
   respond_to :html, :json
 
+
+  def index
+    #define the page to view
+    if params[:pageNum] == nil or Integer(params[:pageNum]) < 2
+      @page = 1 
+    else
+      @page = Integer(params[:pageNum])
+    end
+    #set up range for pagination
+    @start = @page - 2
+    if @start < 1
+      @start = 1
+    end
+    totalPages = (Issue.count_by_sql("select count(id) from issues where resolved = 0") / 5.0).ceil
+    @end = @start + 5
+    if @end > totalPages
+      @end = totalPages+1
+      while @end - @start != 5 and @start > 1
+        @start = @start -1
+      end
+    end
+
+    @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+  end
+
     #displays a specfic issue 
   def show
     @issue = Issue.find(params[:id])
