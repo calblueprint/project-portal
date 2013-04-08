@@ -5,21 +5,21 @@
       %li No Open Issues
     - else
       - @openIssues.each do |issue|
-        %li= link_to issue.title, project_issue_path(@project.slug,issue.id)
+        %li= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(@project.slug,issue.id)
 
     %li.nav-header Pending issues
     - if @pendingIssues.nil? or @pendingIssues.count < 1
       %li No Pending Issues
     - else
       - @pendingIssues.each do |issue|
-        %li= link_to issue.title, project_issue_path(@project.slug,issue.id)
+        %li= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(@project.slug,issue.id)
 
     %li.nav-header Resolved Issues
     - if @resolvedIssues.nil? or @resolvedIssues.count < 1
       %li No Resolved Issues =(
     - else
       - @resolvedIssues.each do |issue|
-        %li= link_to issue.title, project_issue_path(@project.slug,issue.id)
+        %li= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(@project.slug,issue.id)
   #create-issue-button
     %br
     %a{:class=>"btn btn-primary", :href=>new_project_issue_path(@project)} Create Issue
