@@ -9,8 +9,7 @@ ProjectPortal::Application.routes.draw do
   
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
 
-  #match 'projects/:proj_id/createIssue' => 'issues#new', :as => :create_issue
-  #match 'projects/:proj_id/issues' => 'issues#index'
+  match 'issues' => 'issues#index', :as => :issues
   match 'issues/:id/resolve' => 'issues#resolve', :as => :resolve_issue
   match 'issues/:id/accept' => 'issues#accept', :as => :accept_issue
   match 'issues/:id/deny' => 'issues#deny', :as => :deny_issue

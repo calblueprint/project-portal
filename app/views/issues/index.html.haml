@@ -1,0 +1,28 @@
+%h1
+  All Issues
+  %small{:id => "openSearch"}
+    %a{:class=>"btn btn-primary", :href=>"#"} Search
+%div{:id => "search-issues-box", :style => "display: none"}
+  We are Searching
+  %a{:class=>"btn btn-primary", :href=>"#"} Search
+- @openIssues.each do |issue|
+  #issue
+    .row-fluid
+      .span3
+        .title-all= truncate(issue.title, :length => 37, :separator => ' ')
+      .span8
+        %p
+          %b.p Description
+          .description-all= issue.description
+      %p
+        %a.pull-right.view-btn-all{:class => "btn", :href => project_issue_path(issue.project_id,issue.id) } View
+    %br
+    .row-fluid
+      .tags
+        %b.p Tags:
+        \#Java
+        \#html
+        \#css
+        \#saas
+=render :partial => 'shared/pagination'
+

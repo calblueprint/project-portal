@@ -15,6 +15,7 @@
           %ul.nav
             %li= link_to "My Dashboard", dashboard_path
             %li= link_to "Search Projects", projects_path
+            %li= link_to "Search Issues", issues_path
             %li= link_to "Submit A Project", new_project_path 
           %ul{:class=>"nav pull-right"}
             - if user_signed_in?

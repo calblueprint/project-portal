@@ -28,3 +28,7 @@ $(document).ready ->
 
   $(".backdrop").click ->
     close_box()
+
+$(document).ready ->
+  $("#openSearch").click ->
+    $("#search-issues-box").slideToggle "slow"
