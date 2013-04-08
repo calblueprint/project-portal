@@ -1,9 +1,18 @@
-= form_tag(search_path, :method => 'get') do
-  = label_tag :title, 'Title:'
-  = text_field_tag :title
-  = label_tag :application_site, 'Application Website:'
-  = text_field_tag :application_site
-  = label_tag :mission_statement, 'Organization Mission Statement:'
-  = text_field_tag :mission_statement
-  = submit_tag 'Search'
+%div#search-projs
+  %h3 Search Projects
+  = form_tag(search_path, :method => 'get') do
+    = label_tag :title, 'Keyword Search:'
+    = text_field_tag :title
+    = label_tag :application_site, 'Application Website:'
+    = text_field_tag :application_site
+    = label_tag :company_site, 'Company Site:'
+    = text_field_tag :company_site
+    .checkbox.inline= label_tag :nonprofit, 'Nonprofit'
+    = check_box_tag 'nonprofit', {:id => :nonprofit }
+    .checkbox.inline= label_tag :five_01c3, 'Five_01c3'
+    = check_box_tag 'five_01c3', {:id => :five_01c3 }
+    %button.btn.btn-primary{:type => "submit"} Search
+  = form_tag(browse_path, :method => 'get') do
+    %button.btn{:type => "submit"} Clear
+
     

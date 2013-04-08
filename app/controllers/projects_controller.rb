@@ -10,10 +10,12 @@ class ProjectsController < ApplicationController
 
   def show_all
     @all_projects = Project.find(:all)
+    @title = "All Projects"
   end
 
   def search
     @all_projects = Project.search(params)
+    @title = "Search Results"
     render :show_all
   end
 
