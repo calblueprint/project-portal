@@ -1,12 +1,8 @@
 %div#search-projs
   %h3 Search Projects
   = form_tag(search_path, :method => 'get') do
-    = label_tag :title, 'Keyword Search:'
-    = text_field_tag :title
-    = label_tag :application_site, 'Application Website:'
-    = text_field_tag :application_site
-    = label_tag :company_site, 'Company Site:'
-    = text_field_tag :company_site
+    = label_tag :search_string, 'Keyword Search:'
+    = text_field_tag :search_string
     .checkbox.inline= label_tag :nonprofit, 'Nonprofit'
     = check_box_tag 'nonprofit', {:id => :nonprofit }
     .checkbox.inline= label_tag :five_01c3, 'Five_01c3'

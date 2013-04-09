@@ -22,6 +22,14 @@ class Project < ActiveRecord::Base
   validates_format_of :contact_email, :with => /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/
   
   serialize :questions, Hash
+  
+  searchable do
+    string :title
+    string :application_site
+    string :company_site
+    boolean :nonprofit
+    boolean :five_01c3
+  end
 
   QUESTIONS.keys.each do |q|
     attr_accessible q.to_sym
@@ -37,9 +45,35 @@ class Project < ActiveRecord::Base
     end
     self.questions = questions
   end
+
+  scope :by_title, lambda { |search_string|
+    puts "search stringy is #{search_string}"
+    where('title like ?', "#{search_string}")
+  } 
+
+  scope :is_nonprofit, lambda { |is_nonprofit|
+    where(:nonprofit => is_nonprofit)
+  } 
   
-  def self.search(params)
-    Project.find(:all, :conditions => ['title LIKE ?', "%#{params[:title]}%"])
+  scope :is_five_01c3, lambda { |is_five_01c3|
+    where(:five_01c3 => is_five_01c3)
+  }  
+
+    def self.search(params)
+  
+    Project.by_title(params["search_string"]).is_nonprofit(params.has_key?('nonprofit')).is_five_01c3(params.has_key?('five_01c3')).all
+    #Project.by_title_and_org(params)
+=begin
+    Sunspot.search(self) do
+        puts "Search string is #{params[:search_string]}"
+        fulltext '"#{params[:search_string]}"' do
+            # give extra weight to the title field      
+            boost_fields :title => 2.0             
+            with(:nonprofit, params[:nonprofit] ||= nil)
+            with(:five_01c3, params[:five_01c3] ||= nil)
+        end
+    end.results
+=end
   end
 
 end
