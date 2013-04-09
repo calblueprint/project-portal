@@ -22,8 +22,24 @@ class IssuesController < ApplicationController
         @start = @start -1
       end
     end
-
-    @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+    if (params[:tags] == nil)
+        @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+    else
+      tags = []
+      tagCount = 0
+      params[:tags].each_pair do |k,v|
+        if v == "1"
+          tags.push(k)
+          tagCount = tagCount + 1
+        end
+      end
+      if tags.empty?
+        @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+      else
+        @selectedIssues = Issue.from("tags, issues").where("tags.issue_id = issues.id and tags.label in (?)",tags).group("issues.id").having("count(issues.id)=?",tagCount)
+        @openIssues = @selectedIssues.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+      end
+    end
   end
 
     #displays a specfic issue 
