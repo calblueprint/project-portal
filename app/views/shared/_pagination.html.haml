@@ -5,7 +5,7 @@
         %a{:ref=>"#"} Prev
     -else
       %li
-        = link_to "Prev", issues_path(:pageNum => @page-1)
+        = link_to "Prev", issues_path(:pageNum => @page-1, :tags => params[:tags])
 
     -while @start < @end
       -if @start == @page
@@ -13,7 +13,7 @@
           %a{:ref=>"#"}=@start
       -else
         %li
-          = link_to "#{@start}", issues_path(:pageNum => @start)
+          = link_to "#{@start}", issues_path(:pageNum => @start, :tags => params[:tags])
       -@start = @start + 1
 
     -if @page == @end - 1
@@ -21,4 +21,4 @@
         %a{:ref=>"#"} Next
     -else
       %li
-        = link_to "Next", issues_path(:pageNum => @page+1)
+        = link_to "Next", issues_path(:pageNum => @page+1, :tags => params[:tags])
