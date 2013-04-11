@@ -17,3 +17,21 @@ Question.create([
     input_type: "text"
   }
 ])
+
+AllTags.create([
+	{ tag: "backend" },
+	{ tag: "frontend" },
+	{ tag: "css" },
+	{ tag: "ruby" },
+	{ tag: "java" },
+	{ tag: "mobile" },
+	{ tag: "algorithms" },
+	{ tag: "html" },
+	{ tag: "haml" },
+	{ tag: "erb" }
+	])
+
+
+
+
+

@@ -3,8 +3,9 @@
   %small{:id => "openSearch"}
     %a{:class=>"btn btn-primary", :href=>"#"} Search
 %div{:id => "search-issues-box", :style => "display: none"}
-  We are Searching
-  %a{:class=>"btn btn-primary", :href=>"#"} Search
+  = form_tag issues_path(), :method => "get" do
+    = render 'search_form'
+    = submit_tag 'Begin Search'
 - @openIssues.each do |issue|
   #issue
     .row-fluid
@@ -20,9 +21,6 @@
     .row-fluid
       .tags
         %b.p Tags:
-        \#Java
-        \#html
-        \#css
-        \#saas
+        = printTags(issue)
 =render :partial => 'shared/pagination'
 

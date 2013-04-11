@@ -1,0 +1,11 @@
+-@availableTags.each do |tagName|
+  -if params[:tags] == nil
+    = check_box :tags, tagName.tag, :style => "float:left;"
+    = label :tags, tagName.tag, "#{tagName.tag}"
+  -else
+    -if params[:tags][tagName.tag] == "1"
+      = check_box :tags, tagName.tag, :checked => true, :style => "float:left;"
+      = label :tags, tagName.tag, "#{tagName.tag}"
+    -else
+      = check_box :tags, tagName.tag, :style => "float:left;"
+      = label :tags, tagName.tag, "#{tagName.tag}"
