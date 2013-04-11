@@ -3,18 +3,43 @@ class IssuesController < ApplicationController
 
 
   def index
+    @availableTags = AllTags.find(:all,:order => "tag")
     #define the page to view
     if params[:pageNum] == nil or Integer(params[:pageNum]) < 2
       @page = 1 
     else
       @page = Integer(params[:pageNum])
     end
+
+    #retrieve issues that need to be displayed according to search params
+    if (params[:tags] == nil)
+        @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+        count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
+    else
+      tags = []
+      tagCount = 0
+      params[:tags].each_pair do |k,v|
+        if v == "1"
+          tags.push(k)
+          tagCount = tagCount + 1
+        end
+      end
+      if tags.empty?
+        @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+        count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
+      else
+        @selectedIssues = Issue.from("tags, issues").where("tags.issue_id = issues.id and tags.label in (?)",tags).group("issues.id").having("count(issues.id)=?",tagCount)
+        @openIssues = @selectedIssues.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+        count = @selectedIssues.find(:all, :conditions => ["resolved = ?", 0]).size
+      end
+    end
+
     #set up range for pagination
     @start = @page - 2
     if @start < 1
       @start = 1
     end
-    totalPages = (Issue.count_by_sql("select count(id) from issues where resolved = 0") / 5.0).ceil
+    totalPages = (count / 5.0).ceil
     @end = @start + 5
     if @end > totalPages
       @end = totalPages+1
@@ -22,8 +47,6 @@ class IssuesController < ApplicationController
         @start = @start -1
       end
     end
-
-    @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
   end
 
     #displays a specfic issue 
@@ -39,6 +62,7 @@ class IssuesController < ApplicationController
       redirect_to new_user_session_path, notice: "You must be logged in to create an issue."
     end
     @title = "Create an Issue"
+    @availableTags = AllTags.find(:all,:order => "tag")
     @issue = Issue.new
   end
 
@@ -49,8 +73,16 @@ class IssuesController < ApplicationController
     @issue.resolved = 0
     @issue.title = params[:issue][:title]
     @issue.description = params[:issue][:description]
-    p @issue
+
     if @issue.save
+      params[:tags].each_pair do |k,v|
+        if v =="1"
+          tag = Tag.new
+          tag.label = k
+          tag.issue_id = @issue.id
+          tag.save
+        end
+      end
       flash[:notice] = "Your Issue was Added"
       redirect_to(:controller => "projects", :action => 'show', :id => @issue.project_id)
     else
