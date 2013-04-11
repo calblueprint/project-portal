@@ -62,6 +62,7 @@ class IssuesController < ApplicationController
       redirect_to new_user_session_path, notice: "You must be logged in to create an issue."
     end
     @title = "Create an Issue"
+    @availableTags = AllTags.find(:all,:order => "tag")
     @issue = Issue.new
   end
 
@@ -79,12 +80,7 @@ class IssuesController < ApplicationController
           tag = Tag.new
           tag.label = k
           tag.issue_id = @issue.id
-          p tag
-          if tag.save
-            p 'YEsssssssssssssssssssssssssssssss'
-          else
-            p 'noooooooooooooooooooooooooooooooooooooooo'
-          end
+          tag.save
         end
       end
       flash[:notice] = "Your Issue was Added"

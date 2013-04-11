@@ -16,7 +16,7 @@
           = link_to "#{@start}", issues_path(:pageNum => @start, :tags => params[:tags])
       -@start = @start + 1
 
-    -if @page == @end - 1
+    -if @page == @end - 1 || @page == @end
       %li.disabled
         %a{:ref=>"#"} Next
     -else
