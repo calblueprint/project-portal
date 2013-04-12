@@ -59,6 +59,4 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'devise'
 gem 'simple_form'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
 

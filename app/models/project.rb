@@ -23,14 +23,6 @@ class Project < ActiveRecord::Base
   
   serialize :questions, Hash
   
-  searchable do
-    string :title
-    string :application_site
-    string :company_site
-    boolean :nonprofit
-    boolean :five_01c3
-  end
-
   QUESTIONS.keys.each do |q|
     attr_accessible q.to_sym
     attr_accessor q.to_sym
@@ -47,33 +39,34 @@ class Project < ActiveRecord::Base
   end
 
   scope :by_title, lambda { |search_string|
-    puts "search stringy is #{search_string}"
-    where('title like ?', "#{search_string}")
+    if not search_string.empty?
+      where('title like ?', "#{search_string}")
+    end
   } 
+
+  scope :by_organization, lambda { |org|
+     if not org.empty?
+       where 
 
   scope :is_nonprofit, lambda { |is_nonprofit|
-    where(:nonprofit => is_nonprofit)
+    if is_nonprofit
+      where(:nonprofit => is_nonprofit)
+    end
   } 
   
+  scope :is_forprofit, lambda { |is_nonprofit|
+    if is_nonprofit
+      where(:nonprofit => false) 
+    end
+  } 
+
   scope :is_five_01c3, lambda { |is_five_01c3|
-    where(:five_01c3 => is_five_01c3)
+    if is_five_01c3
+      where(:five_01c3 => is_five_01c3)
+    end
   }  
 
-    def self.search(params)
-  
-    Project.by_title(params["search_string"]).is_nonprofit(params.has_key?('nonprofit')).is_five_01c3(params.has_key?('five_01c3')).all
-    #Project.by_title_and_org(params)
-=begin
-    Sunspot.search(self) do
-        puts "Search string is #{params[:search_string]}"
-        fulltext '"#{params[:search_string]}"' do
-            # give extra weight to the title field      
-            boost_fields :title => 2.0             
-            with(:nonprofit, params[:nonprofit] ||= nil)
-            with(:five_01c3, params[:five_01c3] ||= nil)
-        end
-    end.results
-=end
+  def self.search(params)
+    Project.by_title(params["search_string"]).is_nonprofit(params.has_key?('nonprofit')).is_five_01c3(params.has_key?('five_01c3')).is_forprofit(params.has_key?('forprofit'))
   end
-
 end

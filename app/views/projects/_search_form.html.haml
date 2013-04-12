@@ -5,8 +5,10 @@
     = text_field_tag :search_string
     .checkbox.inline= label_tag :nonprofit, 'Nonprofit'
     = check_box_tag 'nonprofit', {:id => :nonprofit }
-    .checkbox.inline= label_tag :five_01c3, 'Five_01c3'
+    .checkbox.inline= label_tag :five_01c3, '501(c)3'
     = check_box_tag 'five_01c3', {:id => :five_01c3 }
+    .checkbox.inline= label_tag :nonprofit, 'For profit'
+    = check_box_tag 'forprofit', {:id => :forprofit }
     %button.btn.btn-primary{:type => "submit"} Search
   = form_tag(browse_path, :method => 'get') do
     %button.btn{:type => "submit"} Clear
