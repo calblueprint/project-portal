@@ -8,7 +8,7 @@ class UserController < ApplicationController
   end
   
   def settings
-    @questions = Question.all
+    @questions = Question.current_questions
     @unapproved_projects = Project.unapproved_projects
     @denied_projects = Project.denied_projects
   end

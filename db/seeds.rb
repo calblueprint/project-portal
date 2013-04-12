@@ -17,3 +17,8 @@ Question.create([
     input_type: "text"
   }
 ])
+
+User.create({
+  email: "portaladmin@gmail.com",
+  password: "password"
+  })

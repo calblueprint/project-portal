@@ -14,12 +14,13 @@ class ProjectsController < ApplicationController
   end
 
   def index 
-    #@all_projects = Project.where(:approved => true)
-    @all_projects = Project.find(:all)
+    @all_projects = Project.where(:approved => true)
+    #@all_projects = Project.find(:all)
   end
 
   def new
     @project = Project.new
+    @questions = Question.current_questions
   end
 
   def edit
@@ -27,6 +28,7 @@ class ProjectsController < ApplicationController
     if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
+    @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
   end
   
   def user_edit
