@@ -12,6 +12,13 @@ class ProjectsController < ApplicationController
   def index 
     #@all_projects = Project.where(:approved => true)
     @all_projects = Project.find(:all)
+    @title = "All Projects"
+  end
+
+  def search
+    @all_projects = Project.search(params)
+    @title = "Search Results"
+    render :index
   end
 
   def new
