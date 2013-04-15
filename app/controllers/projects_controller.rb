@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
     @all_projects = Project.search(params)
     @title = "Search Results"
     puts "los resultos: #{@all_projects.to_s}"
-    render :show_all
+    render :index
   end
 
   def new

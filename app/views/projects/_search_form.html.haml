@@ -10,7 +10,7 @@
     .checkbox.inline= label_tag :nonprofit, 'For profit'
     = check_box_tag 'forprofit', {:id => :forprofit }
     %button.btn.btn-primary{:type => "submit"} Search
-  = form_tag(browse_path, :method => 'get') do
+  = form_tag(projects_path, :method => 'get') do
     %button.btn{:type => "submit"} Clear
 
     
