@@ -36,6 +36,40 @@ class Project < ActiveRecord::Base
     self.questions = questions
   end
 
+  scope :by_title, lambda { |search_string|
+    if not search_string.empty?
+      where('title like ?', "#{search_string}")
+    end
+  } 
+
+  scope :by_organization, lambda { |org|
+     if not org.empty?
+       where('company_name like ?', "#{org}")
+     end
+  }
+
+  scope :is_nonprofit, lambda { |is_nonprofit|
+    if is_nonprofit
+      where(:nonprofit => is_nonprofit)
+    end
+  } 
+  
+  scope :is_forprofit, lambda { |is_nonprofit|
+    if is_nonprofit
+      where(:nonprofit => false) 
+    end
+  } 
+
+  scope :is_five_01c3, lambda { |is_five_01c3|
+    if is_five_01c3
+      where(:five_01c3 => is_five_01c3)
+    end
+  }  
+
+  def self.search(params)
+    Project.by_title(params["search_string"]).is_nonprofit(params.has_key?('nonprofit')).is_five_01c3(params.has_key?('five_01c3')).is_forprofit(params.has_key?('forprofit')).by_organization(params["organization"])
+  end
+
   # Class Methods for questions as virtual attributes
   def self.question_key(q)
     "question_#{q.id}".to_sym
