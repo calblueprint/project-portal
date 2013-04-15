@@ -7,26 +7,31 @@
     .content
       .span2
         .img-polaroid
-          =image_tag img_or_default(false)
+          =image_tag project.photo_url.to_s
           /Placeholder need to change to actual project.photo.url or something like that
         .edit-options
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =link_to "Modify Project Details", edit_project_path(project)
+          - if user_signed_in? and current_user.admin?
+            =render :partial => 'projects/short_approval_form', :locals => {:project => project}
       .span10
         %p.project-title
           =link_to project.title, project_path(project)
         %br
         .row-fluid
-          .span4  
+          .span6
             %p 
               %b
                 ="#{t(:organization)}:"
-              /=project.company
-              Placeholder for now
+              =project.company_name
             %p
               %b
                 ="#{t(:nonprofit)}:"
               =yes_no(project.nonprofit)
+            %p
+              %b
+                ="#{t(:five_01c3)}:"
+              =yes_no(project.five_01c3)
             %p
               %b
                 ="#{t(:company_site)}:"
@@ -39,17 +44,11 @@
               %b
                 ="#{t(:application_site)}:"
               =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
-          .span7
+          .span6
             %p
               %b
-                ="#{t(:questions)}:"
-              %br
-              -project.questions.each do |q|
-                %b
-                  -if QUESTIONS[q[0]]
-                    ="#{QUESTIONS[q[0]][:subject]}:"
-                =q[1]
-                %br
-
+                ="#{t(:mission_statement)}:"
+              =project.mission_statement
+                
 
 

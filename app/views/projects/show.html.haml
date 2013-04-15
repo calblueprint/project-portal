@@ -1,5 +1,13 @@
 %p#notice
+-if user_signed_in? and current_user.admin?
+  =render :partial => 'project_approval_form', :locals => {:project => @project}
 =render :partial => 'shared/project_card', :locals => {:project => @project}
 =# render :inline, :controller => "issues", :action => "index"
-=render :partial => 'shared/project_issues', :locals => {:project => @project}
+.row-fluid
+  .span4
+    =render :partial => 'shared/project_issues', :locals => {:project => @project}
+  .span8
+    =render :partial => 'shared/project_contact', :locals => {:project => @project}
+  .span8
+    =render :partial => 'shared/project_questions', :locals => {:project => @project}
  

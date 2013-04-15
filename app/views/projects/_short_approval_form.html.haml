@@ -1,0 +1,17 @@
+#short-approval-buttons
+  -if project.approved.nil?
+    = simple_form_for project do |f|
+      =f.hidden_field :approved, value: true
+      =f.button :submit, "Approve", class: 'btn btn-success'
+
+    = simple_form_for project do |f|
+      =f.hidden_field :approved, value: false
+      =f.button :submit, "Decline", class: 'btn btn-danger'
+  -elsif project.approved == true
+    %h5.green
+      Approved
+  -else
+    %h5.red
+      Denied
+      
+      

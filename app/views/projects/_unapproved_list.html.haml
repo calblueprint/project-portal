@@ -1,0 +1,13 @@
+%h4.details-title
+  Unapproved Projects
+-if unapproved_projects.empty?
+  No Unapproved Projects
+-unapproved_projects.each do |p| 
+  =render :partial=>"shared/project_card", :locals => {:project => p}
+
+%h4.details-title
+  Denied Projects
+-if denied_projects.empty?
+  No Denied Projects
+-denied_projects.each do |p| 
+  =render :partial=>"shared/project_card", :locals => {:project => p}

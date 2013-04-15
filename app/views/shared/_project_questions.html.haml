@@ -1,0 +1,9 @@
+.hero-section
+  %h4.details-title
+    ="#{t(:questions)}"
+  -project.questions.each do |q|
+    %p
+      %b.questions
+        ="#{Question.find(Project.get_question_id(q)).question}:"
+      =q[1]
+      %br

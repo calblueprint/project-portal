@@ -59,4 +59,5 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'devise'
 gem 'simple_form'
-
+gem 'carrierwave'
+gem 'friendly_id'

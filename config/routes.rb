@@ -1,22 +1,24 @@
 ProjectPortal::Application.routes.draw do
   get 'search' => "projects#search", :as => :search
-  resources :projects, :issues
+  resources :questions
+
+  resources :projects do
+    resources :issues
+  end
 
   get "home/index"
   
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
 
-  match 'projects/:proj_id/createIssue' => 'issues#new', :as => :create_issue
-  match 'projects/:proj_id/issues' => 'issues#index'
+  match 'issues' => 'issues#index', :as => :issues
   match 'issues/:id/resolve' => 'issues#resolve', :as => :resolve_issue
   match 'issues/:id/accept' => 'issues#accept', :as => :accept_issue
   match 'issues/:id/deny' => 'issues#deny', :as => :deny_issue
 
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
   get "user/show"
+  get "user/settings"
   match 'dashboard' => 'user#show', :as => :dashboard
-  get "projects/show_all"
-  match 'browse' => 'projects#show_all', :as => :browse
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

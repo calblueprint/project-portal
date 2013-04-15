@@ -1,7 +1,16 @@
 .backdrop
-%h4= best_in_place_if @canEdit, @issue, :title, :classes => 'highlight_on_success'
+%h1
+  = best_in_place_if @canEdit, @issue, :title, :classes => 'highlight_on_success', :path => project_issue_path(@issue.id), :activator => "#edit1"
+  -if @canEdit
+    %title_edit
+      %a{:ref => "#", :id => "edit1"} edit
+%description_show
+  = best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success', :path => project_issue_path(@issue.id), :activator => "#edit2"
 
-%div= best_in_place_if @canEdit, @issue, :description, type: :textarea, :ok_button => "Done", :cancel_button => "Cancel", :classes => 'highlight_on_success'
+  -if @canEdit
+    %description_edit
+      %a{:ref => "#", :id => "edit2"} edit
+%br
 %br
 - if @issue.resolved == 2
   Solved by:
@@ -12,11 +21,13 @@
   = "#{@issue.github}"
   %br
   %br
-
-- # TODO: Add session checks!
+  
 -if @issue.resolved == 0    #if unresolved
   -if user_signed_in?
-    %a{:class => "lightbox btn btn-success", :ref => "#" } Submit
+    -if @canEdit
+      = link_to "Delete", project_issue_path(@issue.id), :method => :delete, :class => "btn btn-danger"
+    -else
+      %a{:class => "lightbox btn btn-success", :ref => "#" } Submit
   -else
     %a{:class => "btn btn-success", :href => new_user_session_path } Submit
 - elsif @issue.resolved == 1  #if pending

@@ -1,6 +1,6 @@
 %h3 Create an Issue
 %br
-= form_tag issues_path(@issue) do
+= form_tag project_issues_path() do
   = render 'error_messages'
   = render 'form'
   = submit_tag 'Add New Issue'

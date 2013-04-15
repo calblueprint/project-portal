@@ -14,7 +14,8 @@
           %a{:class=>"brand", :href=>root_path}= "Project Portal"
           %ul.nav
             %li= link_to "My Dashboard", dashboard_path
-            %li= link_to "Search Projects", browse_path
+            %li= link_to "Search Projects", projects_path
+            %li= link_to "Search Issues", issues_path
             %li= link_to "Submit A Project", new_project_path 
           %ul{:class=>"nav pull-right"}
             - if user_signed_in?
@@ -23,7 +24,7 @@
                   Account 
                   %b.caret
                 %ul{:class=>"dropdown-menu pull-right"}
-                  %li= link_to 'Settings', edit_user_registration_path
+                  %li= link_to 'Settings', user_settings_path 
                   %li= link_to 'Logout', destroy_user_session_path, :method => :delete
 
             - else

@@ -44,6 +44,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     coffee-rails (3.2.2)
@@ -88,6 +91,7 @@ GEM
       factory_girl (~> 3.0.0)
       railties (>= 3.0.0)
     ffi (1.6.0)
+    friendly_id (4.0.9)
     gherkin (2.11.6)
       json (>= 1.7.6)
     haml (4.0.1)
@@ -110,7 +114,6 @@ GEM
     multi_json (1.7.2)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
-    pg (0.14.1)
     pg (0.15.0)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -202,6 +205,7 @@ DEPENDENCIES
   best_in_place
   bootstrap-sass
   capybara
+  carrierwave
   coffee-rails (~> 3.2.1)
   cucumber-rails
   cucumber-rails-training-wheels
@@ -209,6 +213,7 @@ DEPENDENCIES
   debugger
   devise
   factory_girl_rails (~> 2.0)
+  friendly_id
   haml
   jquery-rails
   launchy

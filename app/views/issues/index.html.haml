@@ -1,25 +1,26 @@
-=# proj_id
-- if params[:proj_id] == 2
-	HERE
-.issues-list
-	%ul.nav.nav-list
-		%li.nav-header Open Issues
-		- if @openIssues.nil? or @openIssues.count < 1
-			%li No Open Issues
-		- else
-			- @openIssues.each do |issue|
-				%li= link_to issue.title, issue_path(issue.id)
+%h1
+  All Issues
+  %small{:id => "openSearch"}
+    %a{:class=>"btn btn-primary", :href=>"#"} Search
+%div{:id => "search-issues-box", :style => "display: none"}
+  = form_tag issues_path(), :method => "get" do
+    = render 'search_form'
+    = submit_tag 'Begin Search'
+- @openIssues.each do |issue|
+  #issue
+    .row-fluid
+      .span3
+        .title-all= truncate(issue.title, :length => 37, :separator => ' ')
+      .span8
+        %p
+          %b.p Description
+          .description-all= issue.description
+      %p
+        %a.pull-right.view-btn-all{:class => "btn", :href => project_issue_path(issue.project_id,issue.id) } View
+    %br
+    .row-fluid
+      .tags
+        %b.p Tags:
+        = printTags(issue)
+=render :partial => 'shared/pagination'
 
-		%li.nav-header Pending issues
-		- if @pendingIssues.nil? or @pendingIssues.count < 1
-			%li No Pending Issues
-		- else
-			- @pendingIssues.each do |issue|
-				%li= link_to issue.title, issue_path(issue.id)
-
-		%li.nav-header Resolved Issues
-		- if @resolvedIssues.nil? or @resolvedIssues.count < 1
-			%li No Resolved Issues =(
-		- else
-			- @resolvedIssues.each do |issue|
-				%li= link_to issue.title, issue_path(issue.id)
