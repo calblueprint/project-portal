@@ -18,7 +18,6 @@ class ProjectsController < ApplicationController
   def search
     @all_projects = Project.search(params)
     @title = "Search Results"
-    puts "los resultos: #{@all_projects.to_s}"
     render :index
   end
 

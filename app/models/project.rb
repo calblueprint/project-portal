@@ -44,7 +44,7 @@ class Project < ActiveRecord::Base
 
   scope :by_organization, lambda { |org|
      if not org.empty?
-       #where 
+       where('company_name like ?', "#{org}")
      end
   }
 
@@ -67,7 +67,7 @@ class Project < ActiveRecord::Base
   }  
 
   def self.search(params)
-    Project.by_title(params["search_string"]).is_nonprofit(params.has_key?('nonprofit')).is_five_01c3(params.has_key?('five_01c3')).is_forprofit(params.has_key?('forprofit'))
+    Project.by_title(params["search_string"]).is_nonprofit(params.has_key?('nonprofit')).is_five_01c3(params.has_key?('five_01c3')).is_forprofit(params.has_key?('forprofit')).by_organization(params["organization"])
   end
 
   # Class Methods for questions as virtual attributes
