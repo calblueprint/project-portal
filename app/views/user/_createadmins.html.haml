@@ -1,0 +1,8 @@
+%h4.details-title
+  Add an Administrator
+=form_tag add_admin_path do
+  =text_field_tag :user, "", :style=>"margin: 0px", :class => "input-medium", :data => {:provide=>"typeahead", :items=>"3", :source=>"#{@emails.to_json}"}
+  =submit_tag 'Add', :class => "btn"
+  =submit_tag 'View All', :class => "btn"
+
+
