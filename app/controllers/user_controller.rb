@@ -7,15 +7,21 @@ class UserController < ApplicationController
     end
   end
   
-  def settings
+  def admin_dashboard
     @questions = Question.all
     @unapproved_projects = Project.unapproved_projects
     @denied_projects = Project.denied_projects
+    users = User.find(:all)
+    @emails = []
+    users.each do |u|
+      @emails.append(u.fname + " " + u.lname + " " + "(" + u.email + ")")
+    end
   end
 
   def add_admin
     if params[:commit] == "Add"
-      create_admin(params[:user][:email])
+      email = /[a-zA-Z\d-_!#\$%&'*+-\/=?^_`{.|}~]+[@]{1}+[a-zA-Z\d-]+[.]{1}[a-zA-Z]+/.match(params[:user]).to_s
+      create_admin(email)
     elsif params[:commit] == "View All"
       view_all_admins
     end
@@ -36,7 +42,15 @@ class UserController < ApplicationController
   end
 
   def view_all_admins
-    @all_admins = User.find_all_by_admin(true)
+    if user_signed_in? and current_user.admin?
+      @all_admins = User.find_all_by_admin(true)
+    elsif user_signed_in?
+      flash[:error] = "You do not have the right permissions to view this page."
+      redirect_to dashboard_path
+    else
+      flash[:error] = "Please log in."
+      redirect_to new_user_session_path
+    end
   end
 
   def remove_admin

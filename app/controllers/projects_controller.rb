@@ -43,13 +43,22 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       if @project.update_attributes(params[:project])
-        redirect_to @project, notice: 'Project was successfully updated.' 
+        if not params[:project][:approved].nil?
+          if params[:project][:approved] == "true"
+            UserMailer.project_approved(@project).deliver
+          else
+            UserMailer.project_denied(@project).deliver
+          end
+        else
+          flash[:notice] = "Project was successfully updated."
+        end
+        redirect_to @project 
       else
         render action: "edit" 
       end
-      else
+    else
         redirect_to @project, notice: 'You do not have permission to edit this project.'
-    end
+    end 
   end
 
   def destroy

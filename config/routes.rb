@@ -17,6 +17,7 @@ ProjectPortal::Application.routes.draw do
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
   get "user/show"
   get "user/settings"
+  get "user/admin_dashboard"
   match 'dashboard' => 'user#show', :as => :dashboard
 
   match 'admins/manage' => 'user#add_admin', :as => :add_admin
