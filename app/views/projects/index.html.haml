@@ -1,6 +1,16 @@
 %h1= "#{@title}"
 - if @all_projects
   =render :partial=>"search_form"
-  - @all_projects.each do |p| 
-    =render :partial=>"shared/project_card", :locals => {:project => p}
+  %ul.nav.nav-tabs#proj-tab
+    %li.active
+      %a{:href => "#full-proj-view", "data-toggle" => "tab"}Full View
+    %li
+      %a{:href => "#compact-proj-view", "data-toggle" => "tab"}Compact View
+  %div#proj-content.tab-content
+    %div.tab-pane.active#full-proj-view
+      - @all_projects.each do |p| 
+        =render :partial=>"shared/project_card", :locals => {:project => p}
+    %div.tab-pane#compact-proj-view
+      - @all_projects.each do |p|
+        =render :partial=>"shared/project_compact", :locals => {:project => p}
 
