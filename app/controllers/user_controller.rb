@@ -12,4 +12,41 @@ class UserController < ApplicationController
     @unapproved_projects = Project.unapproved_projects
     @denied_projects = Project.denied_projects
   end
+
+  def add_admin
+    if params[:commit] == "Add"
+      create_admin(params[:user][:email])
+    elsif params[:commit] == "View All"
+      view_all_admins
+    end
+  end
+
+  def create_admin(email)
+    @email = email
+    @user = User.find_by_email(@email)
+    if @user and not @user.admin?
+      @user.update_attributes(:admin=>true)
+      redirect_to user_settings_path, notice: "#{@user.fname} #{@user.lname} is now an admin."      
+    elsif @user and @user.admin?
+      redirect_to user_settings_path, notice: "#{@user.fname} #{@user.lname} is already an admin."      
+    else
+      flash[:error] =  "#{@email} does not exist. Would you like to create a user?"
+      redirect_to user_settings_path    
+    end
+  end
+
+  def view_all_admins
+    @all_admins = User.find_all_by_admin(true)
+  end
+
+  def remove_admin
+    @user = User.find_by_id(params[:id])
+    if @user and @user.admin?
+      @user.update_attributes(:admin=>false)
+      redirect_to user_settings_path, notice: "#{@user.fname} #{@user.lname} is no longer an admin."
+    else
+      flash[:error] = "Your action is invalid."
+      redirect_to user_settings_path
+    end
+  end
 end

@@ -19,6 +19,10 @@ ProjectPortal::Application.routes.draw do
   get "user/settings"
   match 'dashboard' => 'user#show', :as => :dashboard
 
+  match 'admins/manage' => 'user#add_admin', :as => :add_admin
+  match 'admins/remove/:id' => 'user#remove_admin', :as => :remove_admin
+
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
