@@ -38,13 +38,13 @@ class Project < ActiveRecord::Base
 
   scope :by_title, lambda { |search_string|
     if not search_string.empty?
-      where('title like ?', "#{search_string}")
+      where('title like ?', "%#{search_string}%")
     end
   } 
 
   scope :by_organization, lambda { |org|
      if not org.empty?
-       where('company_name like ?', "#{org}")
+       where('company_name like ?', "%#{org}%")
      end
   }
 
