@@ -29,7 +29,7 @@
   .hero-section
     %h4.details-title
       ="#{t(:questions)}"
-    -Question.all.each do |q|
+    -@questions.each do |q|
       =f.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, |
       :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
   .hero-section

@@ -11,10 +11,10 @@ class UserController < ApplicationController
     @questions = Question.all
     @unapproved_projects = Project.unapproved_projects
     @denied_projects = Project.denied_projects
-    users = User.find(:all)
     @emails = []
+    users = User.connection.select_all("SELECT email,fname,lname FROM users")
     users.each do |u|
-      @emails.append(u.fname + " " + u.lname + " " + "(" + u.email + ")")
+      @emails.append(u['fname'] + " " + u['lname'] + " " + "(" + u['email'] + ")")
     end
   end
 
