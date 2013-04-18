@@ -1,16 +1,14 @@
 %div#search-projs
   %h3 Search Projects
   = form_tag(search_path, :method => 'get') do
-    = label_tag :search_string, 'Keyword Search:'
-    = text_field_tag :search_string
-    = label_tag :organization, 'Organization:'
-    = text_field_tag :organization
+    = label_tag :search_string, 'Search:'
+    = text_field_tag :search_string, (prev_search['search_string'] if prev_search)
     .checkbox.inline= label_tag :nonprofit, 'Nonprofit'
-    = check_box_tag 'nonprofit', {:id => :nonprofit }
+    = check_box_tag 'nonprofit', {:id => :nonprofit }, (prev_search['nonprofit'] if prev_search)
     .checkbox.inline= label_tag :five_01c3, '501(c)3'
-    = check_box_tag 'five_01c3', {:id => :five_01c3 }
+    = check_box_tag 'five_01c3', {:id => :five_01c3 }, (prev_search['five_01c3'] if prev_search)
     .checkbox.inline= label_tag :nonprofit, 'For profit'
-    = check_box_tag 'forprofit', {:id => :forprofit }
+    = check_box_tag 'forprofit', {:id => :forprofit }, (prev_search['forprofit'] if prev_search)
     %button.btn.btn-primary{:type => "submit"} Search
   = form_tag(projects_path, :method => 'get') do
     %button.btn{:type => "submit"} Clear

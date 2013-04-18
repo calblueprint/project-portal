@@ -68,9 +68,25 @@ class Project < ActiveRecord::Base
       where(:five_01c3 => is_five_01c3)
     end
   }  
+  
+  scope :by_title_organization, lambda {|search|
+    project = Project.arel_table
+    where(project[:title].matches("%#{search}%").or(project[:company_name].matches("%#{search}%"))) if search
+  }
 
-  def self.search(params)
-    Project.by_title(params["search_string"]).is_nonprofit(params.has_key?('nonprofit')).is_five_01c3(params.has_key?('five_01c3')).is_forprofit(params.has_key?('forprofit')).by_organization(params["organization"])
+  def self.search(params, admin)
+    if admin
+      Project.is_nonprofit(params.has_key?('nonprofit'))
+      .is_five_01c3(params.has_key?('five_01c3'))
+      .is_forprofit(params.has_key?('forprofit'))
+      .by_title_organization(params['search_string'])
+    else
+      Project.where(:approved => true)
+      .is_nonprofit(params.has_key?('nonprofit'))
+      .is_five_01c3(params.has_key?('five_01c3'))
+      .is_forprofit(params.has_key?('forprofit'))
+      .by_title_organization(params['search_string'])
+    end
   end
 
   # Class Methods for questions as virtual attributes

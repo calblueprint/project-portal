@@ -19,8 +19,10 @@ class ProjectsController < ApplicationController
   end
 
   def search
-    @all_projects = Project.search(params)
+    @all_projects = Project.search(params, current_user.admin?)
     @title = "Search Results"
+    @prev_search = params
+    p @prev_search
     render :index
   end
 
