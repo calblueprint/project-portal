@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20130415150350) do
     t.string   "input_type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "deleted"
   end
 
   create_table "tags", :force => true do |t|

@@ -17,6 +17,15 @@ Question.create([
     input_type: "text"
   }
 ])
+u = User.create({
+  fname: "Admin",
+  lname: "Admin",
+  admin: true,
+  email: "admin@admin.com",
+  password: "password"
+  })
+u.confirmed_at = Time.now  
+u.save
 
 AllTags.create([
 	{ tag: "backend" },
@@ -30,8 +39,4 @@ AllTags.create([
 	{ tag: "haml" },
 	{ tag: "erb" }
 	])
-
-
-
-
 

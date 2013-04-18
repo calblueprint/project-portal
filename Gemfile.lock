@@ -90,6 +90,8 @@ GEM
     factory_girl_rails (2.0.0)
       factory_girl (~> 3.0.0)
       railties (>= 3.0.0)
+    faker (1.1.2)
+      i18n (~> 0.5)
     ffi (1.6.0)
     friendly_id (4.0.9)
     gherkin (2.11.6)
@@ -116,6 +118,7 @@ GEM
     orm_adapter (0.4.0)
     pg (0.15.0)
     polyglot (0.3.3)
+    populator (1.0.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -213,11 +216,13 @@ DEPENDENCIES
   debugger
   devise
   factory_girl_rails (~> 2.0)
+  faker
   friendly_id
   haml
   jquery-rails
   launchy
   pg
+  populator
   rails (= 3.2.8)
   rspec-rails
   sass-rails (~> 3.2.3)
