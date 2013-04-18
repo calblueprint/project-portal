@@ -1,6 +1,6 @@
 %h1= "#{@title}"
 - if @all_projects
-  =render :partial=>"search_form"
+  =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
   %ul.nav.nav-tabs#proj-tab
     %li.active
       %a{:href => "#full-proj-view", "data-toggle" => "tab"}Full View
