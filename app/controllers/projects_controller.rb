@@ -59,7 +59,8 @@ class ProjectsController < ApplicationController
           if params[:project][:approved] == "true"
             UserMailer.project_approved(@project).deliver
           else
-            UserMailer.project_denied(@project).deliver
+            comment = params[:project][:comment]
+            UserMailer.project_denied(@project, comment).deliver
           end
         else
           flash[:notice] = "Project was successfully updated."

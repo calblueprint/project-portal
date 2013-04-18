@@ -1,19 +1,19 @@
 .hero-section
   .approval-buttons
-    = simple_form_for project do |f|
-      =f.hidden_field :approved, value: true
-      =f.button :submit, "Approve", class: 'btn btn-success'
+    .float-left
+      = simple_form_for project do |f|
+        =f.hidden_field :approved, value: true
+        =f.button :submit, "Approve", class: 'btn btn-success'
+    .float-left 
+      %a.btn.btn-danger{"data-toggle" => "modal", :href => "#approval-form", :role => "button"} Decline
+    .float-left
+      %h4.details-title
+        -if project.approved == true
+          Project has been approved
+        -elsif project.approved == false
+          Project has been denied
+        -else
+          Project has not be approved
+      
 
-    = simple_form_for project do |f|
-      =f.hidden_field :approved, value: false
-      =f.button :submit, "Decline", class: 'btn btn-danger'
-    
-  %h4.details-title
-    -if project.approved == true
-      Project has been approved
-    -elsif project.approved == false
-      Project has been denied
-    -else
-      Project has not be approved
-      
-      
+=render :partial => 'projects/approval_form', :locals => {:project => project}
