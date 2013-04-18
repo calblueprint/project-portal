@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class PhotoUploader < CarrierWave::Uploader::Base
+  include CarrierWave::RMagick
+
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -24,7 +26,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   def default_url
      "default_img.png"
   end
-
+  process :resize_to_fit => [200, nil]
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   #
