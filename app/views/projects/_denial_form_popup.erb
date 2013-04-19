@@ -1,7 +1,9 @@
 <div id="approval-form" class="modal hide" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><%= "Reason for Declining: #{project.title}" %></h3>
+    <h3 id="myModalLabel">
+      <%= "Reason for Declining: #{project.title}" %>
+    </h3>
   </div>
   <div class="modal-body">
     <%= simple_form_for project do |f| %>
