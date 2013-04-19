@@ -1,13 +1,13 @@
-<div id="denial-form-popup" class="modal hide" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="approval-form-popup" class="modal hide" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">
-      <%= "Reason for Declining: #{project.title}" %>
+      <%= "Comments: #{project.title}" %>
     </h3>
   </div>
   <div class="modal-body">
     <%= simple_form_for project do |f| %>
-    <%= f.hidden_field :approved, value: false %>
+    <%= f.hidden_field :approved, value: true %>
     <%= f.input :comment, label: false, as: :text, :input_html => {:rows => 6} %>
   </div>
   <div class="modal-footer">

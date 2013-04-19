@@ -2,12 +2,10 @@
   .approval-buttons
     .float-left
       -if project.approved == false or project.approved == nil
-        = simple_form_for project do |f|
-          =f.hidden_field :approved, value: true
-          =f.button :submit, "Approve", class: 'btn btn-success'
+        %a.btn.btn-success{"data-toggle" => "modal", :href => "#denial-form-popup", :role => "button"} Approve
     .float-left 
       -if project.approved == true or project.approved == nil
-        %a.btn.btn-danger{"data-toggle" => "modal", :href => "#approval-form", :role => "button"} Decline
+        %a.btn.btn-danger{"data-toggle" => "modal", :href => "#denial-form-popup", :role => "button"} Decline
     .float-left
       %h4.details-title
         -if project.approved == true
@@ -17,5 +15,5 @@
         -else
           Project has not be approved
       
-
 =render :partial => 'projects/denial_form_popup', :locals => {:project => project}
+=render :partial => 'projects/approval_form_popup', :locals => {:project => project}
