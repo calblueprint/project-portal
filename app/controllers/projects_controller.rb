@@ -17,18 +17,9 @@ class ProjectsController < ApplicationController
     end
     @title = "All Projects"
   end
-  
-  def paginate
-    if current_user and current_user.admin?
-      @projects = Project.paginate(:page => params[:page], :per_page => 15)
-    else
-      @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
-    end
-    render :layout => false  
-  end
 
   def search
-    @projects = Project.search(params, current_user.admin?)
+    @projects = Project.search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
     @title = "Search Results"
     @prev_search = params
     render :index
