@@ -45,6 +45,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     @project["user_id"] = current_user.id
+    @questions = Question.current_questions
     if @project.save
       redirect_to @project, notice: 'Project was successfully created.' 
     else
