@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  
+
   def show
     @project = Project.find(params[:id])
 
@@ -11,18 +11,26 @@ class ProjectsController < ApplicationController
 
   def index 
     if current_user and current_user.admin?
-      @all_projects = Project.find(:all)
+      @projects = Project.paginate(:page => params[:page], :per_page => 15)
     else
-      @all_projects = Project.where(:approved => true)
+      @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
     end
     @title = "All Projects"
   end
+  
+  def paginate
+    if current_user and current_user.admin?
+      @projects = Project.paginate(:page => params[:page], :per_page => 15)
+    else
+      @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
+    end
+    render :layout => false  
+  end
 
   def search
-    @all_projects = Project.search(params, current_user.admin?)
+    @projects = Project.search(params, current_user.admin?)
     @title = "Search Results"
     @prev_search = params
-    p @prev_search
     render :index
   end
 
