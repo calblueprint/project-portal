@@ -1,5 +1,6 @@
 class Issue < ActiveRecord::Base
   belongs_to :project
+  has_many :tags
   attr_accessible :description, :resolved, :title
 
   validates :title, :presence => true,

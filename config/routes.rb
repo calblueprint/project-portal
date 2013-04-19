@@ -1,4 +1,5 @@
 ProjectPortal::Application.routes.draw do
+  get 'search' => "projects#search", :as => :search
   resources :questions
 
   resources :projects do
@@ -17,9 +18,13 @@ ProjectPortal::Application.routes.draw do
   match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
   get "user/show"
   get "user/settings"
+  get "user/admin_dashboard"
   match 'dashboard' => 'user#show', :as => :dashboard
 
   match 'projects/:id/favorite' => 'projects#favorite', :as => :add_favorite
+
+  match 'admins/manage' => 'user#add_admin', :as => :add_admin
+  match 'admins/remove/:id' => 'user#remove_admin', :as => :remove_admin
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_filter :authorize_user
   
   def index
-    @questions = Question.all
+    @questions = Question.current_questions
   end
 
   def show
@@ -39,15 +39,9 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
-    redirect_to questions_url
+    @question.deleted = true
+    @question.save
+    redirect_to session[:return_to]
   end
   
-  private
-  def authorize_user
-    unless current_user.admin?
-      flash[:error] = "You do not have permissions to perform that action"
-      redirect_to "/dashboard"
-    end
-  end
 end

@@ -1,5 +1,5 @@
-<p>Welcome <%= @resource.email %>!</p>
+<p>Welcome to Project Portal, <%= @resource.fname %> <%= @resource.lname %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Please click on the link below to confirm your account email:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

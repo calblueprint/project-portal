@@ -6,21 +6,28 @@ class ProjectsController < ApplicationController
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
-
-    # if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
-    #   @canEdit = false 
-    # else
-    #   @canEdit = true 
-    # end
   end
 
   def index 
-    #@all_projects = Project.where(:approved => true)
-    @all_projects = Project.find(:all)
+    if current_user and current_user.admin?
+      @all_projects = Project.find(:all)
+    else
+      @all_projects = Project.where(:approved => true)
+    end
+    @title = "All Projects"
+  end
+
+  def search
+    @all_projects = Project.search(params, current_user.admin?)
+    @title = "Search Results"
+    @prev_search = params
+    p @prev_search
+    render :index
   end
 
   def new
     @project = Project.new
+    @questions = Question.current_questions
   end
 
   def edit
@@ -28,6 +35,7 @@ class ProjectsController < ApplicationController
     if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
+    @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
   end
   
   def user_edit
@@ -48,13 +56,22 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       if @project.update_attributes(params[:project])
-        redirect_to @project, notice: 'Project was successfully updated.' 
+        if not params[:project][:approved].nil?
+          if params[:project][:approved] == "true"
+            UserMailer.project_approved(@project).deliver
+          else
+            UserMailer.project_denied(@project).deliver
+          end
+        else
+          flash[:notice] = "Project was successfully updated."
+        end
+        redirect_to @project 
       else
         render action: "edit" 
       end
-      else
+    else
         redirect_to @project, notice: 'You do not have permission to edit this project.'
-    end
+    end 
   end
 
   def favorite
