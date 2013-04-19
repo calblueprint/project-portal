@@ -15,6 +15,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'rmagick', '2.13.1'
 end
 
 # Gems used only for assets and not required
@@ -63,4 +64,5 @@ gem 'carrierwave'
 gem 'friendly_id'
 gem 'populator'
 gem 'faker'
-gem 'rmagick', '2.13.1'
+
+
