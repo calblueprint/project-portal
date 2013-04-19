@@ -64,5 +64,5 @@ gem 'carrierwave'
 gem 'friendly_id'
 gem 'populator'
 gem 'faker'
-
-
+gem 'rmagick', '2.13.1'
+gem 'will_paginate', '~> 3.0'
