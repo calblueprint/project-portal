@@ -58,10 +58,10 @@ class ProjectsController < ApplicationController
     if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       if @project.update_attributes(params[:project])
         if not params[:project][:approved].nil?
+          comment = params[:project][:comment]
           if params[:project][:approved] == "true"
-            UserMailer.project_approved(@project).deliver
+            UserMailer.project_approved(@project, comment).deliver
           else
-            comment = params[:project][:comment]
             UserMailer.project_denied(@project, comment).deliver
           end
         else

@@ -1,5 +1,4 @@
 %div#search-projs
-  %h3 Search Projects
   = form_tag(search_path, :method => 'get') do
     = label_tag :search_string, 'Search:'
     = text_field_tag :search_string, (prev_search['search_string'] if prev_search)
