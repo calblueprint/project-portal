@@ -2,7 +2,7 @@
   .approval-buttons
     .float-left
       -if project.approved == false or project.approved == nil
-        %a.btn.btn-success{"data-toggle" => "modal", :href => "#denial-form-popup", :role => "button"} Approve
+        %a.btn.btn-success{"data-toggle" => "modal", :href => "#approval-form-popup", :role => "button"} Approve
     .float-left 
       -if project.approved == true or project.approved == nil
         %a.btn.btn-danger{"data-toggle" => "modal", :href => "#denial-form-popup", :role => "button"} Decline
