@@ -2,7 +2,9 @@
   Dear #{@user.fname} #{@user.lname},
 
 %p
-  Thank you for submitting your project, #{@project.title}, to Project Portal. Unfortunally your project was not accepted. If you would like to discuss why and how you should resubmit your project, please contact us at support@projectportal.com. We welcome you to submit another project in the near future.
+  Thank you for submitting your project, #{@project.title}, to Project Portal. Unfortunally your project was not accepted for the following reasons: #{@comment} 
+  
+If you would like to discuss why and how you should resubmit your project, please contact us at support@projectportal.com. We welcome you to submit another project in the near future.
 
 %p
   Sincerely,
