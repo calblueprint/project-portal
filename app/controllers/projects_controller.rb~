@@ -6,6 +6,9 @@ class ProjectsController < ApplicationController
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
+
+    @favorite = @project.users.find(current_user) # FIXME
+
   end
 
   def index 
@@ -45,6 +48,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     @project["user_id"] = current_user.id
+    @questions = Question.current_questions
     if @project.save
       redirect_to @project, notice: 'Project was successfully created.' 
     else
