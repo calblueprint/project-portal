@@ -1,5 +1,5 @@
 %h1= "#{@title}"
-- if @all_projects
+- if @projects
   =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
   %ul.nav.nav-tabs#proj-tab
     %li.active
@@ -7,10 +7,6 @@
     %li
       %a{:href => "#compact-proj-view", "data-toggle" => "tab"}Compact View
   %div#proj-content.tab-content
-    %div.tab-pane.active#full-proj-view
-      - @all_projects.each do |p| 
-        =render :partial=>"shared/project_card", :locals => {:project => p}
-    %div.tab-pane#compact-proj-view
-      - @all_projects.each do |p|
-        =render :partial=>"shared/project_compact", :locals => {:project => p}
+    =render :partial => "project_list"
 
+/=will_paginate @projects
