@@ -8,7 +8,6 @@ class ProjectsController < ApplicationController
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
 
     @favorite = @project.users.find(current_user) # FIXME
-    @idkwtfbbq = ProjectsUsers.find(:all)
 
   end
 
