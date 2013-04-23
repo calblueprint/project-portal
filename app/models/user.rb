@@ -10,5 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_many :projects, :dependent => :destroy
-  has_and_belongs_to_many :projects
+  has_many :favorites, :dependent => :destroy
+  has_many :favorite_projects, :through => :favorites, :source => :project
+  #has_and_belongs_to_many :favorite_projects, :class_name => "Project"
 end

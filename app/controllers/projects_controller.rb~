@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
 
-    @favorite = @project.users.find(current_user) # FIXME
+    #@favorite = current_user.favorites # FIXME
 
   end
 
@@ -80,7 +80,8 @@ class ProjectsController < ApplicationController
 
   def favorite
     @project = Project.find(params[:id])
-    @project.users << current_user
+    #@project.users << current_user
+    current_user.favorites.create :project => @project.id
     redirect_to project_path(@project)
   end
 

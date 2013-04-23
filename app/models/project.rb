@@ -4,7 +4,9 @@ class Project < ActiveRecord::Base
     
   belongs_to :user
   has_many :issues
-  has_and_belongs_to_many :users
+  has_many   :favorites, :dependent => :destroy
+  has_many   :favorited, :through => :favorites, :source => :user
+  has_and_belongs_to_many :favorite_users, :class_name => "User"
   
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo, :company_name, :approved
