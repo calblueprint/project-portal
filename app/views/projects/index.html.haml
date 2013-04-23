@@ -8,6 +8,8 @@
         %i.icon-th-list
       %a.btn.btn-small#compact-proj-btn{:href => "#compact-proj-view", 'data-toggle' => 'tab'}
         %i.icon-list
+      %a.btn.btn-small#compact-proj-btn{:href => "#square-proj-view", 'data-toggle' => 'tab'}
+        %i.icon-th-large
   %div#proj-content.tab-content
     %div.tab-pane.active#full-proj-view
       - @all_projects.each do |p| 
@@ -15,3 +17,6 @@
     %div.tab-pane#compact-proj-view
       - @all_projects.each do |p|
         =render :partial=>"shared/project_compact", :locals => {:project => p}
+    %div.tab-pane#square-proj-view.row
+      - @all_projects.each do |p|
+        =render :partial=>"shared/project_square", :locals => {:project => p}
