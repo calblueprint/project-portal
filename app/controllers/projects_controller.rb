@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  
+
   def show
     @project = Project.find(params[:id])
 
@@ -10,18 +10,17 @@ class ProjectsController < ApplicationController
 
   def index 
     if current_user and current_user.admin?
-      @all_projects = Project.find(:all)
+      @projects = Project.paginate(:page => params[:page], :per_page => 15)
     else
-      @all_projects = Project.where(:approved => true)
+      @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
     end
     @title = "All Projects"
   end
 
   def search
-    @all_projects = Project.search(params, current_user.admin?)
+    @projects = Project.search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
     @title = "Search Results"
     @prev_search = params
-    p @prev_search
     render :index
   end
 
@@ -58,10 +57,11 @@ class ProjectsController < ApplicationController
     if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       if @project.update_attributes(params[:project])
         if not params[:project][:approved].nil?
+          comment = params[:project][:comment]
           if params[:project][:approved] == "true"
-            UserMailer.project_approved(@project).deliver
+            UserMailer.project_approved(@project, comment).deliver
           else
-            UserMailer.project_denied(@project).deliver
+            UserMailer.project_denied(@project, comment).deliver
           end
         else
           flash[:notice] = "Project was successfully updated."

@@ -7,7 +7,10 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :users
   
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, :contact_hours, :photo, :company_name, :approved
+  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
+  :contact_hours, :photo, :company_name, :approved, :comment
+  
+  attr_accessor :comment
   
   validates :title, :company_site, :company_address, :company_name,
   :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
