@@ -1,14 +1,14 @@
 .row-fluid
-  #project-card.span12
+  .project-card.span12
     -if project.user_id
       #project-user-edit
-        =link_to user_edit_project_path(project) do
-          %i.icon-edit
+        - if defined? user_edit and user_edit
+          =link_to user_edit_project_path(project) do
+            %i.icon-edit
     .content
       .span2
         .img-polaroid
           =image_tag project.photo_url.to_s
-          /Placeholder need to change to actual project.photo.url or something like that
         .edit-options
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =link_to "Modify Project Details", edit_project_path(project)
