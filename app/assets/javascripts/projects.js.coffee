@@ -8,4 +8,13 @@ $("#proj-tab a").click (e) ->
 
 $("#proj-tab a:first").tab "show"
 
+checkScrollCallback = (data) ->
+  full = $(data).find('#full-proj-view')
+  $('#full-proj-view').append(full)
+  compact = $(data).find('#compact-proj-view')
+  $('#compact-proj-view').append(compact)
+  square = $(data).find('#square-proj-view').html()
+  $('#square-proj-view').append(square)
 
+$(document).ready ->
+  checkScroll(checkScrollCallback)

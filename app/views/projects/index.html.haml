@@ -1,6 +1,6 @@
 
 %h1= "#{@title}"
-- if @all_projects
+- if @projects
   =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
   .btn-toolbar
     .btn-group#proj-tab{"data-toggle" => "buttons-radio"}
@@ -12,11 +12,13 @@
         %i.icon-th-large
   %div#proj-content.tab-content
     %div.tab-pane.active#full-proj-view
-      - @all_projects.each do |p| 
+      - @projects.each do |p| 
         =render :partial=>"shared/project_card", :locals => {:project => p}
     %div.tab-pane#compact-proj-view
-      - @all_projects.each do |p|
+      - @projects.each do |p|
         =render :partial=>"shared/project_compact", :locals => {:project => p}
-    %div.tab-pane#square-proj-view.row
-      - @all_projects.each do |p|
+    .tab-pane#square-proj-view.row
+      - @projects.each do |p|
         =render :partial=>"shared/project_square", :locals => {:project => p}
+
+

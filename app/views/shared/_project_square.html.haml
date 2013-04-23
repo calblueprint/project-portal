@@ -1,12 +1,12 @@
-.project-square.span3
-  .row-fluid
-    .span12
-      %p.project-square-title
-        =link_to project.title, project_path(project)
+.project-square.span3a
   .row-fluid
     .span10.offset1
       .img-polaroid
         =image_tag project.photo_url.to_s
+  .row-fluid
+    .span12
+      %p.project-square-title
+        =link_to project.title, project_path(project)
   .row-fluid
     %p
       %b
