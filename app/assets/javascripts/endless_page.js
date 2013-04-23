@@ -4,7 +4,7 @@ function checkScroll(callback) {
   if (nearBottomOfPage()) {
     currentPage++;
     $.ajax({
-      url: window.location.pathname + "?page=" + currentPage,
+      url: window.location.pathname +  window.location.search + "?page=" + currentPage,
       dataType: "html",
       success: function(data){
         if(data){
