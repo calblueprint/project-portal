@@ -13,6 +13,8 @@ checkScrollCallback = (data) ->
   $('#full-proj-view').append(full)
   compact = $(data).find('#compact-proj-view')
   $('#compact-proj-view').append(compact)
+  square = $(data).find('#square-proj-view').html()
+  $('#square-proj-view').append(square)
 
 $(document).ready ->
   checkScroll(checkScrollCallback)

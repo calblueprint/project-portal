@@ -1,7 +1,7 @@
 %p#notice
 -if user_signed_in? and current_user.admin?
   =render :partial => 'project_approval_form', :locals => {:project => @project}
-=render :partial => 'shared/project_card', :locals => {:project => @project}
+=render :partial => 'shared/project_card', :locals => {:project => @project, :user_edit => true}
 =# render :inline, :controller => "issues", :action => "index"
 .row-fluid
   .span4

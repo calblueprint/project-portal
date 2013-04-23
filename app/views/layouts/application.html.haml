@@ -13,10 +13,10 @@
         %div.container
           %a{:class=>"brand", :href=>root_path}= "Project Portal"
           %ul.nav
-            %li= link_to "My Dashboard", dashboard_path
+            %li= link_to "Dashboard", dashboard_path
             %li= link_to "Projects", projects_path
-            %li= link_to "Search Issues", issues_path
-            %li= link_to "Submit A Project", new_project_path 
+            %li= link_to "Issues", issues_path
+            %li= link_to "Propose A Project", new_project_path 
           %ul{:class=>"nav pull-right"}
             - if user_signed_in?
               %li.dropdown
