@@ -81,7 +81,7 @@ class ProjectsController < ApplicationController
   def favorite
     @project = Project.find(params[:id])
     #@project.users << current_user
-    current_user.favorites.create :project => @project.id
+    current_user.favorites.create :project => @project
     redirect_to project_path(@project)
   end
 
