@@ -1,14 +1,14 @@
 .row-fluid
   .project-card.span12
     .content
-    .span10
       %p.project-title
         =link_to project.title, project_path(project)
-      %br
-        .row-fluid
-          .span6
-            %p
-              %b
-                ="#{t(:organization)}:"
-              =project.company_name
-            %p
+        (#{project.company_name}) -  
+        #{project.mission_statement}
+        .tags
+          -if project.nonprofit
+            %a.btn.btn-mini.btn-success.disabled
+              Nonprofit
+          -if project.five_01c3
+            %a.btn.btn-mini.btn-warning.disabled
+              501(c)3
