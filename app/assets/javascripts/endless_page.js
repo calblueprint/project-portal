@@ -1,10 +1,13 @@
 var currentPage = 1;
 
 function checkScroll(callback) {
+  path = window.location.pathname + window.location.search;
+  path = path + ((path.indexOf('?') == -1) ? '?page=' : '&page=');
+  console.log(path);
   if (nearBottomOfPage()) {
     currentPage++;
     $.ajax({
-      url: window.location.pathname +  window.location.search + "&page=" + currentPage,
+      url: path + currentPage,
       dataType: "html",
       success: function(data){
         if(data && data != false){
