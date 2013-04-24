@@ -3,7 +3,7 @@ class Question < ActiveRecord::Base
   
   
   def self.current_questions
-    Question.where(:deleted => [nil, false])
+    Question.where(:deleted => [nil, false, 'f'])
   end
   
   # Creates virtual attributes for all questions for a Project instance
