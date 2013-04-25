@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+    unless (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
     @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
@@ -54,30 +54,36 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
-      if @project.update_attributes(params[:project])
-        if not params[:project][:approved].nil?
-          comment = params[:project][:comment]
-          if params[:project][:approved] == "true"
-            UserMailer.project_approved(@project, comment).deliver
-          else
-            UserMailer.project_denied(@project, comment).deliver
-          end
-        else
-          flash[:notice] = "Project was successfully updated."
-        end
-        redirect_to @project 
-      else
-        render action: "edit" 
-      end
-    else
-        redirect_to @project, notice: 'You do not have permission to edit this project.'
-    end 
+    unless user_can_update(@project)
+      return redirect_to @project, notice: 'You do not have permission to edit this project.'
+    end
+    if @project.update_attributes(params[:project])
+      approve_deny_project(@project)
+    end
+      respond_with(@project)
   end
 
   def destroy
     @project = Project.find(params[:id])
     @project.destroy
+  end
+  
+  
+  private
+  def approve_deny_project(project)
+    if params[:project][:approved].nil?
+      return flash[:notice] = "Project was successfully updated."
+    end
+    comment = params[:project][:comment]
+    if params[:project][:approved] == "true"
+      UserMailer.project_approved(project, comment).deliver
+    else
+      UserMailer.project_denied(project, comment).deliver
+    end
+  end
+  
+  def user_can_update(project)
+    user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
   end
 
 end

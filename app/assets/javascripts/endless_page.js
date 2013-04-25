@@ -36,7 +36,6 @@ function checkScrollTimeout(callback, time) {
   }, time)
 }
 
-
 function allowScroll() {
   return !($('#allow-endless-scroll') == null || $('#allow-endless-scroll').length == 0)
 }
