@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
       @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
     end
     @title = "All Projects"
-    render :nothing => true if @projects.blank?
+    render :nothing => true if @projects.blank? and params[:page].to_i > 1
   end
 
   def search
