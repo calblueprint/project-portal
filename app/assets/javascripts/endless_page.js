@@ -1,7 +1,7 @@
 var currentPage = 1;
 
 function checkScroll(callback) {
-  if (nearBottomOfPage()) {
+  if (nearBottomOfPage() && allowScroll()) {
     currentPage++;
     $.ajax({
       url: window.location.pathname + "?page=" + currentPage,
@@ -34,4 +34,9 @@ function checkScrollTimeout(callback, time) {
   setTimeout(function() {
     checkScroll(callback)
   }, time)
+}
+
+
+function allowScroll() {
+  return !($('#allow-endless-scroll') == null || $('#allow-endless-scroll').length == 0)
 }
