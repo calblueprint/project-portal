@@ -3,14 +3,14 @@ class ProjectsController < ApplicationController
   
   def show
     @project = Project.find(params[:id])
-    @can_edit = true
+    @can_edit = user_signed_in?
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
   end
 
   def index 
-    if current_user and current_user.admin?
+    if is_admin
       @projects = Project.paginate(:page => params[:page], :per_page => 15)
     else
       @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    unless (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+    unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
     @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
