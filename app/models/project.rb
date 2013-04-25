@@ -1,4 +1,9 @@
 class Project < ActiveRecord::Base
+
+  # class constants, integer so as to allow for more states in the future
+  UNFINISHED = 1
+  FINISHED = 2
+  
   extend FriendlyId
   friendly_id :title, use: :slugged
     
