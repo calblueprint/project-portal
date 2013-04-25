@@ -60,7 +60,10 @@ class ProjectsController < ApplicationController
     if @project.update_attributes(params[:project])
       approve_deny_project(@project)
     end
-      respond_with(@project)
+    respond_to do |format|
+      format.html { redirect_to(@project, :notice => 'User was successfully updated.') }
+      format.json { respond_with_bip(@project) }
+    end
   end
 
   def destroy

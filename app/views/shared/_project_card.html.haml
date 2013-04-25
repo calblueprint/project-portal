@@ -34,17 +34,22 @@
             %p
               %b
                 ="#{t(:github_site)}:"
-                -if @can_edit
-                  = best_in_place project, :github_site, :type => :input
-                -else
-                  =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
+              -if @can_edit
+                = best_in_place project, :github_site, :activator => "#github_site_edit"
+                %a#github_site_edit.btn-link
+                  %i.icon-pencil
+              -else
+                =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
+                
             %p
               %b
                 ="#{t(:application_site)}:"
-                -if @can_edit
-                  = best_in_place project, :application_site, :type => :input
-                -else  
-                  =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
+              -if @can_edit
+                = best_in_place project, :application_site, :activator => "#application_site_edit"
+                %a#application_site_edit.btn-link
+                  %i.icon-pencil
+              -else  
+                =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
           .span6
             %p
               %b
