@@ -3,11 +3,13 @@
     = label_tag :search_string, 'Search:'
     = text_field_tag :search_string, (prev_search['search_string'] if prev_search)
     .checkbox.inline= label_tag :nonprofit, 'Nonprofit'
-    = check_box_tag 'nonprofit', {:id => :nonprofit }, (prev_search['nonprofit'] if prev_search)
+    = check_box_tag 'nonprofit', nil, (prev_search['nonprofit'] if prev_search)
     .checkbox.inline= label_tag :five_01c3, '501(c)3'
-    = check_box_tag 'five_01c3', {:id => :five_01c3 }, (prev_search['five_01c3'] if prev_search)
+    = check_box_tag 'five_01c3', nil, (prev_search['five_01c3'] if prev_search)
     .checkbox.inline= label_tag :nonprofit, 'For profit'
-    = check_box_tag 'forprofit', {:id => :forprofit }, (prev_search['forprofit'] if prev_search)
+    = check_box_tag 'forprofit', nil, (prev_search['forprofit'] if prev_search)
+    .checkbox.inline= label_tag :state, 'Maintenance Projects'
+    = check_box_tag 'state', nil, (prev_search['state'] if prev_search)
     %button.btn.btn-primary{:type => "submit"} Search
   = form_tag(projects_path, :method => 'get') do
     %button.btn{:type => "submit"} Clear
