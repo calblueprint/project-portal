@@ -12,7 +12,7 @@ class Project < ActiveRecord::Base
   
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
-  :contact_hours, :photo, :company_name, :approved, :comment
+  :contact_hours, :photo, :company_name, :approved, :comment, :state
   
   attr_accessor :comment
   
@@ -78,6 +78,10 @@ class Project < ActiveRecord::Base
     project = Project.arel_table
     where(project[:title].matches("%#{search}%").or(project[:company_name].matches("%#{search}%"))) if search
   }
+  
+  scope :is_finished, lambda { |is_finished|
+    where(:state => Project::FINISHED) if is_finished
+  }
 
   def self.search(params, admin)
     if admin
@@ -85,12 +89,14 @@ class Project < ActiveRecord::Base
       .is_five_01c3(params.has_key?('five_01c3'))
       .is_forprofit(params.has_key?('forprofit'))
       .by_title_organization(params['search_string'])
+      .is_finished(params['state'])
     else
       Project.where(:approved => true)
       .is_nonprofit(params.has_key?('nonprofit'))
       .is_five_01c3(params.has_key?('five_01c3'))
       .is_forprofit(params.has_key?('forprofit'))
       .by_title_organization(params['search_string'])
+      .is_finished(params['state'])
     end
   end
 
