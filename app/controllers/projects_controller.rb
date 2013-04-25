@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
       @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
     end
     @title = "All Projects"
-    render :nothing => true if @projects.blank?
+    render :nothing => true if @projects.blank? and params[:page].to_i > 1 
   end
 
   def search
@@ -41,6 +41,7 @@ class ProjectsController < ApplicationController
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
     @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
+    @questions = Question.current_questions if @questions.blank?
   end
   
   def user_edit
