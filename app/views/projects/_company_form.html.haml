@@ -15,9 +15,10 @@
     =f.input :company_site, label: "Organization's Website"
     .inline.form-inline
       =f.input :nonprofit
-      =f.input :five_01c3
+      =f.input :five_01c3, label: "501(c)3"
     =f.input :company_address, label: "Organization's Address"
     =f.input :mission_statement, label: "Mission Statement", as: :text, :input_html => {:rows => 6}
+    =f.input :state, label: "Project Type", as: :select, default: Project::UNFINISHED, collection: [['New Project', Project::UNFINISHED], ['Finished Project', Project::FINISHED]]
   .hero-section
     %h4.details-title
       ="#{t(:contact)}"
