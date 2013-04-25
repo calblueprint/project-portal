@@ -1,24 +1,22 @@
-
 %h1= "#{@title}"
-- if @projects
-  =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
-  .btn-toolbar
-    .btn-group#proj-tab{"data-toggle" => "buttons-radio"}
-      %a.btn.btn-small.active#full-proj-btn{:href => "#full-proj-view", 'data-toggle' => 'tab'}
-        %i.icon-th-list
-      %a.btn.btn-small#compact-proj-btn{:href => "#compact-proj-view", 'data-toggle' => 'tab'}
-        %i.icon-list
-      %a.btn.btn-small#compact-proj-btn{:href => "#square-proj-view", 'data-toggle' => 'tab'}
-        %i.icon-th-large
-  %div#proj-content.tab-content
-    %div.tab-pane.active#full-proj-view
-      - @projects.each do |p| 
-        =render :partial=>"shared/project_card", :locals => {:project => p}
-    %div.tab-pane#compact-proj-view
-      - @projects.each do |p|
-        =render :partial=>"shared/project_compact", :locals => {:project => p}
-    .tab-pane#square-proj-view.row
-      - @projects.each do |p|
-        =render :partial=>"shared/project_square", :locals => {:project => p}
+=render :partial=>"search_form", :locals => {:prev_search => @prev_search}
+.btn-toolbar
+  .btn-group#proj-tab{"data-toggle" => "buttons-radio"}
+    %a.btn.btn-small.active#full-proj-btn{:href => "#full-proj-view", 'data-toggle' => 'tab'}
+      %i.icon-th-list
+    %a.btn.btn-small#compact-proj-btn{:href => "#compact-proj-view", 'data-toggle' => 'tab'}
+      %i.icon-list
+    %a.btn.btn-small#compact-proj-btn{:href => "#square-proj-view", 'data-toggle' => 'tab'}
+      %i.icon-th-large
+%div#proj-content.tab-content
+  %div.tab-pane.active#full-proj-view
+    - @projects.each do |p| 
+      =render :partial=>"shared/project_card", :locals => {:project => p}
+  %div.tab-pane#compact-proj-view
+    - @projects.each do |p|
+      =render :partial=>"shared/project_compact", :locals => {:project => p}
+  .tab-pane#square-proj-view.row
+    - @projects.each do |p|
+      =render :partial=>"shared/project_square", :locals => {:project => p}
 
 
