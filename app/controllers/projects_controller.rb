@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
@@ -15,13 +14,19 @@ class ProjectsController < ApplicationController
       @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
     end
     @title = "All Projects"
+    render :nothing => true if @projects.blank?
   end
 
   def search
-    @projects = Project.search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
+    @projects = Project.search(params, current_user.admin?)
+    @projects = @projects.paginate(:page => params[:page], :per_page => 15)
     @title = "Search Results"
     @prev_search = params
-    render :index
+    if @projects.blank? and params[:page].to_i > 1
+      render :nothing => true
+    else
+      render :index
+    end
   end
 
   def new
