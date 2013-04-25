@@ -8,9 +8,9 @@ class UserController < ApplicationController
   end
   
   def admin_dashboard
-    @questions = Question.all
-    @unapproved_projects = Project.unapproved_projects
-    @denied_projects = Project.denied_projects
+    @questions = Question.current_questions
+    @unapproved_projects = Project.unapproved_projects.paginate(:page => params[:page], :per_page => 5)
+    @denied_projects = Project.denied_projects.paginate(:page => params[:page], :per_page => 5)
     @emails = []
     users = User.connection.select_all("SELECT email,fname,lname FROM users")
     users.each do |u|
