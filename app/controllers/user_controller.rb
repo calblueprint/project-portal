@@ -3,6 +3,7 @@ class UserController < ApplicationController
     if user_signed_in?
       @projects = Project.find_all_by_user_id(current_user.id)
       @favorites = current_user.favorite_projects
+      #=f.title
     else
       redirect_to new_user_session_path, notice: 'Please log in to view your dashboard.'
     end
