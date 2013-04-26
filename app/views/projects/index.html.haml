@@ -13,13 +13,10 @@
 
 %div#proj-content.tab-content
   %div.tab-pane.active#full-proj-view
-    - @projects.each do |p| 
-      =render :partial=>"shared/project_card", :locals => {:project => p}
+    =render(:partial => 'shared/project_card', :collection => @projects)
   %div.tab-pane#compact-proj-view
-    - @projects.each do |p|
-      =render :partial=>"shared/project_compact", :locals => {:project => p}
+    =render(:partial => 'shared/project_compact', :collection => @projects)
   .tab-pane#square-proj-view.row
-    - @projects.each do |p|
-      =render :partial=>"shared/project_square", :locals => {:project => p}
+    =render(:partial => 'shared/project_square', :collection => @projects)
 
 
