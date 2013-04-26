@@ -1,14 +1,16 @@
 class ProjectsController < ApplicationController
-
+  respond_to :html, :json
+  
   def show
     @project = Project.find(params[:id])
+    @can_edit = user_signed_in?
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
   end
 
   def index 
-    if current_user and current_user.admin?
+    if is_admin
       @projects = Project.paginate(:page => params[:page], :per_page => 15)
     else
       @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
@@ -36,7 +38,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    if not (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+    unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
     @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
@@ -59,30 +61,39 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    if user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
-      if @project.update_attributes(params[:project])
-        if not params[:project][:approved].nil?
-          comment = params[:project][:comment]
-          if params[:project][:approved] == "true"
-            UserMailer.project_approved(@project, comment).deliver
-          else
-            UserMailer.project_denied(@project, comment).deliver
-          end
-        else
-          flash[:notice] = "Project was successfully updated."
-        end
-        redirect_to @project 
-      else
-        render action: "edit" 
-      end
-    else
-        redirect_to @project, notice: 'You do not have permission to edit this project.'
-    end 
+    unless user_can_update(@project)
+      return redirect_to @project, notice: 'You do not have permission to edit this project.'
+    end
+    if @project.update_attributes(params[:project])
+      approve_deny_project(@project)
+    end
+    respond_to do |format|
+      format.html { redirect_to(@project, :notice => 'User was successfully updated.') }
+      format.json { respond_with_bip(@project) }
+    end
   end
 
   def destroy
     @project = Project.find(params[:id])
     @project.destroy
+  end
+  
+  
+  private
+  def approve_deny_project(project)
+    if params[:project][:approved].nil?
+      return flash[:notice] = "Project was successfully updated."
+    end
+    comment = params[:project][:comment]
+    if params[:project][:approved] == "true"
+      UserMailer.project_approved(project, comment).deliver
+    else
+      UserMailer.project_denied(project, comment).deliver
+    end
+  end
+  
+  def user_can_update(project)
+    user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
   end
 
 end
