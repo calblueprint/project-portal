@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130415150350) do
+ActiveRecord::Schema.define(:version => 20130425030132) do
 
   create_table "all_tags", :force => true do |t|
     t.string   "tag"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20130415150350) do
     t.string   "slug"
     t.string   "company_name"
     t.boolean  "approved"
+    t.integer  "state"
   end
 
   create_table "questions", :force => true do |t|
