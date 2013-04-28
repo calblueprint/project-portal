@@ -4,8 +4,8 @@
     %a{:class=>"btn btn-primary", :href=>"#"} Search
 %div{:id => "search-issues-box", :style => "display: none"}
   = form_tag issues_path(), :method => "get" do
-    = render 'search_form'
-    = submit_tag 'Begin Search'
+    =# render 'search_form'
+    =# submit_tag 'Begin Search'
 - @openIssues.each do |issue|
   #issue
     .row-fluid
@@ -17,10 +17,5 @@
           .description-all= issue.description
       %p
         %a.pull-right.view-btn-all{:class => "btn", :href => project_issue_path(issue.project_id,issue.id) } View
-    %br
-    .row-fluid
-      .tags
-        %b.p Tags:
-        = printTags(issue)
 =render :partial => 'shared/pagination'
 
