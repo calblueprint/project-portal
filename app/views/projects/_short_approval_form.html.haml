@@ -1,9 +1,11 @@
 #short-approval-buttons
   -if project.approved.nil?
-    -if project.approved == false or project.approved == nil
+    -if current_user.admin?
       %a.btn.btn-success.btn-mini{"data-toggle" => "modal", :href => "#approval-form-popup-#{project.slug}", :role => "button"} Approve
-    -if project.approved == true or project.approved == nil
       %a.btn.btn-danger.btn-mini{"data-toggle" => "modal", :href => "#denial-form-popup-#{project.slug}", :role => "button"} Decline
+    -else
+      %h5
+        Unapproved
   -elsif project.approved == true
     %h5.green
       Approved
