@@ -82,6 +82,8 @@ class ProjectsController < ApplicationController
   private
   def approve_deny_project(project)
     if params[:project][:approved].nil?
+      project.approved = nil if project.approved == false
+      project.save
       return flash[:notice] = "Project was successfully updated."
     end
     comment = params[:project][:comment]
