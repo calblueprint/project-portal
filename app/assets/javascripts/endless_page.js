@@ -3,7 +3,7 @@ var currentPage = 1;
 function checkScroll(callback) {
   path = window.location.pathname + window.location.search;
   path = path + ((path.indexOf('?') == -1) ? '?page=' : '&page=');
-  if (nearBottomOfPage()) {
+  if (nearBottomOfPage() && allowScroll()) {
     currentPage++;
     $.ajax({
       url: path + currentPage,
@@ -36,4 +36,8 @@ function checkScrollTimeout(callback, time) {
   setTimeout(function() {
     checkScroll(callback)
   }, time)
+}
+
+function allowScroll() {
+  return !($('#allow-endless-scroll') == null || $('#allow-endless-scroll').length == 0)
 }
