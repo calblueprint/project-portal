@@ -28,6 +28,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    #@questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
     @questions = Question.current_questions
   end
 
@@ -44,6 +45,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    @questions = Question.current_questions
     @project = Project.new(params[:project])
     @project["user_id"] = current_user.id
     if @project.save
