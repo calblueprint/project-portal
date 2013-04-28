@@ -10,9 +10,15 @@ class IssuesController < ApplicationController
       @page = Integer(params[:pageNum])
     end
 
-    #retrieve issues that need to be displayed according to search params
-    @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
-    count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
+    if params[:search_string].nil?
+      #retrieve issues that need to be displayed according to search params
+      @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+      count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
+    else
+      @openIssues = Issue.search(params[:search_string]).find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
+      count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
+    end
+
 
     #set up range for pagination
     @start = @page - 2
