@@ -1,0 +1,6 @@
+.comment1
+  %hr
+  = link_to "×", delete_comment_path(comment), :remote => true, :disable_with => "×", :class => 'close'
+  %h4
+    = comment.user.fname
+  %p= auto_link(comment.body, :link => :urls)
