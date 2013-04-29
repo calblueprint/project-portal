@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   def show
     if user_signed_in?
-      @projects = Project.find_all_by_user_id(current_user.id)
+      @projects = Project.order("created_at DESC").find_all_by_user_id(current_user.id)
     else
       redirect_to new_user_session_path, notice: 'Please log in to view your dashboard.'
     end
@@ -9,8 +9,8 @@ class UserController < ApplicationController
   
   def admin_dashboard
     @questions = Question.current_questions
-    @unapproved_projects = Project.unapproved_projects.paginate(:page => params[:page], :per_page => 5)
-    @denied_projects = Project.denied_projects.paginate(:page => params[:page], :per_page => 5)
+    @unapproved_projects = Project.order("created_at DESC").unapproved_projects.paginate(:page => params[:page], :per_page => 5)
+    @denied_projects = Project.order("created_at DESC").denied_projects.paginate(:page => params[:page], :per_page => 5)
     @emails = []
     users = User.connection.select_all("SELECT email,fname,lname FROM users")
     users.each do |u|

@@ -9,20 +9,20 @@ class ProjectsController < ApplicationController
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
 
     @comments = @project.root_comments
-    @new_comment = Comment.build_from(@project, current_user.id, "")
+    @new_comment = Comment.build_from(@project, current_user.id, "") if user_signed_in?
   end
 
   def index 
     if is_admin
-      @projects = Project.paginate(:page => params[:page], :per_page => 15)
+      @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
     else
-      @projects = Project.where(:approved => true).paginate(:page => params[:page], :per_page => 15)
+      @projects = Project.where(:approved => true).order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
     end
     @title = "All Projects"
   end
 
   def search
-    @projects = Project.search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
+    @projects = Project.order("created_at DESC").search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
     @title = "Search Results"
     @prev_search = params
     render :index
@@ -63,13 +63,22 @@ class ProjectsController < ApplicationController
     unless user_can_update(@project)
       return redirect_to @project, notice: 'You do not have permission to edit this project.'
     end
-    if @project.update_attributes(params[:project])
-      approve_deny_project(@project)
-      return redirect_to session[:return_to], :notice => "Project Successfully #{params[:project][:approved] == "true" ? "Approved" : "Denied"}"
-    end
     respond_to do |format|
-      format.html { redirect_to(@project, :notice => 'User was successfully updated.') }
-      format.json { respond_with_bip(@project) }
+      #HTML
+      format.html do 
+        if @project.update_attributes(params[:project])
+          approve_deny_project(@project)
+        else
+          @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
+          @questions = Question.current_questions if @questions.blank?
+          render action: "edit"
+        end
+      end
+      #JSON
+      format.json do
+        @project.update_attributes(params[:project])
+        respond_with_bip(@project) 
+      end
     end
   end
 
@@ -98,21 +107,25 @@ class ProjectsController < ApplicationController
     end
   end
 
-
-
   private
   def approve_deny_project(project)
     if params[:project][:approved].nil?
-      project.approved = nil if project.approved == false
-      project.save
-      return flash[:notice] = "Project was successfully updated."
+      # check if resubmitting a denied project
+      if project.approved == false
+        project.approved = nil 
+        project.save
+      end
+      return redirect_to(@project, :notice => "Project was successfully updated.") 
     end
     comment = params[:project][:comment]
     if params[:project][:approved] == "true"
+      flash[:notice] = "Project: '#{@project.title}' was successfully approved."
       UserMailer.project_approved(project, comment).deliver
     else
       UserMailer.project_denied(project, comment).deliver
+      flash[:notice] = "Project: '#{@project.title}' was successfully denied."
     end
+    redirect_to session[:return_to]
   end
   
   def user_can_update(project)
