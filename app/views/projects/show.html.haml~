@@ -10,4 +10,5 @@
     =render :partial => 'shared/project_contact', :locals => {:project => @project}
   .span8
     =render :partial => 'shared/project_questions', :locals => {:project => @project}
-  = link_to "Favorite", add_favorite_path(@project)
+  = link_to "Favorite", add_favorite_path(@project) #test
+  = link_to "Unfavorite", add_unfavorite_path(@project) #test
