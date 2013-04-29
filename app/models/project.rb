@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  acts_as_commentable
 
   # class constants, integer so as to allow for more states in the future
   UNFINISHED = 1

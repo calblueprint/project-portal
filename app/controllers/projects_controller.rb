@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
 
+    @comments = @project.root_comments
+    @new_comment = Comment.build_from(@project, current_user.id, "")
   end
 
   def index 
@@ -75,8 +77,29 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @project.destroy
   end
-  
-  
+
+  #to control comments
+  def comment
+    @project = Project.find(params[:id])
+    @comment = Comment.build_from(@project, current_user.id, params[:comment][:body])
+    if @comment.save
+      render :partial => 'shared/project_comments', :locals => {:comment => @comment}, :layout => false, :status => :created
+    else
+      redirect_to @project, notice: 'Comment failed.' 
+    end
+  end
+
+  def delete_comment
+    @comment = Comment.find(params[:id])
+    if @comment.destroy
+      render :json => @comment, :status => :ok
+    else
+      redirect_to @project, notice: 'Deletion of Comment Failed.' 
+    end
+  end
+
+
+
   private
   def approve_deny_project(project)
     if params[:project][:approved].nil?
