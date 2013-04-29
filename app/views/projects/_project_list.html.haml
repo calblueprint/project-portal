@@ -1,6 +1,0 @@
-%div.tab-pane.active#full-proj-view
-  - @projects.each do |p| 
-    =render :partial=>"shared/project_card", :locals => {:project => p}
-%div.tab-pane#compact-proj-view
-  - @projects.each do |p|
-    =render :partial=>"shared/project_compact", :locals => {:project => p}
