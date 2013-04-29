@@ -64,14 +64,24 @@ class ProjectsController < ApplicationController
     unless user_can_update(@project)
       return redirect_to @project, notice: 'You do not have permission to edit this project.'
     end
-    if @project.update_attributes(params[:project])
-    end
+
     respond_to do |format|
+      #HTML
       format.html do 
-        approve_deny_project(@project)
-        redirect_to(@project, :notice => 'Project was successfully updated.') 
+        if @project.update_attributes(params[:project])
+          approve_deny_project(@project)
+          redirect_to(@project, :notice => 'Project was successfully updated.') 
+        else
+          @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
+          @questions = Question.current_questions if @questions.blank?
+          render action: "edit"
+        end
       end
-      format.json { respond_with_bip(@project) }
+      #JSON
+      format.json do
+        @project.update_attributes(params[:project])
+        respond_with_bip(@project) 
+      end
     end
   end
 
