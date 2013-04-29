@@ -65,10 +65,12 @@ class ProjectsController < ApplicationController
       return redirect_to @project, notice: 'You do not have permission to edit this project.'
     end
     if @project.update_attributes(params[:project])
-      approve_deny_project(@project)
     end
     respond_to do |format|
-      format.html { redirect_to(@project, :notice => 'User was successfully updated.') }
+      format.html do 
+        approve_deny_project(@project)
+        redirect_to(@project, :notice => 'Project was successfully updated.') 
+      end
       format.json { respond_with_bip(@project) }
     end
   end
