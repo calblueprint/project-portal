@@ -16,6 +16,7 @@
         ="Resources"
       .comments
         .comment-form
-          =render :partial => 'shared/comment', :locals => { :comment => @new_comment }
+          -if user_signed_in?
+            =render :partial => 'shared/comment', :locals => { :comment => @new_comment }
         =render :partial => 'shared/project_comments', :collection => @comments, :as => :comment
         =#render :partial => 'shared/project_comments', :locals => { :comments => @comments }

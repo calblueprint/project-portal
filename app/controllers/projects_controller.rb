@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
 
     @comments = @project.root_comments
-    @new_comment = Comment.build_from(@project, current_user.id, "")
+    @new_comment = Comment.build_from(@project, current_user.id, "") if user_signed_in?
   end
 
   def index 
