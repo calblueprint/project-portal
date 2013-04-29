@@ -6,4 +6,5 @@
 %h1= "Favorited Projects"
 - if @favorites
   - @favorites.each do |f|
+    =#f.title
     =render :partial=>"shared/project_card", :locals => {:project => f}

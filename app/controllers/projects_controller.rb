@@ -5,6 +5,9 @@ class ProjectsController < ApplicationController
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
+
+    #@favorite = current_user.favorites # FIXME
+
   end
 
   def index 
@@ -82,7 +85,14 @@ class ProjectsController < ApplicationController
 
   def favorite
     @project = Project.find(params[:id])
-    @project.users << current_user
+    current_user.favorites.create :project => @project
+    redirect_to project_path(@project)
+  end
+
+  def unfavorite
+    @project = Project.find(params[:id])
+    @favoritedproject = Favorite.where("project_id = ? AND user_id = ?", @project.id, current_user).limit(1)
+    current_user.favorites.delete(@favoritedproject)
     redirect_to project_path(@project)
   end
 

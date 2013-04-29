@@ -21,15 +21,11 @@ ProjectPortal::Application.routes.draw do
   get "user/admin_dashboard"
   match 'dashboard' => 'user#show', :as => :dashboard
 
-<<<<<<< HEAD
   match 'projects/:id/favorite' => 'projects#favorite', :as => :add_favorite
 
-=======
   match 'admins/manage' => 'user#add_admin', :as => :add_admin
   match 'admins/remove/:id' => 'user#remove_admin', :as => :remove_admin
 
-  
->>>>>>> cb8547092730ade1fc3b656919d41f055c1a52c2
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
