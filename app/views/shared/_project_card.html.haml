@@ -1,10 +1,6 @@
+-project ||= project_card
 .row-fluid
-  .project-card.span12
-    -if project.user_id
-      #project-user-edit
-        - if defined? user_edit and user_edit
-          =link_to user_edit_project_path(project) do
-            %i.icon-edit
+  .project-card.hero-section.span12
     .content
       .span2
         .img-polaroid
@@ -12,7 +8,7 @@
         .edit-options
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =link_to "Modify Project Details", edit_project_path(project)
-          - if user_signed_in? and current_user.admin?
+          - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =render :partial => 'projects/short_approval_form', :locals => {:project => project}
       .span10
         .project-title
@@ -25,20 +21,32 @@
             %p 
               %b
                 ="#{t(:organization)}:"
-              -if project.company_site
-                =link_to(project.company_name, url_with_http(project.company_site), :target => "_blank")
-              -else
-                =project.company_name
+              =project.company_name
             %p
               %b
-                ="#{t(:application_site)}:"
-              =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
+                ="#{t(:company_site)}:"
+              =link_to(project.company_site, url_with_http(project.company_site), :target => "_blank")
           .span6
             %p
               %b
                 ="#{t(:github_site)}:"
-              =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
-               
+              -if @can_edit
+                = best_in_place project, :github_site, :activator => "#github_site_edit"
+                %a#github_site_edit.btn-link
+                  %i.icon-pencil
+              -else
+                =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
+                
+            %p
+              %b
+                ="#{t(:application_site)}:"
+              -if @can_edit
+                = best_in_place project, :application_site, :activator => "#application_site_edit"
+                %a#application_site_edit.btn-link
+                  %i.icon-pencil
+              -else  
+                =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
+                 
           .mission-statement
             .span12
               %p

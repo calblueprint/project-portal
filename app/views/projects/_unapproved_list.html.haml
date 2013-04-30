@@ -4,10 +4,12 @@
   No Unapproved Projects
 -unapproved_projects.each do |p| 
   =render :partial=>"shared/project_card", :locals => {:project => p}
-
+=will_paginate unapproved_projects
+  
 %h4.details-title
   Denied Projects
 -if denied_projects.empty?
   No Denied Projects
 -denied_projects.each do |p| 
   =render :partial=>"shared/project_card", :locals => {:project => p}
+=will_paginate denied_projects

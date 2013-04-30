@@ -9,5 +9,14 @@
   .span8
     =render :partial => 'shared/project_contact', :locals => {:project => @project}
   .span8
-    =render :partial => 'shared/project_questions', :locals => {:project => @project}
- 
+    =render :partial => 'shared/project_questions', :locals => {:project => @project}  
+  .span8
+    .hero-section
+      %h4.details-title
+        ="Resources"
+      .comments
+        .comment-form
+          -if user_signed_in?
+            =render :partial => 'shared/comment', :locals => { :comment => @new_comment }
+        =render :partial => 'shared/project_comments', :collection => @comments, :as => :comment
+        =#render :partial => 'shared/project_comments', :locals => { :comments => @comments }
