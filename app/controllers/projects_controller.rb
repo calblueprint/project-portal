@@ -73,6 +73,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+  end
+
   def favorite
     @project = Project.find(params[:id])
     current_user.favorites.create :project => @project
@@ -84,11 +89,6 @@ class ProjectsController < ApplicationController
     @favoritedproject = Favorite.where("project_id = ? AND user_id = ?", @project.id, current_user).limit(1)
     current_user.favorites.delete(@favoritedproject)
     redirect_to project_path(@project)
-  end
-
-  def destroy
-    @project = Project.find(params[:id])
-    @project.destroy
   end
 
   #to control comments
