@@ -10,6 +10,10 @@
             =link_to "Modify Project Details", edit_project_path(project)
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =render :partial => 'projects/short_approval_form', :locals => {:project => project}
+          - if user_signed_in? and project.approved and project.state == Project::UNFINISHED and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
+            %a.btn.btn-primary.btn-small{"data-toggle" => "modal", :href => "#submit-form-popup-#{project.slug}", :role => "button"} Submit
+      
+      
       .span10
         %p.project-title
           =link_to project.title, project_path(project)
@@ -56,6 +60,8 @@
               %b
                 ="#{t(:mission_statement)}:"
               =project.mission_statement
+        
                 
+=render :partial => 'projects/submit_form_popup', :locals => {:project => project}
 
 
