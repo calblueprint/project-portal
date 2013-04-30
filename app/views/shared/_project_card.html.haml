@@ -15,31 +15,20 @@
           - if user_signed_in? and current_user.admin?
             =render :partial => 'projects/short_approval_form', :locals => {:project => project}
       .span10
-        %p.project-title
+        .project-title
           =link_to project.title, project_path(project)
-        %br
+        =render :partial=>"shared/project_tags", :locals => {:project => project}
+
+        
         .row-fluid
           .span6
             %p 
               %b
                 ="#{t(:organization)}:"
-              =project.company_name
-            %p
-              %b
-                ="#{t(:nonprofit)}:"
-              =yes_no(project.nonprofit)
-            %p
-              %b
-                ="#{t(:five_01c3)}:"
-              =yes_no(project.five_01c3)
-            %p
-              %b
-                ="#{t(:company_site)}:"
-              =link_to(project.company_site, url_with_http(project.company_site), :target => "_blank")
-            %p
-              %b
-                ="#{t(:github_site)}:"
-              =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
+              -if project.company_site
+                =link_to(project.company_name, url_with_http(project.company_site), :target => "_blank")
+              -else
+                =project.company_name
             %p
               %b
                 ="#{t(:application_site)}:"
@@ -47,8 +36,14 @@
           .span6
             %p
               %b
-                ="#{t(:mission_statement)}:"
-              =project.mission_statement
-                
+                ="#{t(:github_site)}:"
+              =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
+               
+          .mission-statement
+            .span12
+              %p
+                %b
+                  ="#{t(:mission_statement)}:"
+                =project.mission_statement
 
 

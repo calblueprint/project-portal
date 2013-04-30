@@ -2,16 +2,20 @@
 $max_height: 150px
 
 .project-title 
-  font-size: 28px
-  line-height: 28px
+  font-size: 140%
+  line-height: 120% 
 
 .project-card
   @extend .hero-unit
   padding: 20px
-  line-height: 14px
+  line-height: 100%
   margin-bottom: 10px
   img
     max-height: $max_height
+  .project-title
+    display: inline
+  .mission-statement
+    margin-left: 0
 
 .project-square
   @extend .hero-unit
@@ -109,12 +113,20 @@ $max_height: 150px
 #compact-proj-view
   .project-title
     font-size: 65%
-    line-height: 140%
     margin-top: 10px
-  .btn
-    text-transform: uppercase
   .project-card
-    padding: 5px 0
+    padding: 13px 0
+    line-height: 120%
   .content
     margin: 0 17px
- 
+  .btn
+    margin-bottom: 0
+
+.tags
+  margin-left: 10px
+  .btn
+    text-transform: uppercase
+    margin-bottom: 12px
+  display: inline-block
+  
+
