@@ -1,7 +1,7 @@
 %p#notice
 -if user_signed_in? and current_user.admin?
   =render :partial => 'project_approval_form', :locals => {:project => @project}
-=render :partial => 'shared/project_card', :locals => {:project => @project}
+=render :partial => 'shared/project_card', :locals => {:project => @project, :user_edit => true}
 =# render :inline, :controller => "issues", :action => "index"
 .row-fluid
   .span4
@@ -10,5 +10,15 @@
     =render :partial => 'shared/project_contact', :locals => {:project => @project}
   .span8
     =render :partial => 'shared/project_questions', :locals => {:project => @project}
-    =#button_to "Favorite", add_favorite_path(@project) #test
-    =#button_to "Unfavorite", remove_favorite_path(@project) #test
+    =button_to "Favorite", add_favorite_path(@project) #test
+    =button_to "Unfavorite", remove_favorite_path(@project) #test
+  .span8
+    .hero-section.resources
+      %h4.details-title
+        ="Resources"
+      .comments
+        .comment-form
+          =render :partial => 'shared/comment', :locals => { :comment => @new_comment }
+        =render :partial => 'shared/project_comments', :collection => @comments, :as => :comment
+        =#render :partial => 'shared/project_comments', :locals => { :comments => @comments }
+>>>>>>> upstream/master

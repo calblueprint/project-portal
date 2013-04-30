@@ -1,11 +1,9 @@
--@availableTags.each do |tagName|
-  -if params[:tags] == nil
-    = check_box :tags, tagName.tag, :style => "float:left;"
-    = label :tags, tagName.tag, "#{tagName.tag}"
-  -else
-    -if params[:tags][tagName.tag] == "1"
-      = check_box :tags, tagName.tag, :checked => true, :style => "float:left;"
-      = label :tags, tagName.tag, "#{tagName.tag}"
-    -else
-      = check_box :tags, tagName.tag, :style => "float:left;"
-      = label :tags, tagName.tag, "#{tagName.tag}"
+%div#search-projs
+  = form_tag(issues_path, :method => 'get') do
+    = label_tag :search_string, 'Search:'
+    = text_field_tag :search_string, (prev_search['search_string'] if prev_search)
+    %button.btn.btn-primary{:type => "submit"} Search
+  = form_tag(issues_path, :method => 'get') do
+    %button.btn{:type => "submit"} Clear
+
+    

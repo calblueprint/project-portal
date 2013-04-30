@@ -12,3 +12,12 @@
     =render :partial => 'shared/project_questions', :locals => {:project => @project}
     =button_to "Favorite", add_favorite_path(@project) #test
     =button_to "Unfavorite", remove_favorite_path(@project) #test
+  .span8
+    .hero-section.resources
+      %h4.details-title
+        ="Resources"
+      .comments
+        .comment-form
+          =render :partial => 'shared/comment', :locals => { :comment => @new_comment }
+        =render :partial => 'shared/project_comments', :collection => @comments, :as => :comment
+        =#render :partial => 'shared/project_comments', :locals => { :comments => @comments }

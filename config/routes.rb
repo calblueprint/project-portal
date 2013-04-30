@@ -27,6 +27,10 @@ ProjectPortal::Application.routes.draw do
   match 'admins/manage' => 'user#add_admin', :as => :add_admin
   match 'admins/remove/:id' => 'user#remove_admin', :as => :remove_admin
 
+  match 'projects/:id/comment' => 'projects#comment', :as => :comment
+  match 'projects/:id/delete_comment' => 'projects#delete_comment', :as => :delete_comment
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

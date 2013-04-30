@@ -7,3 +7,4 @@
 - if @favorites
   - @favorites.each do |f|
     =render :partial=>"shared/project_card", :locals => {:project => f}
+    =render :partial => "shared/project_card", :collection => @projects
