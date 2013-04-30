@@ -20,13 +20,17 @@ $max_height: 150px
 .project-square
   @extend .hero-unit
   padding: 15px
-  font-size: 12px
-  height: 30em
+  .mission-statement 
+    font-size: 69%
+  height: 21em
   overflow: hidden
   .img-polaroid
     margin-bottom: 15px
   img
     max-height: $max_height
+  .tags 
+    margin-left: 0
+    display: block
     
 
 .span3a
@@ -48,6 +52,8 @@ $max_height: 150px
 #project-user-edit:hover
   cursor: pointer
   color: #333333
+
+  
 
 #project-issues
   @extend .hero-unit
@@ -129,4 +135,6 @@ $max_height: 150px
     margin-bottom: 12px
   display: inline-block
   
-
+#full-proj-view
+  .project-title
+    line-height: 160% 
