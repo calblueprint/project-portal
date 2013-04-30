@@ -41,6 +41,8 @@ class IssuesController < ApplicationController
     #check if you can edit the issue
     @project = Project.find(params[:project_id])
     @canEdit = isOwner(@project)
+    #where to redirect to
+    session[:return_to] ||= request.referer
   end
 
   def new

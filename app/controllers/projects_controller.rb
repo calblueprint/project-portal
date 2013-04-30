@@ -22,7 +22,11 @@ class ProjectsController < ApplicationController
   end
 
   def search
-    @projects = Project.order("created_at DESC").search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
+    if current_user != nil
+      @projects = Project.order("created_at DESC").search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
+    else
+      @projects = Project.order("created_at DESC").search(params, false).paginate(:page => params[:page], :per_page => 15)
+    end
     @title = "Search Results"
     @prev_search = params
     render :index
