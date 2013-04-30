@@ -7,7 +7,6 @@ class ProjectsController < ApplicationController
     @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
-
     @comments = @project.root_comments
     @new_comment = Comment.build_from(@project, current_user.id, "") if user_signed_in?
   end
@@ -50,6 +49,7 @@ class ProjectsController < ApplicationController
     @questions = Question.current_questions
     @project = Project.new(params[:project])
     @project["user_id"] = current_user.id
+    @questions = Question.current_questions
     if @project.save
       redirect_to @project, notice: 'Project was successfully created.' 
     else
@@ -85,6 +85,19 @@ class ProjectsController < ApplicationController
   def destroy
     @project = Project.find(params[:id])
     @project.destroy
+  end
+
+  def favorite
+    @project = Project.find(params[:id])
+    current_user.favorites.create :project => @project
+    redirect_to project_path(@project)
+  end
+
+  def unfavorite
+    @project = Project.find(params[:id])
+    @favoritedproject = Favorite.where("project_id = ? AND user_id = ?", @project.id, current_user).limit(1)
+    current_user.favorites.delete(@favoritedproject)
+    redirect_to project_path(@project)
   end
 
   #to control comments
