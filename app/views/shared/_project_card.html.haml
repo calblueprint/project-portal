@@ -11,9 +11,11 @@
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =render :partial => 'projects/short_approval_form', :locals => {:project => project}
       .span10
-        %p.project-title
+        .project-title
           =link_to project.title, project_path(project)
-        %br
+        =render :partial=>"shared/project_tags", :locals => {:project => project}
+
+        
         .row-fluid
           .span6
             %p 
@@ -22,16 +24,9 @@
               =project.company_name
             %p
               %b
-                ="#{t(:nonprofit)}:"
-              =yes_no(project.nonprofit)
-            %p
-              %b
-                ="#{t(:five_01c3)}:"
-              =yes_no(project.five_01c3)
-            %p
-              %b
                 ="#{t(:company_site)}:"
               =link_to(project.company_site, url_with_http(project.company_site), :target => "_blank")
+          .span6
             %p
               %b
                 ="#{t(:github_site)}:"
@@ -51,15 +46,17 @@
                   %i.icon-pencil
               -else  
                 =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
-          .span6
-            %p
-              %b
-                ="#{t(:mission_statement)}:"
-              =project.mission_statement
-            -if isFav(project.id) == true
-              =link_to raw('<i class="icon-star"></i>'), remove_favorite_path(project), :class => "btn" #test
-            -else
-              =link_to raw('<i class="icon-star-empty"></i>'), add_favorite_path(project), :class => "btn" #test
+                 
+          .mission-statement
+            .span12
+              %p
+                %b
+                  ="#{t(:mission_statement)}:"
+                =project.mission_statement
+              -if isFav(project.id) == true
+                =link_to raw('<i class="icon-star"></i>'), remove_favorite_path(project), :class => "btn" #test
+              -else
+                =link_to raw('<i class="icon-star-empty"></i>'), add_favorite_path(project), :class => "btn" #test
                 
 
 

@@ -2,24 +2,44 @@
 $max_height: 150px
 
 .project-title 
-  font-size: 28px
-  line-height: 28px
+  font-size: 140%
+  line-height: 120% 
 
 .project-card
-  line-height: 14px
+  @extend .hero-unit
+  padding: 20px
+  line-height: 100%
+  margin-bottom: 10px
   img
     max-height: $max_height
-
+  .project-title
+    display: inline
+  .mission-statement
+    margin-left: 0
+  .best_in_place
+    input
+      margin: 0 0 0 10px
+      padding: 5px 8px 3px 8px
+      font-size: 90%
+      height: 1.25em
+      width: 15em
+      border: none 
+      background-color: transparent
+      border-bottom: 1px dotted #ccc
+      
 .project-square
   padding: 15px
-  font-size: 12px
-  height: 30em
+  .mission-statement 
+    font-size: 69%
+  height: 21em
   overflow: hidden
   .img-polaroid
     margin-bottom: 15px
   img
     max-height: $max_height
-
+  .tags 
+    margin-left: 0
+     
 .span3a
   width: 190px
 
@@ -40,6 +60,8 @@ $max_height: 150px
   cursor: pointer
   color: #333333
 
+  
+
 #project-issues
   @extend .hero-unit
   padding: 20px
@@ -59,12 +81,24 @@ $max_height: 150px
   border: 1px solid #ddd
   margin-bottom: 10px
   padding: 10px
+  label
+    font-size: 12px
+    margin-bottom: 2px
+  .search-lbl
+    margin-left: 20px
+    font-size: 20px
   -webkit-border-radius: 4px
   -moz-border-radius: 4px
   order-radius: 4px
+  input 
+    margin: 0 0 0 20px
+  #search-btn
+    margin: 2px 0 0 20px
   form
     display: inline
-  
+  .checkbox.inline
+    padding-left: 3px
+
 #error_explanation
   @extend .alert
   @extend .alert-error
@@ -90,7 +124,28 @@ $max_height: 150px
   width: 100%
   padding: 0
 
+#compact-proj-view
+  .project-title
+    font-size: 65%
+    margin-top: 10px
+  .project-card
+    padding: 13px 0
+    line-height: 120%
+  .content
+    margin: 0 17px
+  .btn
+    margin-bottom: 0
+  .tags 
+    display: inline-block
+    margin-left: 10px
 
-
-
-
+.tags
+  .btn
+    text-transform: uppercase
+    margin-bottom: 12px
+  
+#full-proj-view
+  .project-title
+    line-height: 160% 
+  .tags 
+    display: inline-block
