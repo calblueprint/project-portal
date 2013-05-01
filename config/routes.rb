@@ -24,6 +24,7 @@ ProjectPortal::Application.routes.draw do
   match 'projects/:id/favorite' => 'projects#favorite', :as => :add_favorite
   match 'projects/:id/unfavorite' => 'projects#unfavorite', :as => :remove_favorite
   match 'projects/approval/:id' => 'projects#approval', :as => :approval
+  match 'projects/public_edit/:id' => 'projects#public_edit', :as => :public_edit
   
   match 'admins/manage' => 'user#add_admin', :as => :add_admin
   match 'admins/remove/:id' => 'user#remove_admin', :as => :remove_admin

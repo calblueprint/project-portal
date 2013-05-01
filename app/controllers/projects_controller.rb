@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   respond_to :html, :json
+  
   def show
     @project = Project.find(params[:id])
     @can_edit = user_signed_in?
@@ -28,22 +29,18 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    #@questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
     @questions = Question.current_questions
   end
 
   def edit
     @project = Project.find(params[:id])
     permission_to_update(@project)
-    #unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
-    #  redirect_to @project, notice: 'You do not have permission to edit this project.' 
-    #end
-    @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
+    @questions = @project.project_questions
   end
   
   def user_edit
     @project = Project.find(params[:id])
-  end
+  end #TODO remove this crap
 
   def create
     @questions = Question.current_questions
@@ -61,31 +58,33 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     permission_to_update(@project)
-    respond_to do |format|
-      #HTML
-      format.html do 
-        if @project.update_attributes(params[:project])
-          approve_deny_project(@project)
-        else
-          @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
-          @questions = Question.current_questions if @questions.blank?
-          render action: "edit"
-        end
+    if @project.update_attributes(params[:project])
+      if @project.approved == false # check if resubmitting a denied project
+        @project.approved = nil 
+        @project.save
       end
-      #JSON
-      format.json do
-        @project.update_attributes(params[:project])
-        respond_with_bip(@project) 
-      end
+      redirect_to(@project, :notice => "Project was successfully updated.") 
+    else
+      @questions = @project.project_questions
+      render action: "edit"
     end
   end
   
   def approval
     @project = Project.find(params[:id])
     permission_to_update(@project)
-    
+    if current_user.admin? and @project.update_attributes(params[:project], :as => :admin)
+      approve_deny_project(@project)
+    end
+    redirect_to session[:return_to]
   end
 
+  def public_edit
+    @project = Project.find(params[:id])
+    @project.update_attributes(params[:project])
+    respond_with_bip(@project)
+  end
+  
   def destroy
     @project = Project.find(params[:id])
     @project.destroy
@@ -128,23 +127,14 @@ class ProjectsController < ApplicationController
 
   private
   def approve_deny_project(project)
-    if params[:project][:approved].nil?
-      # check if resubmitting a denied project
-      if project.approved == false
-        project.approved = nil 
-        project.save
-      end
-      return redirect_to(@project, :notice => "Project was successfully updated.") 
-    end
     comment = params[:project][:comment]
     if params[:project][:approved] == "true"
-      flash[:notice] = "Project: '#{@project.title}' was successfully approved."
+      flash[:notice] = "Project: '#{project.title}' was successfully approved."
       UserMailer.project_approved(project, comment).deliver
     else
       UserMailer.project_denied(project, comment).deliver
-      flash[:notice] = "Project: '#{@project.title}' was successfully denied."
+      flash[:notice] = "Project: '#{project.title}' was successfully denied."
     end
-    redirect_to session[:return_to]
   end
   
   private

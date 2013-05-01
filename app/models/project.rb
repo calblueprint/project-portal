@@ -16,7 +16,7 @@ class Project < ActiveRecord::Base
   
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
-  :contact_hours, :photo, :company_name, :comment, :state
+  :contact_hours, :photo, :company_name, :comment, :state, :as => [ :default, :admin ]
   attr_accessible :approved, :as => :admin
   attr_accessor :comment
   
@@ -41,11 +41,13 @@ class Project < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
   
   def merge_questions
-    questions = {}
-    Question.all.each do |q|
-      questions[Project.question_key(q)] = self.send(Project.question_key(q))
+    updated_questions = questions.blank? ? {} : questions
+    project_questions.each do |q|
+      question_key = Project.question_key(q)
+      question = self.send(question_key)
+      updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
     end
-    self.questions = questions
+    self.questions = updated_questions
   end
 
   scope :by_title, lambda { |search_string|
@@ -102,6 +104,12 @@ class Project < ActiveRecord::Base
       .by_title_organization(params['search_string'])
       .is_finished(params['state'])
     end
+  end
+  
+  def project_questions
+    project_questions = Question.where(:id => questions.map { |q| Project.get_question_id(q)}) unless questions.blank?
+    project_questions = Question.current_questions if project_questions.blank?
+    project_questions
   end
 
   # Class Methods for questions as virtual attributes

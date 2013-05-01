@@ -36,7 +36,7 @@
               %b
                 ="#{t(:github_site)}:"
               -if @can_edit
-                = best_in_place project, :github_site, :activator => "#github_site_edit"
+                = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit"
                 %a#github_site_edit.btn-link
                   %i.icon-pencil
               -else
@@ -46,7 +46,7 @@
               %b
                 ="#{t(:application_site)}:"
               -if @can_edit
-                = best_in_place project, :application_site, :activator => "#application_site_edit"
+                = best_in_place project, :application_site, :path => public_edit_path(project), :activator => "#application_site_edit"
                 %a#application_site_edit.btn-link
                   %i.icon-pencil
               -else  
