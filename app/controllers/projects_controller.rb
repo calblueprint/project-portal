@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   respond_to :html, :json
-  
   def show
     @project = Project.find(params[:id])
     @can_edit = user_signed_in?
@@ -35,9 +34,10 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
-      redirect_to @project, notice: 'You do not have permission to edit this project.' 
-    end
+    permission_to_update(@project)
+    #unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+    #  redirect_to @project, notice: 'You do not have permission to edit this project.' 
+    #end
     @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
   end
   
@@ -60,9 +60,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    unless user_can_update(@project)
-      return redirect_to @project, notice: 'You do not have permission to edit this project.'
-    end
+    permission_to_update(@project)
     respond_to do |format|
       #HTML
       format.html do 
@@ -80,6 +78,12 @@ class ProjectsController < ApplicationController
         respond_with_bip(@project) 
       end
     end
+  end
+  
+  def approval
+    @project = Project.find(params[:id])
+    permission_to_update(@project)
+    
   end
 
   def destroy
@@ -107,7 +111,8 @@ class ProjectsController < ApplicationController
     if @comment.save
       render :partial => 'shared/project_comments', :locals => {:comment => @comment}, :layout => false, :status => :created
     else
-      redirect_to @project, notice: 'Comment failed.' 
+      flash[:error] = 'Comment failed.' 
+      redirect_to @project
     end
   end
 
@@ -116,7 +121,8 @@ class ProjectsController < ApplicationController
     if @comment.destroy
       render :json => @comment, :status => :ok
     else
-      redirect_to @project, notice: 'Deletion of Comment Failed.' 
+      flash[:error] = 'Deletion of Comment Failed.' 
+      redirect_to @project
     end
   end
 
@@ -141,8 +147,17 @@ class ProjectsController < ApplicationController
     redirect_to session[:return_to]
   end
   
+  private
+  
   def user_can_update(project)
     user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
+  end
+  
+  def permission_to_update(project)
+    unless user_can_update(project)
+      flash[:error] = 'Youd do not have permission to edit this project.'
+      return redirect_to project
+    end
   end
 
 end
