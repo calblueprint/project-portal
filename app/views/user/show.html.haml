@@ -1,3 +1,10 @@
 %h1= "Projects I Own"
 - if @projects
-  =render :partial => "shared/project_card", :collection => @projects
+  - @projects.each do |p|
+    =render :partial=>"shared/project_card", :locals => {:project => p}
+
+%h1= "Favorited Projects"
+- if @favorites
+  - @favorites.each do |f|
+    =render :partial=>"shared/project_card", :locals => {:project => f}
+    =render :partial => "shared/project_card", :collection => @projects
