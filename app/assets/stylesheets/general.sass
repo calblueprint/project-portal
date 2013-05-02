@@ -30,6 +30,9 @@ p, ol, ul, td
   @extend .hero-unit
   padding: 17px
   margin-bottom: 10px
+  line-height: 100%
+  .hero-unit
+    background-color: rgba(0,0,0,0)
   
 .details-title
   color: #999
@@ -53,3 +56,9 @@ p, ol, ul, td
 
 .comment-text-area
   width: 577px
+  
+#error_explanation
+  @extend .alert
+  @extend .alert-error
+  
+
