@@ -74,10 +74,13 @@ class ProjectsController < ApplicationController
       user = User.find_by_email(email)
       params[:project][:user_id] = user.id
     end
+    params[:project].delete(:project_owner)
     respond_to do |format|
       #HTML
       format.html do 
-        if @project.update_attributes(params[:project])
+        if current_user.admin? and @project.update_attributes(params[:project], :as=>:admin)
+          approve_deny_project(@project)
+        elsif @project.update_attributes(params[:project])
           approve_deny_project(@project)
         else
           @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
