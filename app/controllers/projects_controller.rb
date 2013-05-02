@@ -39,17 +39,13 @@ class ProjectsController < ApplicationController
     @emails = []
     users = User.connection.select_all("SELECT email,fname,lname FROM users")
     users.each do |u|
-      @emails.append(u['fname'] + " " + u['lname'] + " " + "(" + u['email'] + ")")
+      @emails.append("#{u['fname']} #{u['lname']} (#{u['email']})")
     end
     unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
     @user = @project.user
   end
-  
-  def user_edit
-    @project = Project.find(params[:id])
-  end #TODO remove this crap
 
   def create
     @questions = Question.current_questions
@@ -62,7 +58,6 @@ class ProjectsController < ApplicationController
       render action: "new" 
     end
   end
-
 
   def update
     @project = Project.find(params[:id])
