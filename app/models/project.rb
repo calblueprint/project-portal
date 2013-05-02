@@ -124,7 +124,7 @@ class Project < ActiveRecord::Base
   # add all Questions as virtual attributes for the Project model
   def self.virtualize_questions
     Question.all.each do |q|
-      attr_accessible question_key(q)
+      attr_accessible question_key(q), :as => [:default, :admin]
       attr_accessor question_key(q)
     end
   end
