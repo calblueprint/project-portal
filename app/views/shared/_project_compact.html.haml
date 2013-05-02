@@ -2,14 +2,9 @@
 .row-fluid
   .project-card.hero-section.span12
     .content
-    .span10
       %p.project-title
         =link_to project.title, project_path(project)
-      %br
-        .row-fluid
-          .span6
-            %p
-              %b
-                ="#{t(:organization)}:"
-              =project.company_name
-            %p
+        (#{project.company_name}) -  
+        #{project.mission_statement}
+      =render :partial=>"shared/project_tags", :locals => {:project => project}
+
