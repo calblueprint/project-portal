@@ -4,9 +4,9 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @can_edit = user_signed_in?
-    @openIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 0, @project.slug], :order => "created_at")
-    @pendingIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 1, @project.slug], :order => "created_at")
-    @resolvedIssues = Issue.find(:all, :limit => 10, :conditions => ["resolved = ? AND project_id = ?", 2, @project.slug], :order => "created_at")
+    @openIssues = Issue.find(:all, :limit => 5, :conditions => ["resolved = ? AND project_id = ?", 0, @project.id], :order => "created_at")
+    @pendingIssues = Issue.find(:all, :limit => 3, :conditions => ["resolved = ? AND project_id = ?", 1, @project.id], :order => "created_at")
+    @resolvedIssues = Issue.find(:all, :limit => 3, :conditions => ["resolved = ? AND project_id = ?", 2, @project.id], :order => "created_at")
     @comments = @project.root_comments
     @new_comment = Comment.build_from(@project, current_user.id, "") if user_signed_in?
   end
