@@ -43,3 +43,4 @@ jQuery ->
       $(this).hide('fast')
     .on "ajax:error", ".comment1", ->
       $(this).fadeTo('fast', 1)
+

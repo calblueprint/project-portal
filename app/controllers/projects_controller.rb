@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
 
   def create
     @questions = Question.current_questions
-    @project = Project.new(params[:project])
+    @project = Project.new(params[:project], :as => :owner)
     @project["user_id"] = current_user.id
     @questions = Question.current_questions
     if @project.save
@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
     if @project.approved == false
       params[:project][:approved] = nil
     end
-    if current_user.admin? and @project.update_attributes(params[:project], :as => :admin) or @project.update_attributes(params[:project])
+    if current_user.admin? and @project.update_attributes(params[:project], :as => :admin) or @project.update_attributes(params[:project], :as => :owner)
       redirect_to(@project, :notice => "Project was successfully updated.") 
     else
       @questions = @project.project_questions

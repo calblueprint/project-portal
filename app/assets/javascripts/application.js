@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= requier endless_scroll
+//= require shared
 //= require_tree .
 //= require jquery.purr
 //= require best_in_place

@@ -14,9 +14,10 @@ class Project < ActiveRecord::Base
   has_many   :favorited, :through => :favorites, :source => :user
   has_and_belongs_to_many :favorite_users, :class_name => "User"
   
-  attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
-  :contact_hours, :photo, :company_name, :comment, :state, :as => [ :default, :admin ]
+  attr_accessible :github_site, :application_site, :as => [:default, :admin, :owner]
+  attr_accessible :questions, :title, :nonprofit, :five_01c3, :company_site, :company_address, 
+  :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
+  :contact_hours, :photo, :company_name, :comment, :state, :as => [ :owner, :admin ]
   attr_accessible :approved, :as => :admin
   attr_accessor :comment
 
@@ -126,7 +127,7 @@ class Project < ActiveRecord::Base
   # add all Questions as virtual attributes for the Project model
   def self.virtualize_questions
     Question.all.each do |q|
-      attr_accessible question_key(q), :as => [:default, :admin]
+      attr_accessible question_key(q), :as => [:owner, :admin]
       attr_accessor question_key(q)
     end
   end
