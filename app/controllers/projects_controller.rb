@@ -35,10 +35,16 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+    @emails = []
+    users = User.connection.select_all("SELECT email,fname,lname FROM users")
+    users.each do |u|
+      @emails.append(u['fname'] + " " + u['lname'] + " " + "(" + u['email'] + ")")
+    end
     unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
       redirect_to @project, notice: 'You do not have permission to edit this project.' 
     end
     @questions = Question.where(:id => @project.questions.map { |q| Project.get_question_id(q)})
+    @user = @project.user
   end
   
   def user_edit
@@ -62,6 +68,11 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     unless user_can_update(@project)
       return redirect_to @project, notice: 'You do not have permission to edit this project.'
+    end
+    if params[:project][:project_owner]
+      email = /[a-zA-Z\d-_!#\$%&'*+-\/=?^_`{.|}~]+[@]{1}+[a-zA-Z\d-]+[.]{1}[a-zA-Z]+/.match(params[:project][:project_owner]).to_s
+      user = User.find_by_email(email)
+      params[:project][:user_id] = user.id
     end
     respond_to do |format|
       #HTML
