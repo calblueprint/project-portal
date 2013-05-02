@@ -16,9 +16,11 @@ class Project < ActiveRecord::Base
   
   attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
   :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
-  :contact_hours, :photo, :company_name, :approved, :comment, :state
+  :contact_hours, :photo, :company_name, :approved, :comment, :state, :as=> [:default, :admin]
   
   attr_accessor :comment
+
+  attr_accessible :user_id, :as=>:admin
   
   validates :title, :company_site, :company_address, :company_name,
   :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
@@ -116,7 +118,7 @@ class Project < ActiveRecord::Base
   # add all Questions as virtual attributes for the Project model
   def self.virtualize_questions
     Question.all.each do |q|
-      attr_accessible question_key(q)
+      attr_accessible question_key(q), :as => [:default, :admin]
       attr_accessor question_key(q)
     end
   end
