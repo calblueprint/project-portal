@@ -6,13 +6,16 @@
     -else
       %h5
         Unapproved
-  -elsif project.approved == true
+  -elsif project.approved == true and project.state == Project::UNFINISHED
     %h5.green
       Approved
-  -else
+  -elsif project.approved == true and project.state == Project::FINISHED
+    %h5.blue
+      Submitted
+  -elsif project.approved == false
     %h5.red
       Denied
-      
+  
       
 =render :partial => 'projects/denial_form_popup', :locals => {:project => project}
 =render :partial => 'projects/approval_form_popup', :locals => {:project => project}

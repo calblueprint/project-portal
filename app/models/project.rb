@@ -19,6 +19,8 @@ class Project < ActiveRecord::Base
   :contact_hours, :photo, :company_name, :comment, :state, :as => [ :default, :admin ]
   attr_accessible :approved, :as => :admin
   attr_accessor :comment
+
+  attr_accessible :user_id, :as=>:admin
   
   validates :title, :company_site, :company_address, :company_name,
   :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 

@@ -36,6 +36,15 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     permission_to_update(@project)
     @questions = @project.project_questions
+    @emails = []
+    users = User.connection.select_all("SELECT email,fname,lname FROM users")
+    users.each do |u|
+      @emails.append(u['fname'] + " " + u['lname'] + " " + "(" + u['email'] + ")")
+    end
+    unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+      redirect_to @project, notice: 'You do not have permission to edit this project.' 
+    end
+    @user = @project.user
   end
   
   def user_edit
@@ -58,11 +67,14 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     permission_to_update(@project)
-    if @project.update_attributes(params[:project])
-      if @project.approved == false # check if resubmitting a denied project
-        @project.approved = nil 
-        @project.save
-      end
+    if params[:project][:project_owner]
+      params[:project][:user_id] = get_user_id_from_email(params[:project][:project_owner])
+    end
+    params[:project].delete(:project_owner)
+    if @project.approved == false
+      params[:project][:approved] = nil
+    end
+    if current_user.admin? and @project.update_attributes(params[:project], :as => :admin) or @project.update_attributes(params[:project])
       redirect_to(@project, :notice => "Project was successfully updated.") 
     else
       @questions = @project.project_questions
@@ -148,6 +160,12 @@ class ProjectsController < ApplicationController
       flash[:error] = 'Youd do not have permission to edit this project.'
       return redirect_to project
     end
+  end
+  
+  def get_user_id_from_email(email_string)
+    email = /[a-zA-Z\d-_!#\$%&'*+-\/=?^_`{.|}~]+[@]{1}+[a-zA-Z\d-]+[.]{1}[a-zA-Z]+/.match(email_string).to_s
+    user = User.find_by_email(email)
+    user.id
   end
 
 end
