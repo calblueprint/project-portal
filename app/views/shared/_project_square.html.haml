@@ -3,7 +3,7 @@
   .row-fluid
     .span10.offset1
       .img-polaroid
-        =image_tag project.photo_url.to_s
+        =link_to(image_tag(project.photo_url.to_s), project_path(project))
   .row-fluid
     .span12
       %p.project-square-title

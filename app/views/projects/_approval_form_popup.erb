@@ -6,7 +6,7 @@
     </h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for project do |f| %>
+    <%= simple_form_for project, :url => approval_path(project) do |f| %>
     <%= f.hidden_field :approved, value: true %>
     <%= f.input :comment, label: false, as: :text, :input_html => {:rows => 6} %>
   </div>

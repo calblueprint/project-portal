@@ -14,8 +14,7 @@ ProjectPortal::Application.routes.draw do
   match 'issues/:id/resolve' => 'issues#resolve', :as => :resolve_issue
   match 'issues/:id/accept' => 'issues#accept', :as => :accept_issue
   match 'issues/:id/deny' => 'issues#deny', :as => :deny_issue
-
-  match 'projects/:id/user_edit' => 'projects#user_edit', :as => :user_edit_project
+  
   get "user/show"
   get "user/settings"
   get "user/admin_dashboard"
@@ -23,7 +22,9 @@ ProjectPortal::Application.routes.draw do
 
   match 'projects/:id/favorite' => 'projects#favorite', :as => :add_favorite
   match 'projects/:id/unfavorite' => 'projects#unfavorite', :as => :remove_favorite
-
+  match 'projects/approval/:id' => 'projects#approval', :as => :approval
+  match 'projects/public_edit/:id' => 'projects#public_edit', :as => :public_edit
+  
   match 'admins/manage' => 'user#add_admin', :as => :add_admin
   match 'admins/remove/:id' => 'user#remove_admin', :as => :remove_admin
 
