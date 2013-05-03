@@ -13,15 +13,15 @@ class ProjectsController < ApplicationController
 
   def index 
     if is_admin
-      @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
+      @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
     else
-      @projects = Project.where(:approved => true).order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
+      @projects = Project.where(:approved => true).order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
     end
     @title = "All Projects"
   end
 
   def search
-    @projects = Project.order("created_at DESC").search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
+    @projects = Project.order("created_at DESC").search(params, (user_signed_in? and current_user.admin?)).paginate(:page => params[:page], :per_page => 10)
     @title = "Search Results"
     @prev_search = params
     render :index
@@ -100,14 +100,14 @@ class ProjectsController < ApplicationController
   def favorite
     @project = Project.find(params[:id])
     current_user.favorites.create :project => @project
-    redirect_to project_path(@project)
+    redirect_to session[:return_to]
   end
 
   def unfavorite
     @project = Project.find(params[:id])
     @favoritedproject = Favorite.where("project_id = ? AND user_id = ?", @project.id, current_user).limit(1)
     current_user.favorites.delete(@favoritedproject)
-    redirect_to project_path(@project)
+    redirect_to session[:return_to]
   end
 
   #to control comments
