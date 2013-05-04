@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= requier endless_scroll
 //= require_tree .
+//= require introjs
 //= require jquery.purr
 //= require best_in_place
 //= require best_in_place.purr
