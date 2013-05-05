@@ -30,6 +30,9 @@ ProjectPortal::Application.routes.draw do
 
   match 'projects/:id/comment' => 'projects#comment', :as => :comment
   match 'projects/:id/delete_comment' => 'projects#delete_comment', :as => :delete_comment
+   
+   match 'volunteer_intro' => 'home#volunteer_intro'
+   match 'organization_intro' => 'home#organization_intro'
 
 
   # The priority is based upon order of creation:
