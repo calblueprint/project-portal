@@ -2,9 +2,10 @@
 - if @projects
   - @projects.each do |p|
     =render :partial=>"shared/project_card", :locals => {:project => p}
+  =will_paginate @projects, :param_name => 'projects_page'
 
 %h1= "Favorited Projects"
 - if @favorites
   - @favorites.each do |f|
     =render :partial=>"shared/project_card", :locals => {:project => f}
-    =render :partial => "shared/project_card", :collection => @projects
+  =will_paginate @favorites, :param_name => 'favorites_page'

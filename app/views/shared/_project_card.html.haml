@@ -4,7 +4,7 @@
     .content
       .span2
         .img-polaroid
-          =image_tag project.photo_url.to_s
+          =link_to(image_tag(project.photo_url.to_s), project_path(project))
         .edit-options
           - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             =link_to "Modify Project Details", edit_project_path(project)
@@ -35,7 +35,7 @@
               %b
                 ="#{t(:github_site)}:"
               -if @can_edit
-                = best_in_place project, :github_site, :activator => "#github_site_edit"
+                = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit"
                 %a#github_site_edit.btn-link
                   %i.icon-pencil
               -else
@@ -45,7 +45,7 @@
               %b
                 ="#{t(:application_site)}:"
               -if @can_edit
-                = best_in_place project, :application_site, :activator => "#application_site_edit"
+                = best_in_place project, :application_site, :path => public_edit_path(project), :activator => "#application_site_edit"
                 %a#application_site_edit.btn-link
                   %i.icon-pencil
               -else  

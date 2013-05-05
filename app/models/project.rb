@@ -14,10 +14,11 @@ class Project < ActiveRecord::Base
   has_many   :favorited, :through => :favorites, :source => :user
   has_and_belongs_to_many :favorite_users, :class_name => "User"
   
-  attr_accessible :questions, :title, :nonprofit, :five_01c3, :github_site, :company_site, :company_address, 
-  :application_site, :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
-  :contact_hours, :photo, :company_name, :approved, :comment, :state, :as=> [:default, :admin]
-  
+  attr_accessible :github_site, :application_site, :as => [:default, :admin, :owner]
+  attr_accessible :questions, :title, :nonprofit, :five_01c3, :company_site, :company_address, 
+  :mission_statement, :contact_name, :contact_position, :contact_email, :contact_number, 
+  :contact_hours, :photo, :company_name, :comment, :state, :as => [ :owner, :admin ]
+  attr_accessible :approved, :as => :admin
   attr_accessor :comment
 
   attr_accessible :user_id, :as=>:admin
@@ -43,11 +44,13 @@ class Project < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
   
   def merge_questions
-    questions = {}
-    Question.all.each do |q|
-      questions[Project.question_key(q)] = self.send(Project.question_key(q))
+    updated_questions = questions.blank? ? {} : questions
+    project_questions.each do |q|
+      question_key = Project.question_key(q)
+      question = self.send(question_key)
+      updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
     end
-    self.questions = questions
+    self.questions = updated_questions
   end
 
   scope :by_title, lambda { |search_string|
@@ -105,6 +108,12 @@ class Project < ActiveRecord::Base
       .is_finished(params['state'])
     end
   end
+  
+  def project_questions
+    project_questions = Question.where(:id => questions.map { |q| Project.get_question_id(q)}) unless questions.blank?
+    project_questions = Question.current_questions if project_questions.blank?
+    project_questions
+  end
 
   # Class Methods for questions as virtual attributes
   def self.question_key(q)
@@ -118,7 +127,7 @@ class Project < ActiveRecord::Base
   # add all Questions as virtual attributes for the Project model
   def self.virtualize_questions
     Question.all.each do |q|
-      attr_accessible question_key(q), :as => [:default, :admin]
+      attr_accessible question_key(q), :as => [:owner, :admin]
       attr_accessor question_key(q)
     end
   end
