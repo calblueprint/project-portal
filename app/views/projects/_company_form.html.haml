@@ -22,7 +22,7 @@
   .hero-section
     %h4.details-title
       ="#{t(:contact)}"
-    -if current_user.admin? and @project 
+    -if current_user.admin? and @project and @project.user
       =f.input :project_owner, :input_html => {:value => "#{@project.user.fname} #{@project.user.lname}", :data => {:provide=>"typeahead", :items=>"3", :source=>"#{@emails.to_json}"}}, label: "Project Owner"    
     =f.input :contact_name
     =f.input :contact_position
