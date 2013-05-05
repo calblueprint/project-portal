@@ -68,4 +68,4 @@ gem 'friendly_id'
 gem 'populator'
 gem 'faker'
 gem 'will_paginate', '~> 3.0'
-
+gem 'introjs-rails'

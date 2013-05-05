@@ -8,6 +8,8 @@
     .checkbox.inline= label_tag :five_01c3, '501(c)3'
     = check_box_tag 'forprofit', {:id => :forprofit }, (prev_search['forprofit'] if prev_search)
     .checkbox.inline= label_tag :forprofit, 'For profit'
+    = check_box_tag 'state', nil, (prev_search['state'] if prev_search)
+    .checkbox.inline= label_tag :state, 'Maintenance Projects'
     %button.btn.btn-primary.btn-small{:id=>"search-btn", :type => "submit"} Search
   = form_tag(projects_path, :method => 'get') do
     %button.btn.btn-small.btn-link{:type => "submit"} Clear    
