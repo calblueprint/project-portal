@@ -17,6 +17,8 @@
       .span10
         .project-title
           =link_to project.title, project_path(project)
+          =render :partial=>"shared/project_favorites", :locals => {:project => project}
+
         =render :partial=>"shared/project_tags", :locals => {:project => project}
 
         
@@ -56,7 +58,6 @@
                 %b
                   ="#{t(:mission_statement)}:"
                 =project.mission_statement
-                =render :partial=>"shared/project_favorites", :locals => {:project => project}
  
 =render :partial => 'projects/submit_form_popup', :locals => {:project => project}
 
