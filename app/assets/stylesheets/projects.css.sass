@@ -5,6 +5,10 @@ $max_height: 150px
   line-height: 120% 
 
 .project-card
+  .favorite-star
+    img
+      width: 25px
+      margin-bottom: 10px
   img
     max-height: $max_height
   .project-title
@@ -26,10 +30,17 @@ $max_height: 150px
   padding: 15px
   .mission-statement 
     font-size: 69%
-  height: 21em
+  height: 22em
   overflow: hidden
-  .img-polaroid
-    margin-bottom: 15px
+  .img-container
+    position: relative
+    .img-polaroid
+      margin-bottom: 15px
+    .fav-star-container
+      position: absolute
+      width: 23px
+      right: 5px
+      top: 5px
   img
     max-height: $max_height
   .tags 
@@ -111,19 +122,28 @@ $max_height: 150px
   padding: 0
 
 #compact-proj-view
+  .fav-star-container
+    position: absolute
+    height: 20px
+    top: 50%
+    margin: -10px 0 0 15px
+    .favorite-star
+      img
+        width: 20px
+  .content
+    position: relative
   .project-title
     font-size: 65%
-    margin-top: 10px
+    p
+      width: 90%
+      margin: 0 10px 0 52px
+    .tags
+      margin: 5px 0 0 52px
   .project-card
     padding: 13px 0
     line-height: 120%
-  .content
-    margin: 0 17px
   .btn
     margin-bottom: 0
-  .tags 
-    display: inline-block
-    margin-left: 10px
 
 .tags
   .btn
@@ -133,5 +153,4 @@ $max_height: 150px
 #full-proj-view
   .project-title
     line-height: 160% 
-  .tags 
-    display: inline-block
+  

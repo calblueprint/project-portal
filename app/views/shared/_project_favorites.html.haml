@@ -1,0 +1,5 @@
+-if isFav(project.id) == true
+  =link_to image_tag('favorited.png'), remove_favorite_path(project), :class => "favorite-star"
+-else 
+  =link_to image_tag('favorite.png'), add_favorite_path(project), :class => "favorite-star"
+
