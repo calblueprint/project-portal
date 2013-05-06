@@ -10,7 +10,9 @@ class CreateEmailNotifications < ActiveRecord::Migration
     end
     add_index :email_notifications, :user_id
     User.all.each do |user|
-      EmailNotification.create(:fav_projects => 'true', :proj_approval => 'true', :fav_issues => 'true', :user_id => user.id)
+      e = EmailNotification.new(:fav_projects => 'true', :proj_approval => 'true', :fav_issues => 'true')
+      e.user = user
+      e.save
     end
   end
 end
