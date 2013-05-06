@@ -14,4 +14,5 @@ class User < ActiveRecord::Base
   has_many :projects, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
   has_many :favorite_projects, :through => :favorites, :source => :project
+  has_one :email_notification, :dependent => :destroy
 end
