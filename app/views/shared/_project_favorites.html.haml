@@ -1,4 +1,5 @@
 -if isFav(project.id) == true
-  =link_to raw('<i class="icon-star"></i>'), remove_favorite_path(project), :class => "btn" #test
--else
-  =link_to raw('<i class="icon-star-empty"></i>'), add_favorite_path(project), :class => "btn" #test
+  =link_to image_tag('favorited.png'), remove_favorite_path(project), :class => "favorite-star"
+-else 
+  =link_to image_tag('favorite.png'), add_favorite_path(project), :class => "favorite-star"
+
