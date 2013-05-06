@@ -1,7 +1,11 @@
 .tags
   -if project.nonprofit
-    %a.btn.btn-mini.btn-success.disabled
+    %a.btn.btn-mini.btn-primary.disabled
       Nonprofit
   -if project.five_01c3
     %a.btn.btn-mini.btn-warning.disabled
       501(c)3
+  -if project.state == Project::UNFINISHED
+    %a.btn.btn-mini.btn-danger.disabled
+      Incomplete
+   
