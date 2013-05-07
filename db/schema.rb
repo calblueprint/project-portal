@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507195327) do
+ActiveRecord::Schema.define(:version => 20130507200825) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id",   :default => 0
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(:version => 20130507195327) do
     t.integer  "user_id"
     t.boolean  "fav_projects",    :default => true
     t.boolean  "proj_approval",   :default => true
-    t.boolean  "fav_issues",      :default => true
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.boolean  "issues_approval"
+    t.boolean  "fav_issues",      :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "issues_approval", :default => true
   end
 
   add_index "email_notifications", ["user_id"], :name => "index_email_notifications_on_user_id"
