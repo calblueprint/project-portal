@@ -17,6 +17,17 @@
   </div>
 <% end %>
 
+<div class="email-notifications">
+  <h2>Manage Email Notifications</h2>
+  <% @enotifs = EmailNotification.find_by_user_id(current_user.id) %>
+  <%= simple_form_for @enotifs do |f| %>
+    <%= f.input :fav_projects, :label => "Notify me when someone favorites my project.", as: :radio_buttons %>
+    <%= f.input :fav_issues, :label => "Notify me when someone favorites one of my project's issues.", as: :radio_buttons %>
+    <%= f.input :proj_approval, :label => "Notify me when my project gets approved or denied.", as: :radio_buttons %>
+    <%= f.button :submit, "Update Email Notifications" %>
+  <% end %>
+</div>
+
 <h3>Cancel my account</h3>
 
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
