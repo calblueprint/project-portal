@@ -2,8 +2,11 @@
 .project-square.hero-section.span3a
   .row-fluid
     .span10.offset1
-      .img-polaroid
-        =link_to(image_tag(project.photo_url.to_s), project_path(project))
+      .img-container
+        .img-polaroid
+          =image_tag(project.photo_url.to_s)
+        .fav-star-container
+          =render :partial=>"shared/project_favorites", :locals => {:project => project} 
   .row-fluid
     .span12
       %p.project-square-title
