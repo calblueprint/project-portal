@@ -135,11 +135,12 @@ class ProjectsController < ApplicationController
   private
   def approve_deny_project(project)
     comment = params[:project][:comment]
+    enotifer_on = current_user.email_notification.proj_approval 
     if params[:project][:approved] == "true"
       flash[:notice] = "Project: '#{project.title}' was successfully approved."
-      UserMailer.project_approved(project, comment).deliver
+      UserMailer.project_approved(project, comment).deliver unless not enotifer_on 
     else
-      UserMailer.project_denied(project, comment).deliver
+      UserMailer.project_denied(project, comment).deliver unless not enotifer_on
       flash[:notice] = "Project: '#{project.title}' was successfully denied."
     end
   end
