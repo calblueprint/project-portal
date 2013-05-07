@@ -21,9 +21,11 @@
   <h2>Manage Email Notifications</h2>
   <% @enotifs = EmailNotification.find_by_user_id(current_user.id) %>
   <%= simple_form_for @enotifs do |f| %>
-    <%= f.input :fav_projects, :class=>"odd", :label => "Notify me when someone favorites my project.", as: :radio_buttons, :item_wrapper_class => 'inline' %>
+    <%= f.input :fav_projects, :label => "Notify me when someone favorites my project.", as: :radio_buttons, :item_wrapper_class => 'inline' %>
     <%= f.input :fav_issues, :label => "Notify me when someone favorites one of my project's issues.", as: :radio_buttons, :item_wrapper_class => 'inline' %>
-    <%= f.input :proj_approval, :class=>"odd", :label => "Notify me when my project gets approved or denied.", as: :radio_buttons, :item_wrapper_class => 'inline' %>
+    <%= f.input :proj_approval, :label => "Notify me when my project gets approved or denied.", as: :radio_buttons, :item_wrapper_class => 'inline' %>
+    <%= f.input :issues_approval, :label => "Notify me when a resolution to one of my project's issues needs my approval.", as: :radio_buttons, :item_wrapper_class => 'inline' %>
+ 
     <%= f.button :submit, "Update Email Notifications", :class => 'btn' %>
   <% end %>
 </div>
