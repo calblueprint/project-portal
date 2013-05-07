@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507200825) do
+ActiveRecord::Schema.define(:version => 20130507213527) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id",   :default => 0
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130507200825) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "issues_approval", :default => true
+    t.boolean  "resolve_results", :default => true
   end
 
   add_index "email_notifications", ["user_id"], :name => "index_email_notifications_on_user_id"
