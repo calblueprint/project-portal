@@ -10,13 +10,21 @@ class IssuesController < ApplicationController
       @page = Integer(params[:pageNum])
     end
 
-    if params[:search_string].nil?
+    if params[:search_string].nil? and params[:project].nil?
       #retrieve issues that need to be displayed according to search params
       @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
       count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
-    else
+    elsif params[:project].nil?
       @openIssues = Issue.search(params[:search_string]).find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
-      count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
+      count = Issue.search(params[:search_string]).find(:all, :conditions => ["resolved = ?", 0]).size
+    elsif params[:search_string].nil?
+      project = Project.find(params[:project])
+      @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id], :order => "created_at")
+      count = Issue.find(:all, :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id]).size
+    else
+      project = Project.find(params[:project])
+      @openIssues = Issue.search(params[:search_string]).find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id], :order => "created_at")
+      count = Issue.search(params[:search_string]).find(:all, :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id]).size
     end
 
 

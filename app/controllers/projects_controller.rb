@@ -21,11 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   def search
-    if current_user != nil
-      @projects = Project.order("created_at DESC").search(params, current_user.admin?).paginate(:page => params[:page], :per_page => 15)
-    else
-      @projects = Project.order("created_at DESC").search(params, false).paginate(:page => params[:page], :per_page => 15)
-    end
+    @projects = Project.order("created_at DESC").search(params, (user_signed_in? and current_user.admin?)).paginate(:page => params[:page], :per_page => 10)
     @title = "Search Results"
     @prev_search = params
     render :index
@@ -104,6 +100,9 @@ class ProjectsController < ApplicationController
   def favorite
     @project = Project.find(params[:id])
     current_user.favorites.create :project => @project
+    if current_user.email_notification.fav_projects and current_user != @project.user
+      UserMailer.favorited_project(@project, current_user).deliver
+    end
     redirect_to session[:return_to]
   end
 
@@ -139,11 +138,12 @@ class ProjectsController < ApplicationController
   private
   def approve_deny_project(project)
     comment = params[:project][:comment]
+    enotifer_on = current_user.email_notification.proj_approval 
     if params[:project][:approved] == "true"
       flash[:notice] = "Project: '#{project.title}' was successfully approved."
-      UserMailer.project_approved(project, comment).deliver
+      UserMailer.project_approved(project, comment).deliver unless not enotifer_on 
     else
-      UserMailer.project_denied(project, comment).deliver
+      UserMailer.project_denied(project, comment).deliver unless not enotifer_on
       flash[:notice] = "Project: '#{project.title}' was successfully denied."
     end
   end

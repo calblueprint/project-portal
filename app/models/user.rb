@@ -14,4 +14,13 @@ class User < ActiveRecord::Base
   has_many :projects, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
   has_many :favorite_projects, :through => :favorites, :source => :project
+  has_one :email_notification, :dependent => :destroy
+
+  after_create :add_email_notifs
+
+  def add_email_notifs
+    e = EmailNotification.new
+    e.user = self
+    e.save
+  end
 end
