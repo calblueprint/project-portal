@@ -30,6 +30,10 @@ p, ol, ul, td
   @extend .hero-unit
   padding: 17px
   margin-bottom: 10px
+  line-height: 100%
+  border-color: blue
+  border-width: 4px
+  @extend .box-shadow
   
 .details-title
   color: #999
@@ -53,3 +57,13 @@ p, ol, ul, td
 
 .comment-text-area
   width: 577px
+  
+#error_explanation
+  @extend .alert
+  @extend .alert-error
+  
+$shadow: 0 2px 4px rgba(0,0,0,.20)
+.box-shadow
+  -webkit-box-shadow: $shadow
+  -moz-box-shadow: $shadow
+  box-shadow: $shadow
