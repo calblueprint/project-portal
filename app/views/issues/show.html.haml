@@ -40,6 +40,11 @@
   %a{:class=>"btn btn-success disabled", :ref=>"#"} Solved
   -if @canEdit
     %a{:class=>"btn btn-danger", :href=>deny_issue_path(@issue.id)} Reopen
+.footer
+  %br
+  =link_to "Project ", project_path(@project)
+  |
+  =link_to " Back", session[:return_to]
 
 
 .box 
