@@ -19,6 +19,7 @@ class UserMailer < ActionMailer::Base
     @project = project
     @proj_owner = User.find_by_id(@project.user_id)
     @favoriter = current_user
-    mail(:to => @user.email, :subject => "[Project Portal] A New User has Favorited Your Project!")
+    mail(:to => @proj_owner.email, :subject => "[Project Portal] A New User has Favorited Your Project!")
+  end
 
 end

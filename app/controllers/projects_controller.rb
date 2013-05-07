@@ -100,8 +100,9 @@ class ProjectsController < ApplicationController
   def favorite
     @project = Project.find(params[:id])
     current_user.favorites.create :project => @project
-    current_user.
-    UserMailer.favorited_project(project, current_user).deliver unless current_user.email_notification.fav
+    if current_user.email_notification.fav_projects and current_user != @project.user
+      UserMailer.favorited_project(@project, current_user).deliver
+    end
     redirect_to session[:return_to]
   end
 
