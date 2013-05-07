@@ -17,6 +17,8 @@
       .span10
         .project-title
           =link_to project.title, project_path(project)
+          =render :partial=>"shared/project_favorites", :locals => {:project => project}
+
         =render :partial=>"shared/project_tags", :locals => {:project => project}
 
         
@@ -56,12 +58,7 @@
                 %b
                   ="#{t(:mission_statement)}:"
                 =project.mission_statement
-              -if isFav(project.id) == true
-                =link_to raw('<i class="icon-star"></i>'), remove_favorite_path(project), :class => "btn" #test
-              -else
-                =link_to raw('<i class="icon-star-empty"></i>'), add_favorite_path(project), :class => "btn" #test
-
-                
+ 
 =render :partial => 'projects/submit_form_popup', :locals => {:project => project}
 
 
