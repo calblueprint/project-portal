@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Edit:</b>
+  <%= @email_notification.edit %>
+</p>
+
+<p>
+  <b>Update:</b>
+  <%= @email_notification.update %>
+</p>
+
+
+<%= link_to 'Edit', edit_email_notification_path(@email_notification) %> |
+<%= link_to 'Back', email_notifications_path %>
