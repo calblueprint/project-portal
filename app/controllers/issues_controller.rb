@@ -10,13 +10,21 @@ class IssuesController < ApplicationController
       @page = Integer(params[:pageNum])
     end
 
-    if params[:search_string].nil?
+    if params[:search_string].nil? and params[:project].nil?
       #retrieve issues that need to be displayed according to search params
       @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
       count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
-    else
+    elsif params[:project].nil?
       @openIssues = Issue.search(params[:search_string]).find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ?", 0], :order => "created_at")
-      count = Issue.find(:all, :conditions => ["resolved = ?", 0]).size
+      count = Issue.search(params[:search_string]).find(:all, :conditions => ["resolved = ?", 0]).size
+    elsif params[:search_string].nil?
+      project = Project.find(params[:project])
+      @openIssues = Issue.find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id], :order => "created_at")
+      count = Issue.find(:all, :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id]).size
+    else
+      project = Project.find(params[:project])
+      @openIssues = Issue.search(params[:search_string]).find(:all, :limit => 5,:offset => 5*(@page-1), :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id], :order => "created_at")
+      count = Issue.search(params[:search_string]).find(:all, :conditions => ["resolved = ? and project_id = ?", params[:resolved],project.id]).size
     end
 
 
@@ -56,14 +64,15 @@ class IssuesController < ApplicationController
   #actually creates a new issue
   def create
     @issue = Issue.new(params[:id])
-    @issue.project_id = params[:project_id]
+    project = Project.find(params[:project_id])
+    @issue.project_id = project.id
     @issue.resolved = 0
     @issue.title = params[:issue][:title]
     @issue.description = params[:issue][:description]
 
     if @issue.save
       flash[:notice] = "Your Issue was Added"
-      redirect_to(:controller => "projects", :action => 'show', :id => @issue.project_id)
+      redirect_to(:controller => "projects", :action => 'show', :id => project)
     else
       flash[:error] = "Error in Saving. Please retry."
       render action: "new"
@@ -110,12 +119,13 @@ class IssuesController < ApplicationController
   def accept
     @issue = Issue.find(params[:id])
     @issue.resolved = 2
+    project = Project.find(@issue.project_id)
     if @issue.save
       flash[:notice] = "The Solution was Accepted"
-      redirect_to project_issue_path(@issue.project_id,@issue.id)
+      redirect_to project_issue_path(project.slug,@issue.id)
     else
       flash[:error] = "Error in Saving. Please retry."
-      redirect_to project_issue_path(@issue.project_id,@issue.id)
+      redirect_to project_issue_path(project.slug,@issue.id)
     end
   end
 
@@ -123,20 +133,22 @@ class IssuesController < ApplicationController
   def deny
     @issue = Issue.find(params[:id])
     @issue.resolved = 0
+    project = Project.find(@issue.project_id)
     if @issue.save
       flash[:warning] = "The Solution was Rejected"
-      redirect_to project_issue_path(@issue.project_id,@issue.id)
+      redirect_to project_issue_path(project.slug,@issue.id)
     else
       flash[:error] = "Error in Saving. Please retry."
-      redirect_to project_issue_path(@issue.project_id,@issue.id)
+      redirect_to project_issue_path(project.slug,@issue.id)
     end
   end
 
   def destroy
     @issue = Issue.find(params[:id])
+    project = Project.find(@issue.project_id)
     @issue.destroy
     flash[:notice] = "The Issue was Deleted"
-    redirect_to(:controller => "projects", :action => 'show', :id => @issue.project_id)
+    redirect_to(:controller => "projects", :action => 'show', :id => project.slug)
   end
 
   def isOwner(project)

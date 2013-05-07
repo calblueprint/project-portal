@@ -1,6 +1,13 @@
-%h3 Create an Issue
-%br
-= form_tag project_issues_path() do
-  = render 'error_messages'
-  = render 'form'
-  = submit_tag 'Add New Issue'
+%h1 New Issue Proposal
+- if user_signed_in?
+	%br
+	.hero-section
+		= form_tag project_issues_path() do
+			= render 'error_messages'
+			= render 'form'
+			%button.btn.btn-primary{:type => "submit"} Add New Issue
+			= form_tag('Add New Issue', :method => 'get')
+-else 
+	%p
+		If you would like to submit a Issue, please 
+		=link_to "create an account", new_user_registration_path
