@@ -30,7 +30,7 @@ jQuery ->
     .on "ajax:success", (evt, data, status, xhr) ->
       $(".comment-form").find('textarea')
         .val('');
-      $(xhr.responseText).hide().insertAfter(this).show('slow')
+      $(xhr.responseText).hide().insertBefore(this).show('slow')
     .on "ajax:complete", ->
       $(this).find('textarea')
         .removeClass('uneditable-input')
