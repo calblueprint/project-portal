@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '1.9.3'
 gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
@@ -15,6 +16,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'thin'
   gem 'rmagick', '2.13.1'
 end
 
