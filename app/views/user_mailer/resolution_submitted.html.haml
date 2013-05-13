@@ -1,0 +1,10 @@
+%p
+  Dear #{@proj_owner.fname} #{@proj_owner.lname},
+
+%p
+  #{@submitter.fname} #{@submitter.lname} has submitted a resolution to your issue. You may approve or deny the issue at #{project_issue_path(@issue.project, @issue)}, or view your project at #{project_path(@issue.project)}. Have a great day!
+
+%p
+  Sincerely,
+  %br
+  The Project Portal Team

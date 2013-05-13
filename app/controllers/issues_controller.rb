@@ -99,6 +99,7 @@ class IssuesController < ApplicationController
     @issue.resolved = 1
     @issue.authors = params[:solution][:author]
     @issue.github = params[:solution][:github]
+    @issue.submitter_id = current_user.id
 
     #update latest repo for the project
     @project = Project.find(@issue.project_id)
@@ -113,6 +114,7 @@ class IssuesController < ApplicationController
       flash[:error] = "Error in Saving. Please retry."
       redirect_to project_issue_path(@project.slug,@issue.id)
     end
+    UserMailer.resolution_submitted(@issue, current_user).deliver unless not current_user.email_notification.issues_approval
   end
 
   #when the company accepts a solution to the issue
@@ -122,6 +124,7 @@ class IssuesController < ApplicationController
     project = Project.find(@issue.project_id)
     if @issue.save
       flash[:notice] = "The Solution was Accepted"
+      UserMailer.resolution_approved(@issue, @issue.submitter_id).deliver
       redirect_to project_issue_path(project.slug,@issue.id)
     else
       flash[:error] = "Error in Saving. Please retry."
@@ -133,9 +136,12 @@ class IssuesController < ApplicationController
   def deny
     @issue = Issue.find(params[:id])
     @issue.resolved = 0
+    old_submitter = @issue.submitter_id
+    @issue.submitter_id = nil
     project = Project.find(@issue.project_id)
     if @issue.save
       flash[:warning] = "The Solution was Rejected"
+      UserMailer.resolution_denied(@issue, old_submitter).deliver
       redirect_to project_issue_path(project.slug,@issue.id)
     else
       flash[:error] = "Error in Saving. Please retry."
