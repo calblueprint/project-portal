@@ -1,0 +1,10 @@
+%p
+  Dear #{@submitter.fname} #{@submitter.lname},
+
+%p
+  The resolution you submitted for issue #{@issue.title}, project #{@issue.project.title}, has been approved. You may view more issues for the project at #{project_path(@issue.project)}. Have a great day!
+
+%p
+  Sincerely,
+  %br
+  The Project Portal Team

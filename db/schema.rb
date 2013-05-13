@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506185221) do
+ActiveRecord::Schema.define(:version => 20130513213611) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id",   :default => 0
@@ -32,11 +32,13 @@ ActiveRecord::Schema.define(:version => 20130506185221) do
 
   create_table "email_notifications", :force => true do |t|
     t.integer  "user_id"
-    t.boolean  "fav_projects",  :default => true
-    t.boolean  "proj_approval", :default => true
-    t.boolean  "fav_issues",    :default => true
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "fav_projects",    :default => true
+    t.boolean  "proj_approval",   :default => true
+    t.boolean  "fav_issues",      :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "issues_approval", :default => true
+    t.boolean  "resolve_results", :default => true
   end
 
   add_index "email_notifications", ["user_id"], :name => "index_email_notifications_on_user_id"
@@ -51,12 +53,13 @@ ActiveRecord::Schema.define(:version => 20130506185221) do
   create_table "issues", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.integer  "resolved",    :default => 0
-    t.string   "project_id",                 :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "resolved",     :default => 0
+    t.string   "project_id",                  :null => false
     t.string   "authors"
     t.string   "github"
+    t.integer  "submitter_id"
   end
 
   create_table "projects", :force => true do |t|
