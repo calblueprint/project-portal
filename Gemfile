@@ -49,7 +49,7 @@ gem 'rails_autolink'
 # gem 'capistrano'
 
 # To use debugger
-  gem 'debugger'
+#  gem 'debugger'
 
 group :test do
   gem 'cucumber-rails', :require => false
