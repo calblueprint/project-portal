@@ -27,4 +27,14 @@ u = User.create({
 u.confirmed_at = Time.now  
 u.save
 
+u = User.create({
+  fname: "User",
+  lname: "User",
+  admin: false,
+  email: "user@user.com",
+  password: "password"
+  })
+u.confirmed_at = Time.now  
+u.save
+
 
