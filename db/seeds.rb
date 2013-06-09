@@ -37,6 +37,14 @@ u = User.create({
 u.confirmed_at = Time.now
 u.save
 
+Organization.create({
+  name: "UC Berkeley CS169: Software Engineering",
+  email: "pattrsn@eecs.berkeley.edu",
+  password: "ucbsaas",
+  description: "Over the course of a semester, students complete a course project in teams of four or five. Groups will be assigned to an external customer from a campus or non-profit organization to build a SaaS application.",
+  website: "https://sites.google.com/site/ucbsaas/",
+})
+
 # Project.create({
 #   github_site: "https://github.com/callmemc/altbreaks",
 #   application_site: "http://publicservice.berkeley.edu/alternativebreaks",
