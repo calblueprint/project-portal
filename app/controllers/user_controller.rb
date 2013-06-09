@@ -7,7 +7,7 @@ class UserController < ApplicationController
       redirect_to new_user_session_path, notice: 'Please log in to view your dashboard.'
     end
   end
-  
+
   def admin_dashboard
     @questions = Question.current_questions
     @unapproved_projects = Project.order("created_at DESC").unapproved_projects.paginate(:page => params[:unapproved_page], :per_page => 5)
@@ -33,12 +33,12 @@ class UserController < ApplicationController
     @user = User.find_by_email(@email)
     if @user and not @user.admin?
       @user.update_attributes(:admin=>true)
-      redirect_to user_admin_dashboard_path, notice: "#{@user.fname} #{@user.lname} is now an admin."      
+      redirect_to user_admin_dashboard_path, notice: "#{@user.fname} #{@user.lname} is now an admin."
     elsif @user and @user.admin?
-      redirect_to user_admin_dashboard_path, notice: "#{@user.fname} #{@user.lname} is already an admin."      
+      redirect_to user_admin_dashboard_path, notice: "#{@user.fname} #{@user.lname} is already an admin."
     else
       flash[:error] =  "#{@email} does not exist. Would you like to create a user?"
-      redirect_to user_admin_dashboard_path    
+      redirect_to user_admin_dashboard_path
     end
   end
 

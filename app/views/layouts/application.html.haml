@@ -31,7 +31,8 @@
 
             - else
               %li= link_to 'Login', new_user_session_path
-    %div.container     
-      %div.flash
-        =render 'layouts/messages'
+    %div.container
+      -unless flash.empty?
+        %div.flash
+          =render 'layouts/messages'
       = yield
