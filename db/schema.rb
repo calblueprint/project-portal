@@ -13,6 +13,11 @@
 
 ActiveRecord::Schema.define(:version => 20130609061859) do
 
+  create_table "clients", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id",   :default => 0
     t.string   "commentable_type", :default => ""
@@ -29,6 +34,11 @@ ActiveRecord::Schema.define(:version => 20130609061859) do
 
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "developers", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "email_notifications", :force => true do |t|
     t.integer  "user_id"
@@ -141,6 +151,8 @@ ActiveRecord::Schema.define(:version => 20130609061859) do
     t.string   "unconfirmed_email"
     t.string   "fname"
     t.string   "lname"
+    t.integer  "rolable_id"
+    t.string   "rolable_type"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

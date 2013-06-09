@@ -2,6 +2,9 @@ ProjectPortal::Application.routes.draw do
   devise_for :organizations
 
   get 'search' => "projects#search", :as => :search
+  devise_for :users, :path => '', :path_names =>
+                                    {:sign_in => 'login', :sign_out => 'logout'},
+               :controllers => { :registrations => 'UserRegistrations' }
   resources :questions
 
   resources :projects do
@@ -35,9 +38,13 @@ ProjectPortal::Application.routes.draw do
   match 'projects/:id/comment' => 'projects#comment', :as => :comment
   match 'projects/:id/delete_comment' => 'projects#delete_comment', :as => :delete_comment
 
-   match 'volunteer_intro' => 'home#volunteer_intro'
-   match 'organization_intro' => 'home#organization_intro'
+  match 'volunteer_intro' => 'home#volunteer_intro'
+  match 'organization_intro' => 'home#organization_intro'
 
+  devise_scope :user do
+    match 'client/sign_up' => 'user_registrations#new', :user => { :user_type => 'client' }
+    match 'developer/sign_up' => 'user_registrations#new', :user => { :user_type => 'developer' }
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

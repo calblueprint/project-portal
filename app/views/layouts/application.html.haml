@@ -16,12 +16,12 @@
             %li= link_to "Dashboard", dashboard_path, :class=>"text"
             %li= link_to "Projects", projects_path
             %li= link_to "Issues", issues_path
-            %li= link_to "Propose A Project", new_project_path 
+            %li= link_to "Propose A Project", new_project_path
           %ul{:class=>"nav pull-right"}
             - if user_signed_in?
               %li.dropdown
                 %a{:class=>"dropdown-toggle", "data-toggle"=>"dropdown"}
-                  #{current_user.fname} #{current_user.lname} 
+                  #{current_user.fname} #{current_user.lname}
                   %b.caret
                 %ul{:class=>"dropdown-menu pull-right"}
                   -if current_user.admin?
@@ -32,7 +32,7 @@
             - else
               %li= link_to 'Login', new_user_session_path
     %div{:class=>"content-wrapper"}
-      %div{:class=>"container"}   
+      %div{:class=>"container"}
         %div.flash
           =render 'layouts/messages'
         = yield
@@ -45,11 +45,16 @@
                 %p{:class=>"links"}
                   %a{:href=>"#"} Privacy
                   \/
-                  %a{:href=>"#"} Terms 
+                  %a{:href=>"#"} Terms
                   \/
                   %a{:href=>"#"} Contact
               %div{:class=>"span6 right"}
                 %p{:class=>"links"}
-                  %a{:href=>"http://www.calblueprint.org/"} 
+                  %a{:href=>"http://www.calblueprint.org/"}
                     %span{:class=>"powered_by_text"} Powered by
                     %img{:class=>"blueprint-logo", :src=>"assets/PAW_30x30.png"}
+
+    %div.container
+      %div.flash
+        =render 'layouts/messages'
+      = yield
