@@ -11,14 +11,14 @@ ProjectPortal::Application.routes.draw do
   resources :email_notifications
 
   get "home/index"
-  
+
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
 
   match 'issues' => 'issues#index', :as => :issues
   match 'issues/:id/resolve' => 'issues#resolve', :as => :resolve_issue
   match 'issues/:id/accept' => 'issues#accept', :as => :accept_issue
   match 'issues/:id/deny' => 'issues#deny', :as => :deny_issue
-  
+
   get "user/show"
   get "user/settings"
   get "user/admin_dashboard"
@@ -28,13 +28,13 @@ ProjectPortal::Application.routes.draw do
   match 'projects/:id/unfavorite' => 'projects#unfavorite', :as => :remove_favorite
   match 'projects/approval/:id' => 'projects#approval', :as => :approval
   match 'projects/public_edit/:id' => 'projects#public_edit', :as => :public_edit
-  
+
   match 'admins/manage' => 'user#add_admin', :as => :add_admin
   match 'admins/remove/:id' => 'user#remove_admin', :as => :remove_admin
 
   match 'projects/:id/comment' => 'projects#comment', :as => :comment
   match 'projects/:id/delete_comment' => 'projects#delete_comment', :as => :delete_comment
-   
+
    match 'volunteer_intro' => 'home#volunteer_intro'
    match 'organization_intro' => 'home#organization_intro'
 

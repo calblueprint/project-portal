@@ -1,6 +1,9 @@
 #allow-endless-scroll
 .title-section
-  %h1= "#{@title}"
+  %h1.inline-title= "#{@title}"
+  .btn-group#new-proj-btn
+    %a.btn.btn-success{:href => new_project_path}
+      I'm ready to propose a project!
   .btn-toolbar.right-justify
     .btn-group#proj-tab{"data-toggle" => "buttons-radio"}
       %a.btn.btn-small.active#full-proj-btn{:href => "#full-proj-view", 'data-toggle' => 'tab'}
