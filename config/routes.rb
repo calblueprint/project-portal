@@ -1,4 +1,6 @@
 ProjectPortal::Application.routes.draw do
+  devise_for :organizations
+
   get 'search' => "projects#search", :as => :search
   resources :questions
 
