@@ -1,0 +1,46 @@
+<%
+  # customized code begin
+
+  params[:user][:user_type] ||= 'developer'
+
+  if ["developer", "client"].include? params[:user][:user_type].downcase
+    child_class_name = params[:user][:user_type].downcase.camelize
+    user_type = params[:user][:user_type].downcase
+  else
+    child_class_name = "Developer"
+    user_type = "developer"
+  end
+
+  resource.rolable = child_class_name.constantize.new if resource.rolable.nil?
+
+  # customized code end
+%>
+
+<h2><%child_class_name%> Sign up</h2>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :email, :label => false, :required => true, :placeholder=> "Email", :autofocus => true %>
+    <%= f.input :fname, :label => false, :placeholder => "First Name", :required => true %>
+    <%= f.input :lname, :label => false, :placeholder => "Last Name", :required => true %>
+    <%= f.input :password, :label => false, :placeholder => "Password", :required => true %>
+    <%= f.input :password_confirmation, :label => false, :placeholder => "Password Confirmation", :required => true %>
+  </div>
+
+  <% # customized code begin %>
+  <div class="specific form-inputs">
+    <%= fields_for resource.rolable do |rf| %>
+      <% render :partial => "#{child_class_name.underscore}_fields", :locals => { :f => rf } %>
+    <% end %>
+  </div>
+  <%= hidden_field :user, :user_type, :value => user_type %>
+  <% # customized code end %>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
