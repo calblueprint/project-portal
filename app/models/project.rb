@@ -19,8 +19,7 @@ class Project < ActiveRecord::Base
   attr_accessible :questions, :title, :comment, :state, :as => [ :owner, :admin ]
   attr_accessible :problem, :short_description, :long_description, :as => [ :owner, :admin ]
   attr_accessible :approved, :as => :admin
-  attr_accessor :comment
-  attr_accessor :blueprint, :cs169
+  attr_accessor :project_params, :org_params
   attr_accessible :organization
 
   attr_accessible :user_id, :as=>:admin
@@ -43,16 +42,6 @@ class Project < ActiveRecord::Base
   serialize :questions, Hash
   before_save :merge_questions
   # mount_uploader :photo, PhotoUploader
-
-  def merge_questions
-    updated_questions = questions.blank? ? {} : questions
-    project_questions.each do |q|
-      question_key = Project.question_key(q)
-      question = self.send(question_key)
-      updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
-    end
-    self.questions = updated_questions
-  end
 
   scope :by_title, lambda { |search_string|
     if not search_string.empty?
@@ -110,9 +99,19 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def merge_questions
+    updated_questions = questions.blank? ? {} : questions
+    project_questions.each do |q|
+      question_key = Project.question_key(q)
+      question = self.send(question_key)
+      updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
+    end
+    self.questions = updated_questions
+  end
+
   def project_questions
     project_questions = Question.where(:id => questions.map { |q| Project.get_question_id(q)}) unless questions.blank?
-    project_questions = Question.current_questions if project_questions.blank?
+    # project_questions = Question.current_questions if project_questions.blank?
     project_questions
   end
 

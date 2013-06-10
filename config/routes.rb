@@ -9,6 +9,9 @@ ProjectPortal::Application.routes.draw do
 
   resources :projects do
     resources :issues
+    collection do
+      post 'org_questions'
+    end
   end
 
   resources :email_notifications

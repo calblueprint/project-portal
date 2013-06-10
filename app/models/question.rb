@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base
-  attr_accessible :input_type, :question
+  attr_accessible :input_type, :question, :organization
+  belongs_to :organization
 
   def self.current_questions
     Question.where(:deleted => [nil, false, 'f'])

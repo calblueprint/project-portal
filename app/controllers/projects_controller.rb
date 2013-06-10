@@ -1,6 +1,51 @@
 class ProjectsController < ApplicationController
   respond_to :html, :json
 
+  def new
+  end
+
+  def org_questions
+    @project = Project.new
+
+    #need to pass these as hidden variables
+    org_params = params[:project][:organizations]
+    params[:project].delete(:organizations)
+    proj_params = params[:project]
+
+    session[:org] = org_params
+    session[:proj] = proj_params
+
+    @organizations = []
+    Organization.all.each do |org|
+      if org_params[org.sname]
+        @organizations << org
+      end
+    end
+  end
+
+  def create
+    org_params = session[:org]
+    proj_params = session[:proj]
+
+    @project = Project.new(proj_params, :as => :owner)
+    @project["user_id"] = current_user.id
+
+    @project.questions = params[:project]
+
+    Organization.all.each do |org|
+      if org_params[org.sname]
+        puts org.name
+        @project.organizations << org
+      end
+    end
+
+    if @project.save
+      redirect_to @project, notice: 'Project was successfully created.'
+    else
+      render action: "new"
+    end
+  end
+
   def show
     @project = Project.find(params[:id])
     @can_edit = user_signed_in?
@@ -27,11 +72,6 @@ class ProjectsController < ApplicationController
     render :index
   end
 
-  def new
-    @project = Project.new
-    @questions = Question.current_questions
-  end
-
   def edit
     @project = Project.find(params[:id])
     permission_to_update(@project)
@@ -45,38 +85,6 @@ class ProjectsController < ApplicationController
       redirect_to @project, notice: 'You do not have permission to edit this project.'
     end
     @user = @project.user
-  end
-
-  def create
-    # blueprint = params[:project].delete(:blueprint)
-    # cs169 = params[:project].delete(:cs169)
-
-    org_params = params[:project][:organizations]
-    params[:project].delete(:organizations) #deletes for creation of projects
-
-    @project = Project.new(params[:project], :as => :owner)
-    @project["user_id"] = current_user.id
-
-    puts 'org params'
-    puts org_params
-
-    Organization.all.each do |org|
-      if org_params[org.sname]
-        puts org.name
-        @project.organizations << org
-        # @project.organizations.build(:organization_id => org.id)
-
-      end
-    end
-
-
-
-    # @questions = Question.current_questions
-    if @project.save
-      redirect_to @project, notice: 'Project was successfully created.'
-    else
-      render action: "new"
-    end
   end
 
   def update
