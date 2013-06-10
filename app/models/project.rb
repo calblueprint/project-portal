@@ -13,6 +13,7 @@ class Project < ActiveRecord::Base
   has_many   :favorites, :dependent => :destroy
   has_many   :favorited, :through => :favorites, :source => :user
   has_and_belongs_to_many :favorite_users, :class_name => "User"
+  has_and_belongs_to_many :organizations
 
   attr_accessible :github_site, :application_site, :as => [:default, :admin, :owner]
   attr_accessible :questions, :title, :comment, :state, :as => [ :owner, :admin ]
@@ -20,7 +21,7 @@ class Project < ActiveRecord::Base
   attr_accessible :approved, :as => :admin
   attr_accessor :comment
   attr_accessor :blueprint, :cs169
-  attr_accessible :blueprint, :cs169
+  attr_accessible :organization
 
   attr_accessible :user_id, :as=>:admin
 

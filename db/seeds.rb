@@ -38,11 +38,21 @@ u.confirmed_at = Time.now
 u.save
 
 Organization.create({
-  name: "UC Berkeley CS169: Software Engineering",
+  sname: 'cs169',
+  name: "UC Berkeley CS169 Software Engineering Course",
   email: "pattrsn@eecs.berkeley.edu",
   password: "ucbsaas",
   description: "Over the course of a semester, students complete a course project in teams of four or five. Groups will be assigned to an external customer from a campus or non-profit organization to build a SaaS application.",
   website: "https://sites.google.com/site/ucbsaas/",
+})
+
+Organization.create({
+  sname: 'blueprint',
+  name: "Blueprint, Technology for Non-Profits",
+  email: "calblueprint@gmail.com",
+  password: "beautifulengineering",
+  description: "Our mission is to make beautiful engineering accessible and useful for those who create communities and promote public welfare.",
+  website: "http://bptech.berkeley.edu",
 })
 
 # Project.create({

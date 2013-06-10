@@ -48,18 +48,28 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    blueprint = params[:project].delete(:blueprint)
-    cs169 = params[:project].delete(:cs169)
+    # blueprint = params[:project].delete(:blueprint)
+    # cs169 = params[:project].delete(:cs169)
+
+    org_params = params[:project][:organizations]
+    params[:project].delete(:organizations) #deletes for creation of projects
 
     @project = Project.new(params[:project], :as => :owner)
     @project["user_id"] = current_user.id
 
-    if blueprint
-      puts 'blueprint'
+    puts 'org params'
+    puts org_params
+
+    Organization.all.each do |org|
+      if org_params[org.sname]
+        puts org.name
+        @project.organizations << org
+        # @project.organizations.build(:organization_id => org.id)
+
+      end
     end
-    if cs169
-      puts 'cs169'
-    end
+
+
 
     # @questions = Question.current_questions
     if @project.save

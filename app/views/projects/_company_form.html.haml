@@ -18,9 +18,11 @@
   .hero-section
     %h4.details-title
       ="#{t(:organizations)}"
-    =f.label :blueprint, label: 'Organizations I wish to work with'
-    =f.input :blueprint, as: :boolean, inline_label: 'Blueprint'
-    =f.input :cs169, as: :boolean, inline_label: 'CS169'
 
+    =f.simple_fields_for :organizations do |organizations|
+      =organizations.label :blueprint, label: 'Organizations I wish to work with'
+
+      - Organization.all.each do |org|
+        =organizations.input org.sname, as: :boolean, inline_label: org.name
 
   =f.button  :submit, :class => "btn"
