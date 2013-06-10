@@ -84,3 +84,9 @@
 .list-organizations h2 {
   font-weight: normal;
 }
+
+.sign-up-btn {
+  margin:auto;
+
+  display:block;
+}
