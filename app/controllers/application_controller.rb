@@ -11,18 +11,16 @@ class ApplicationController < ActionController::Base
     user_signed_in? and current_user.admin?
   end
 
-  protected
-  def authorize_user
-    unless is_admin
-      flash[:error] = "You do not have permissions to perform that action"
-      redirect_to "/dashboard"
-    end
-  end
-
-  # Overriding the Devise current_user method
+# Overriding the Devise current_user method
   alias_method :devise_current_user, :current_user
   def current_user
     super
+  end
+  def current_rolable
+    current_user.rolable
+  end
+  def current_rolable_type
+    current_user.rolable_type
   end
 
   def is_developer?
@@ -33,5 +31,13 @@ class ApplicationController < ActionController::Base
   end
   def is_organization?
     current_user.rolable.class.name == 'Organization'
+  end
+
+  protected
+  def authorize_user
+    unless is_admin
+      flash[:error] = "You do not have permissions to perform that action"
+      redirect_to "/dashboard"
+    end
   end
 end
