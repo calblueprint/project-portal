@@ -86,7 +86,13 @@
 }
 
 .sign-up-btn {
+  position:relative;
+  top: 12px;
   margin:auto;
-
   display:block;
+}
+
+.link {
+  font-weight: bold;
+  font-size: 120%;
 }
