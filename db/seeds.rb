@@ -16,24 +16,34 @@ u = User.create({
 u.confirmed_at = Time.now
 u.save
 
-u = User.create({
-  fname: "User",
-  lname: "User",
+# mc = User.create({
+#   fname: "Michelle",
+#   lname: "Chow",
+#   admin: false,
+#   email: "callmemc@gmail.com",
+#   password: "password"
+#   })
+# u.confirmed_at = Time.now
+# u.save
+
+cs169_user = User.create({
+  fname: "David",
+  lname: "Patterson",
   admin: false,
-  email: "user@user.com",
-  password: "password"
+  email: "pattrsn@eecs.berkeley.edu",
+  password: "ucbsaas",
   })
 u.confirmed_at = Time.now
 u.save
-
 cs169 = Organization.create({
   sname: 'cs169',
   name: "UC Berkeley CS169 Software Engineering Course",
-  email: "pattrsn@eecs.berkeley.edu",
-  password: "ucbsaas",
   description: "Over the course of a semester, students complete a course project in teams of four or five. Groups will be assigned to an external customer from a campus or non-profit organization to build a SaaS application.",
   website: "https://sites.google.com/site/ucbsaas/",
 })
+cs169_user.rolable = cs169
+cs169_user.rolable_type = cs169.class.name
+cs169_user.save
 
 cs169_questions = Question.create([
   { question: "If selected, is the contact listed above available to speak on a weekly basis with a student from CS169?",
@@ -46,17 +56,16 @@ cs169_questions = Question.create([
     input_type: "text"
   }
 ])
-
 cs169.questions << cs169_questions
 
-bp = Organization.create({
-  sname: 'blueprint',
-  name: "Blueprint, Technology for Non-Profits",
-  email: "calblueprint@gmail.com",
-  password: "beautifulengineering",
-  description: "Our mission is to make beautiful engineering accessible and useful for those who create communities and promote public welfare.",
-  website: "http://bptech.berkeley.edu",
-})
+# bp = Organization.create({
+#   sname: 'blueprint',
+#   name: "Blueprint, Technology for Non-Profits",
+#   email: "calblueprint@gmail.com",
+#   password: "beautifulengineering",
+#   description: "Our mission is to make beautiful engineering accessible and useful for those who create communities and promote public welfare.",
+#   website: "http://bptech.berkeley.edu",
+# })
 
 
 
