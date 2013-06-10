@@ -18,19 +18,21 @@ ProjectPortal::Application.routes.draw do
 
   resources :project_steps
 
-  get "home/index"
-
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
+
+
+  get "user/show"
+  get "user/settings"
+  get "user/admin_dashboard"
+  match 'dashboard' => 'user#dashboard', :as => :dashboard
+
+
+  get "home/index"
 
   match 'issues' => 'issues#index', :as => :issues
   match 'issues/:id/resolve' => 'issues#resolve', :as => :resolve_issue
   match 'issues/:id/accept' => 'issues#accept', :as => :accept_issue
   match 'issues/:id/deny' => 'issues#deny', :as => :deny_issue
-
-  get "user/show"
-  get "user/settings"
-  get "user/admin_dashboard"
-  match 'dashboard' => 'user#show', :as => :dashboard
 
   match 'projects/:id/favorite' => 'projects#favorite', :as => :add_favorite
   match 'projects/:id/unfavorite' => 'projects#unfavorite', :as => :remove_favorite
