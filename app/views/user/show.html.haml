@@ -29,3 +29,4 @@
     - @favorites.each do |f|
       =render :partial=>"shared/project_card", :locals => {:project => f}
     =will_paginate @favorites, :param_name => 'favorites_page'
+

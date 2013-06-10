@@ -1,0 +1,22 @@
+= simple_form_for @project do |f|
+  - if @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error")
+        prohibited this project from being saved:
+      %ul
+        - @project.errors.full_messages.each do |msg|
+          %li= msg
+
+  .hero-section
+    %h4.details-title
+      ="#{t(:questions)}"
+    -@organizations.each do |org|
+      - org.questions.each do |q|
+        =f.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, |
+        :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
+
+    / =f.input :project_params, :as => :hidden, :input_html => { :value => @proj_params}
+    / =f.input :org_params, :as => :hidden, :input_html => { :value => @org_params}
+
+  =f.button :submit, 'Submit Project', :class => "btn"

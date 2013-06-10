@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   validates :fname, :lname, :email, :password, :rolable_type, :presence => true
-  
+
   belongs_to :rolable, :polymorphic => true
   has_many :projects, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
@@ -24,4 +24,5 @@ class User < ActiveRecord::Base
     e.user = self
     e.save
   end
+
 end
