@@ -1,7 +1,27 @@
 class UserRegistrationsController < Devise::RegistrationsController
+
+  def new
+    # params[:user][:user_type] ||= session[:user_type]
+    @user_type = params[:user][:user_type]
+    if @user_type != nil
+      session[:user_type] = @user_type
+      puts 'assigned' + @user_type + 'in session'
+    else
+      @user_type = session[:user_type]
+      puts 'getting' + @user_type + 'from session'
+    end
+    super
+  end
+
   def create
     # customized code begin
     # Getting the user type that is send through a hidden field in the registration form.
+
+    if @user_type == nil
+      @user_type = session[:user_type]
+      puts 'getting' + @user_type + 'from session'
+    end
+
     user_type = params[:user][:user_type]
     user_type_params = params[:user][user_type]
 
@@ -37,10 +57,10 @@ class UserRegistrationsController < Devise::RegistrationsController
         respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
     else
-      clean_up_passwords(resource)
       resource[:user_type] = user_type
-      puts "FINDME: " + resource[:user_type].to_s
-      respond_with_navigational(resource) 
+      clean_up_passwords(resource)
+      session[:user_type] = user_type
+      respond_with_navigational(resource)
     end
   end
 
