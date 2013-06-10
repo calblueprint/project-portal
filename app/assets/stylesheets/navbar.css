@@ -1,0 +1,46 @@
+.navbar {
+	border-bottom: 1px solid;
+	border-color: #d0d5cb;
+	margin-bottom: 0px;
+}
+
+.navbar .navbar-inner {
+	height: 60px;
+	margin-top: -40px;
+	padding: 0px;
+	border: 0px;
+  border-color: #000000;
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25);
+  background: rgb(255,255,255);
+}
+
+.navbar .container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+	height: 60px;
+}
+
+.navbar .brand {
+	padding-top: 20px;
+	font-weight: 500;
+	color: rgb(97,85,164);
+}
+
+.navbar .brand:hover {
+	color: #000000;
+}
+
+.navbar .nav > li > a {
+	padding-top: 20px;
+	font-size: 15px;
+  color:  #000000;
+}
+
+.navbar .nav > li > a:hover {
+  color:  rgb(82,185,233);
+}
+
+

@@ -2,18 +2,18 @@
 %html
   %head
     %title ProjectPortal
-    = stylesheet_link_tag  "application", :media => "all"
     = stylesheet_link_tag "bootstrap", :media => "all"
+    = stylesheet_link_tag  "application", :media => "all"
     = javascript_include_tag "application"
     = javascript_include_tag "bootstrap"
     = csrf_meta_tags
   %body
-    %div{:class=>"navbar navbar-fixed-top navbar-inverse"}
+    %div{:class=>"navbar navbar-top"}
       %div.navbar-inner
         %div.container
           %a{:class=>"brand", :href=>root_path}= "Project Portal"
           %ul.nav
-            %li= link_to "Dashboard", dashboard_path
+            %li= link_to "Dashboard", dashboard_path, :class=>"text"
             %li= link_to "Projects", projects_path
             %li= link_to "Issues", issues_path
             %li= link_to "Propose A Project", new_project_path 
@@ -31,8 +31,25 @@
 
             - else
               %li= link_to 'Login', new_user_session_path
-    %div.container
-      -unless flash.empty?
+    %div{:class=>"content-wrapper"}
+      %div{:class=>"container"}   
         %div.flash
           =render 'layouts/messages'
-      = yield
+        = yield
+    %div{:class=>"footer-wrapper"}
+      %div{:class=>"section-footer"}
+        %div{:class=>"container footer"}
+          %div{:class=>"footer-inner"}
+            %div{:class=>"row"}
+              %div{:class=>"span6 left"}
+                %p{:class=>"links"}
+                  %a{:href=>"#"} Privacy
+                  \/
+                  %a{:href=>"#"} Terms 
+                  \/
+                  %a{:href=>"#"} Contact
+              %div{:class=>"span6 right"}
+                %p{:class=>"links"}
+                  %a{:href=>"http://www.calblueprint.org/"} 
+                    %span{:class=>"powered_by_text"} Powered by
+                    %img{:class=>"blueprint-logo", :src=>"assets/PAW_30x30.png"}
