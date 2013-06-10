@@ -1,6 +1,51 @@
 class ProjectsController < ApplicationController
   respond_to :html, :json
-  
+
+  def new
+  end
+
+  def org_questions
+    @project = Project.new
+
+    #need to pass these as hidden variables
+    org_params = params[:project][:organizations]
+    params[:project].delete(:organizations)
+    proj_params = params[:project]
+
+    session[:org] = org_params
+    session[:proj] = proj_params
+
+    @organizations = []
+    Organization.all.each do |org|
+      if org_params[org.sname]
+        @organizations << org
+      end
+    end
+  end
+
+  def create
+    org_params = session[:org]
+    proj_params = session[:proj]
+
+    @project = Project.new(proj_params, :as => :owner)
+    @project["user_id"] = current_user.id
+
+    @project.questions = params[:project]
+
+    Organization.all.each do |org|
+      if org_params[org.sname]
+        puts org.name
+        @project.organizations << org
+      end
+    end
+
+    if @project.save
+      redirect_to @project, notice: 'Project was successfully created.'
+    else
+      render action: "new"
+    end
+  end
+
   def show
     @project = Project.find(params[:id])
     @can_edit = user_signed_in?
@@ -11,7 +56,7 @@ class ProjectsController < ApplicationController
     @new_comment = Comment.build_from(@project, current_user.id, "") if user_signed_in?
   end
 
-  def index 
+  def index
     if is_admin
       @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
     else
@@ -27,11 +72,6 @@ class ProjectsController < ApplicationController
     render :index
   end
 
-  def new
-    @project = Project.new
-    @questions = Question.current_questions
-  end
-
   def edit
     @project = Project.find(params[:id])
     permission_to_update(@project)
@@ -42,21 +82,9 @@ class ProjectsController < ApplicationController
       @emails.append("#{u['fname']} #{u['lname']} (#{u['email']})")
     end
     unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
-      redirect_to @project, notice: 'You do not have permission to edit this project.' 
+      redirect_to @project, notice: 'You do not have permission to edit this project.'
     end
     @user = @project.user
-  end
-
-  def create
-    @questions = Question.current_questions
-    @project = Project.new(params[:project], :as => :owner)
-    @project["user_id"] = current_user.id
-    @questions = Question.current_questions
-    if @project.save
-      redirect_to @project, notice: 'Project was successfully created.' 
-    else
-      render action: "new" 
-    end
   end
 
   def update
@@ -70,13 +98,13 @@ class ProjectsController < ApplicationController
       params[:project][:approved] = nil
     end
     if current_user.admin? and @project.update_attributes(params[:project], :as => :admin) or @project.update_attributes(params[:project], :as => :owner)
-      redirect_to(@project, :notice => "Project was successfully updated.") 
+      redirect_to(@project, :notice => "Project was successfully updated.")
     else
       @questions = @project.project_questions
       render action: "edit"
     end
   end
-  
+
   def approval
     @project = Project.find(params[:id])
     permission_to_update(@project)
@@ -91,7 +119,7 @@ class ProjectsController < ApplicationController
     @project.update_attributes(params[:project])
     respond_with_bip(@project)
   end
-  
+
   def destroy
     @project = Project.find(params[:id])
     @project.destroy
@@ -120,7 +148,7 @@ class ProjectsController < ApplicationController
     if @comment.save
       render :partial => 'shared/project_comments', :locals => {:comment => @comment}, :layout => false, :status => :created
     else
-      flash[:error] = 'Comment failed.' 
+      flash[:error] = 'Comment failed.'
       redirect_to @project
     end
   end
@@ -130,7 +158,7 @@ class ProjectsController < ApplicationController
     if @comment.destroy
       render :json => @comment, :status => :ok
     else
-      flash[:error] = 'Deletion of Comment Failed.' 
+      flash[:error] = 'Deletion of Comment Failed.'
       redirect_to @project
     end
   end
@@ -138,29 +166,29 @@ class ProjectsController < ApplicationController
   private
   def approve_deny_project(project)
     comment = params[:project][:comment]
-    enotifer_on = current_user.email_notification.proj_approval 
+    enotifer_on = current_user.email_notification.proj_approval
     if params[:project][:approved] == "true"
       flash[:notice] = "Project: '#{project.title}' was successfully approved."
-      UserMailer.project_approved(project, comment).deliver unless not enotifer_on 
+      UserMailer.project_approved(project, comment).deliver unless not enotifer_on
     else
       UserMailer.project_denied(project, comment).deliver unless not enotifer_on
       flash[:notice] = "Project: '#{project.title}' was successfully denied."
     end
   end
-  
+
   private
-  
+
   def user_can_update(project)
     user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
   end
-  
+
   def permission_to_update(project)
     unless user_can_update(project)
       flash[:error] = 'Youd do not have permission to edit this project.'
       return redirect_to project
     end
   end
-  
+
   def get_user_id_from_email(email_string)
     email = /[a-zA-Z\d-_!#\$%&'*+-\/=?^_`{.|}~]+[@]{1}+[a-zA-Z\d-]+[.]{1}[a-zA-Z]+/.match(email_string).to_s
     user = User.find_by_email(email)

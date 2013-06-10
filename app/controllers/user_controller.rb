@@ -2,7 +2,7 @@ class UserController < ApplicationController
   def show
     if user_signed_in?
       @projects = Project.order("created_at DESC").paginate(:page => params[:projects_page], :per_page => 5).find_all_by_user_id(current_user.id)
-      @favorites = current_user.favorite_projects.paginate(:page => params[:favorites_page], :per_page => 5)
+      # @favorites = current_user.favorite_projects.paginate(:page => params[:favorites_page], :per_page => 5)
     else
       redirect_to new_user_session_path, notice: 'Please log in to view your dashboard.'
     end
