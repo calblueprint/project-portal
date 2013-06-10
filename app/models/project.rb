@@ -16,9 +16,11 @@ class Project < ActiveRecord::Base
 
   attr_accessible :github_site, :application_site, :as => [:default, :admin, :owner]
   attr_accessible :questions, :title, :comment, :state, :as => [ :owner, :admin ]
+  attr_accessible :problem, :short_description, :long_description, :as => [ :owner, :admin ]
   attr_accessible :approved, :as => :admin
   attr_accessor :comment
   attr_accessor :blueprint, :cs169
+  attr_accessible :blueprint, :cs169
 
   attr_accessible :user_id, :as=>:admin
 
@@ -27,18 +29,19 @@ class Project < ActiveRecord::Base
   validates :title, :github_site, :application_site, :uniqueness => true, :allow_blank => true
 
   # validate URLs
-  validates :company_site, :github_site, :allow_blank => true, :format => /(((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/ #simplified version
+  validates :github_site, :allow_blank => true, :format => /(((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/ #simplified version
+ # :company_site,
 
   #/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/ # regex from http://blog.mattheworiordan.com/post/13174566389/url-regular-expression-for-links-with-or-without-the
 
   # method from StackOverflow (http://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails-3)
 
   # validate emails, regex from StackOverflow (http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address)
-  validates_format_of :contact_email, :with => /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/
+  # validates_format_of :contact_email, :with => /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/
 
   serialize :questions, Hash
   before_save :merge_questions
-  mount_uploader :photo, PhotoUploader
+  # mount_uploader :photo, PhotoUploader
 
   def merge_questions
     updated_questions = questions.blank? ? {} : questions
