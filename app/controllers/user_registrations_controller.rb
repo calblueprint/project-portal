@@ -38,7 +38,10 @@ class UserRegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords(resource)
-      respond_with_navigational(resource) { render :new }
+      resource[:user_type] = user_type
+      puts "FINDME: " + resource[:user_type].to_s
+      respond_with_navigational(resource) 
     end
   end
+
 end

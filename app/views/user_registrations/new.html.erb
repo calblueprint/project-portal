@@ -1,7 +1,8 @@
+<%= params %>
 <%
   # customized code begin
 
-  params[:user][:user_type] ||= 'developer'
+  params[:user][:user_type] ||= "developer"
 
   if ["developer", "client"].include? params[:user][:user_type].downcase
     child_class_name = params[:user][:user_type].downcase.camelize
@@ -14,7 +15,6 @@
   resource.rolable = child_class_name.constantize.new if resource.rolable.nil?
   # customized code end
 %>
-
 <h2><%= child_class_name%> Sign Up</h2>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
@@ -44,3 +44,4 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+<%= debug(params) if Rails.env.development? %>
