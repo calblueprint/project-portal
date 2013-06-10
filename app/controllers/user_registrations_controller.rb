@@ -1,20 +1,22 @@
 class UserRegistrationsController < Devise::RegistrationsController
   def create
+    # customized code begin
     # Getting the user type that is send through a hidden field in the registration form.
     user_type = params[:user][:user_type]
+    user_type_params = params[:user][user_type]
 
     # Deleting the user_type from the params hash, won't work without this.
     params[:user].delete(:user_type)
+    params[:user].delete(user_type)
 
     # Building the user, I assume.
     build_resource
 
-    # customized code begin
-
     # create a new child instance depending on the given user type
-    #child_class = params[:user][:user_type].camelize.constantize
+    #hild_class = params[:user][:user_type].camelize.constantize
     child_class = user_type.camelize.constantize
-    resource.rolable = child_class.new(params[child_class.to_s.underscore.to_sym])
+    #resource.rolable = child_class.new(params[child_class.to_s.underscore.to_sym])
+    resource.rolable = child_class.new(user_type_params)
 
     # first check if child instance is valid
     # cause if so and the parent instance is valid as well
