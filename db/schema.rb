@@ -14,8 +14,16 @@
 ActiveRecord::Schema.define(:version => 20130609061859) do
 
   create_table "clients", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "company_name"
+    t.string   "company_site"
+    t.string   "company_address"
+    t.boolean  "nonprofit"
+    t.boolean  "five_01c3"
+    t.string   "mission_statement"
+    t.string   "contact_email"
+    t.string   "contact_number"
   end
 
   create_table "comments", :force => true do |t|
