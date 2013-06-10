@@ -1,0 +1,86 @@
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+
+.org-logo {
+  width: 460px;
+  background-color: #FFFFFF;
+}
+
+.org-logo {
+  display: block;
+  padding: 4px;
+  line-height: 20px;
+  border: 1px solid;
+  border-color: #DDDDDD;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+  -webkit-box-shadow: 0 0 10px 1px rgba(230, 230, 230, 1);
+     -moz-box-shadow: 0 0 10px 1px rgba(230, 230, 230, 1);
+          box-shadow: 0 0 10px 1px rgba(230, 230, 230, 1);
+  -webkit-transition: all 0.3s ease-in-out;
+     -moz-transition: all 0.3s ease-in-out;
+       -o-transition: all 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
+}
+
+.org-logo:hover,
+.org-logo:focus {
+  border: 1px solid;
+  border-color: #DDDDDD;
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 0 0 10px 3px rgba(230, 230, 230, 1);
+     -moz-box-shadow: 0 0 10px 3px rgba(230, 230, 230, 1);
+          box-shadow: 0 0 10px 3px rgba(230, 230, 230, 1);
+}
+
+.marketing {
+  margin-left: -233px;
+  margin-right: -233px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.marketing .about {
+}
+
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .span4 p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.marketing p {
+  line-height: 20px;
+}
+
+.home-banner {
+  margin-left: -233px;
+  margin-right: -233px;
+  height: 125px;
+  padding: 30px;
+  padding-left: 230px;
+  padding-right: 230px;
+  background-color: rgb(97,85,164);
+  text-align: center;
+}
+
+.home-banner h2{
+  color: white;
+
+}
+
+.list-organizations {
+  margin-left: -233px;
+  margin-right: -233px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(255,255,255);
+}
+
+.list-organizations h2 {
+  font-weight: normal;
+}
