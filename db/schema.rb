@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130609061859) do
     t.string   "mission_statement"
     t.string   "contact_email"
     t.string   "contact_number"
+    t.string   "photo"
   end
 
   create_table "comments", :force => true do |t|
