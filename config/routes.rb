@@ -16,10 +16,11 @@ ProjectPortal::Application.routes.draw do
 
   resources :email_notifications
 
+  get "home/index"
+
   resources :project_steps
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
-
 
   get "user/show"
   get "user/settings"
@@ -45,14 +46,11 @@ ProjectPortal::Application.routes.draw do
 
   match 'projects/:id/comment' => 'projects#comment', :as => :comment
   match 'projects/:id/delete_comment' => 'projects#delete_comment', :as => :delete_comment
-
   match 'volunteer_intro' => 'home#volunteer_intro'
   match 'organization_intro' => 'home#organization_intro'
 
   # Adds separate URLs to sign up for client and developers. Removed for two-stage sign up process.
   devise_scope :user do
-    # match 'client/sign_up' => 'user_registrations#new', :user => { :user_type => 'client' }
-    # match 'developer/sign_up' => 'user_registrations#new', :user => { :user_type => 'developer' }
     match 'developer/sign_up' => 'user_registrations#new',
           :user => { :user_type => 'developer' }
     match 'client/sign_up' => 'user_registrations#new',
