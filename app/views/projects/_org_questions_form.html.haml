@@ -19,11 +19,11 @@
   .hero-section
     %h4.details-title
       ="#{t(:questions)}"
-    =f.simple_fields_for :organizations do |questions|
+    =f.simple_fields_for :questions do |questions|
       -@organizations.each do |org|
         = org.name
         - org.questions.each do |q|
-          =f.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, |
+          =questions.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, |
           :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
 
   =f.button :submit, 'Submit Project', :class => "btn"
