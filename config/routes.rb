@@ -26,6 +26,7 @@ ProjectPortal::Application.routes.draw do
   get "user/admin_dashboard"
   match 'dashboard' => 'user#dashboard', :as => :dashboard
 
+  match 'delete_question/:id' => 'questions#destroy', :as => 'delete_question'
 
   get "home/index"
 

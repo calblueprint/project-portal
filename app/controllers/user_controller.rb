@@ -11,19 +11,11 @@ class UserController < ApplicationController
     else
       #error
     end
-
-    # if user_signed_in?
-    #   @projects = Project.order("created_at DESC").paginate(:page => params[:projects_page], :per_page => 5).find_all_by_user_id(current_user.id)
-    #   # @favorites = current_user.favorite_projects.paginate(:page => params[:favorites_page], :per_page => 5)
-    # else
-    #   #SHOULDN'T BE ABLE TO SEE DASHBOARD IF NOT SIGNED IN IN THE FIRST PLACE--USE FILTER
-    #   redirect_to new_user_session_path, notice: 'Please log in to view your dashboard.'
-    # end
   end
 
   protected
   def organization_dashboard   #MICHELLE
-    puts
+    @questions = current_rolable.questions
 
     render(:template => 'user/organization_dashboard')
   end
@@ -94,3 +86,12 @@ class UserController < ApplicationController
     end
   end
 end
+
+
+# if user_signed_in?
+#   @projects = Project.order("created_at DESC").paginate(:page => params[:projects_page], :per_page => 5).find_all_by_user_id(current_user.id)
+#   # @favorites = current_user.favorite_projects.paginate(:page => params[:favorites_page], :per_page => 5)
+# else
+#   #SHOULDN'T BE ABLE TO SEE DASHBOARD IF NOT SIGNED IN IN THE FIRST PLACE--USE FILTER
+#   redirect_to new_user_session_path, notice: 'Please log in to view your dashboard.'
+# end
