@@ -15,9 +15,9 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :favorite_users, :class_name => "User"
   has_and_belongs_to_many :organizations
 
-  attr_accessible :github_site, :application_site, :as => [:default, :admin, :owner]
-  attr_accessible :questions, :title, :comment, :state, :as => [ :owner, :admin ]
-  attr_accessible :problem, :short_description, :long_description, :as => [ :owner, :admin ]
+  attr_accessible :github_site, :application_site#, :as => [:default, :admin, :owner]
+  attr_accessible :questions, :title, :comment, :state#, :as => [ :owner, :admin ]
+  attr_accessible :problem, :short_description, :long_description#, :as => [ :owner, :admin ]
   attr_accessible :approved, :as => :admin
   attr_accessor :project_params, :org_params
   attr_accessible :organization
@@ -101,18 +101,24 @@ class Project < ActiveRecord::Base
 
   def merge_questions
     updated_questions = questions.blank? ? {} : questions
-    project_questions.each do |q|
-      question_key = Project.question_key(q)
-      question = self.send(question_key)
-      updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
+    if project_questions != nil
+      project_questions.each do |q|
+        question_key = Project.question_key(q)
+        question = self.send(question_key)
+        updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
+      end
+      self.questions = updated_questions
     end
-    self.questions = updated_questions
   end
 
   def project_questions
     project_questions = Question.where(:id => questions.map { |q| Project.get_question_id(q)}) unless questions.blank?
     # project_questions = Question.current_questions if project_questions.blank?
     project_questions
+  end
+
+  def owner
+    user.rolable
   end
 
   # Class Methods for questions as virtual attributes

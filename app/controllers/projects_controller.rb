@@ -27,7 +27,8 @@ class ProjectsController < ApplicationController
     org_params = session[:org]
     proj_params = session[:proj]
 
-    @project = Project.new(proj_params, :as => :owner)
+    @project = Project.new(proj_params)
+    # @project = Project.new(proj_params, :as => :owner)
     @project["user_id"] = current_user.id
 
     @project.questions = params[:project]
@@ -57,10 +58,16 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    if is_admin
-      @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
-    else
-      @projects = Project.where(:approved => true).order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    # if is_admin
+    #   @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    # else
+    #   @projects = Project.where(:approved => true).order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    # end
+    @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    puts 'projects: '
+    puts @projects
+    @projects.each do |p|
+      puts p.owner
     end
     @title = "All Projects"
   end

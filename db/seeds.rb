@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+#ADMIN-------------------------------
 u = User.create({
   fname: "Admin",
   lname: "Admin",
@@ -16,6 +17,7 @@ u = User.create({
 u.confirmed_at = Time.now
 u.save
 
+#DEVELOPER
 # mc = User.create({
 #   fname: "Michelle",
 #   lname: "Chow",
@@ -26,12 +28,13 @@ u.save
 # u.confirmed_at = Time.now
 # u.save
 
+#ORGANIZATION: CS169------------------------
 cs169_user = User.create({
   fname: "David",
   lname: "Patterson",
   admin: false,
   email: "pattrsn@eecs.berkeley.edu",
-  password: "ucbsaas",
+  password: "password",
   })
 u.confirmed_at = Time.now
 u.save
@@ -47,52 +50,87 @@ cs169_user.save
 
 cs169_questions = Question.create([
   { question: "If selected, is the contact listed above available to speak on a weekly basis with a student from CS169?",
-    input_type: "text"
+    input_type: "boolean"
   },
   { question: "If selected, will you and your organization fully commit to an engagement with CS169 for 8 weeks in Fall 2013?",
-    input_type: "text"
+    input_type: "boolean"
   },
   { question: "Does the contact above have the ability to implement software solutions developed by the CS169 team?",
-    input_type: "text"
+    input_type: "boolean"
+  },
+  { question: "Is this a software project?",
+    input_type: "boolean"
   }
 ])
 cs169.questions << cs169_questions
 
-# bp = Organization.create({
-#   sname: 'blueprint',
-#   name: "Blueprint, Technology for Non-Profits",
-#   email: "calblueprint@gmail.com",
-#   password: "beautifulengineering",
-#   description: "Our mission is to make beautiful engineering accessible and useful for those who create communities and promote public welfare.",
-#   website: "http://bptech.berkeley.edu",
-# })
+#ORGANIZATION: BLUEPRINT------------------------
+bp_user = User.create({
+  fname: "Kevin",
+  lname: "Gong",
+  admin: false,
+  email: "calblueprint@gmail.com",
+  password: "password",
+  })
+u.confirmed_at = Time.now
+u.save
+bp = Organization.create({
+  sname: 'blueprint',
+  name: "Blueprint, Technology for Non-Profits",
+  description: "Our mission is to make beautiful engineering accessible and useful for those who create communities and promote public welfare.",
+  website: "http://bptech.berkeley.edu",
+})
 
+bp_user.rolable = bp
+bp_user.rolable_type = bp.class.name
+bp_user.save
 
+bp_questions = Question.create([
+  { question: "Do you have the technical capabilities to deploy any solutions that Blueprint makes? (eg if Blueprint makes a website, will you be able to set up the domain name and server? Or will you require assistance from the Blueprint team?)",
+    input_type: "boolean"
+  },
+  { question: "If selected, will you and your organization fully commit to an engagement with Blueprint for 11 weeks in Fall 2013?",
+    input_type: "boolean"
+  },
+  { question: " If selected, will a representative of your company be available to meet at two-week intervals with the project team that Blueprint assigns to you?",
+    input_type: "boolean"
+  }
+])
+bp.questions << bp_questions
 
+#CLIENT: ALTBREAKS-------------------------
+altbreaks_user = User.create({
+  fname: "Kati",
+  lname: "Hinman",
+  admin: false,
+  email: "kati.himan@gmail.com",
+  password: "password"
+  })
+u.confirmed_at = Time.now
+u.save
+altbreaks = Client.create({
+  company_name: 'Alternative Breaks',
+  company_site:'http://publicservice.berkeley.edu/alternativebreaks',
+  company_address: '102 Sproul Hall, Berkeley, CA 94720',
+  nonprofit: true,
+  five_01c3: true,
+  mission_statement: 'Alternative Breaks is a service-learning program for students to explore social issues through meaningful service, education, and reflection during their academic breaks.',
+  contact_email: 'kati.hinman@gmail.com',
+  contact_number: '123-456-789'
+  })
+altbreaks_user.rolable = altbreaks
+altbreaks_user.rolable_type = altbreaks.class.name
+altbreaks_user.save
 
-
-
-
-
-
-
-
-
-
-# Project.create({
-#   github_site: "https://github.com/callmemc/altbreaks",
-#   application_site: "http://publicservice.berkeley.edu/alternativebreaks",
-#   title: "Internal Forum",
-#   nonprofit: true,
-#   five_01c3: true,
-#   company_name: "Alternative Breaks",
-#   company_site: "http://publicservice.berkeley.edu/alternativebreaks",
-#   company_address: "102 Sproul Hall",
-#   mission_statement: "Alternative Breaks is a service-learning program for students to explore social issues through meaningful service, education, and reflection during their academic breaks. This year, Alternative Breaks offers ten week-long trips coupled with a semester long academic course on issues such as environmental justice, health care, immigration, and homelessness. Students serve throughout California, and in Oregon, Arizona and Louisiana.",
-#   contact_name: "Kati Hinman",
-#   contact_position: "Director",
-#   contact_email: "kati.hinman@gmail.com",
-#   contact_number: "123-456-789",
-#   contact_hours: "M-F 9-5 pm",
-#   })
+#PROJECT: ALTBREAKS SITE-------------------------
+proj = Project.create({
+  title: "AltBreaks Site",
+  github_site: "https://github.com/callmemc/altbreaks",
+  application_site: "http://publicservice.berkeley.edu/alternativebreaks",
+  short_description: "Mulipurpose website that serves both marketing purposes and internal purposes",
+  long_description: "We want an interactive map to show all the trips, so that if you hover over a trip location, a pop-up is displayed with the trip information. We also want trip pages. And we want an internal forum where people from trips can communicate with each other and with people from other trips.",
+  })
+proj.user = altbreaks_user
+proj.save
+# questions: {'question_1' => true, 'question_2' => true, 'question_3' => true}
 

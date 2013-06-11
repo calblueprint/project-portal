@@ -7,7 +7,7 @@
       .project-title
         %p
           =link_to project.title, project_path(project)
-          (#{project.company_name}) -  
-          #{project.mission_statement}
+          (#{project.owner.company_name}) -
+          #{project.owner.mission_statement}
         =render :partial=>"shared/project_tags", :locals => {:project => project}
 
