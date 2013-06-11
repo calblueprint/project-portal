@@ -7,9 +7,14 @@ class ProjectsController < ApplicationController
   def org_questions
     @project = Project.new
 
-    org_params = params[:project][:organizations]
-    params[:project].delete(:organizations)
-    proj_params = params[:project]
+    if params[:project].nil?
+      org_params = session[:org]
+      proj_params = session[:proj]
+    else
+      org_params = params[:project][:organizations]
+      params[:project].delete(:organizations)
+      proj_params = params[:project]
+    end
 
     session[:org] = org_params
     session[:proj] = proj_params

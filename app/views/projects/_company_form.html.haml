@@ -1,4 +1,4 @@
-= simple_form_for :project, :url => org_questions_projects_path do |f|
+= simple_form_for :project, :url => project_questions_path do |f|
   / - if @project.errors.any?
   /   #error_explanation
   /     %h2
@@ -16,16 +16,14 @@
   .hero-section
     %h4.details-title
       ="#{t(:organizations)}"
-
     =f.simple_fields_for :organizations do |organizations|
       =organizations.label :blueprint, label: 'Organizations I wish to work exclusively with'
-
       - Organization.all.each do |org|
         - if params[org.sname] == "1"
-          =organizations.input org.sname, as: :boolean, inline_label: org.name, :input_html => { checked: true }
+          %label.checkbox
+            =organizations.input org.sname, as: :boolean, label: org.name, :input_html => { checked: true }
         - else
-          =organizations.input org.sname, as: :boolean, inline_label: org.name
-
-        = # :value=> params[org.sname], :selected
+          %label.checkbox
+            =organizations.input org.sname, as: :boolean, label: org.name
 
   =f.button :submit, 'Continue', :class => "btn"
