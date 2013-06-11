@@ -10,7 +10,7 @@ ProjectPortal::Application.routes.draw do
   resources :projects do
     resources :issues
     collection do
-      post 'org_questions'
+      match 'org_questions'
     end
   end
 
@@ -48,6 +48,8 @@ ProjectPortal::Application.routes.draw do
   match 'projects/:id/delete_comment' => 'projects#delete_comment', :as => :delete_comment
   match 'volunteer_intro' => 'home#volunteer_intro'
   match 'organization_intro' => 'home#organization_intro'
+
+  match 'projects/org_questions' => 'projects#org_questions', :as => :project_questions
 
   # Adds separate URLs to sign up for client and developers. Removed for two-stage sign up process.
   devise_scope :user do
