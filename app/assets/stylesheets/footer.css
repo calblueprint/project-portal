@@ -1,0 +1,88 @@
+html, body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+.footer-wrapper, .push {
+  height: 75px;
+}
+
+.footer-wrapper{
+  background-color: #DDDDDD;
+}
+
+
+.footer .powered_by_text{
+  color: rgb(125, 125, 125);
+}
+
+.footer .links{
+  font-family: 'Open Sans', HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 23px;
+  height: auto;
+}
+
+.footer a {
+  color: rgb(125, 125, 125);
+}
+
+.footer a:hover {
+  color: rgb(82, 185, 233);
+  text-decoration: none;
+}
+
+.footer .left{
+  text-align: left;
+}
+
+.footer .right{
+  text-align: right;
+}
+
+.content-wrapper{
+  height: auto;
+  min-height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.footer-inner{
+  height: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+/* Spin logo on hover */
+.footer .blueprint-logo {
+    -webkit-transition: -webkit-transform 0.5s ease-in-out;
+       -moz-transition:    -moz-transform 0.5s ease-in-out;
+         -o-transition:      -o-transform 0.5s ease-in-out;
+            transition:         transform 0.5s ease-in-out;
+    -webkit-filter: grayscale(100%); /* New WebKit */
+       -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%); 
+         -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */ 
+            filter: grayscale(100%); /* Current draft standard */
+}
+
+.footer .blueprint-logo:hover {
+    -webkit-transform: rotate(360deg);
+       -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+         -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+    -webkit-filter: none; /* New WebKit */
+       -moz-filter: none;
+        -ms-filter: none; 
+         -o-filter: none; /* Not yet supported in Gecko, Opera or IE */ 
+            filter: none; /* Current draft standard */
+}​

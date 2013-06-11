@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130610062246) do
+ActiveRecord::Schema.define(:version => 20130610180802) do
 
   create_table "clients", :force => true do |t|
     t.datetime "created_at",        :null => false
@@ -81,29 +81,37 @@ ActiveRecord::Schema.define(:version => 20130610062246) do
     t.integer  "submitter_id"
   end
 
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "website"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "sname"
+  end
+
+  create_table "organizations_projects", :id => false, :force => true do |t|
+    t.integer "project_id"
+    t.integer "organization_id"
+  end
+
+  add_index "organizations_projects", ["project_id", "organization_id"], :name => "index_organizations_projects_on_project_id_and_organization_id"
+
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.text     "questions"
     t.string   "github_site"
-    t.string   "company_site"
-    t.string   "company_address"
     t.string   "application_site"
-    t.boolean  "nonprofit"
-    t.boolean  "five_01c3"
-    t.string   "mission_statement"
-    t.string   "contact_name"
-    t.string   "contact_position"
-    t.string   "contact_number"
-    t.string   "contact_email"
-    t.string   "contact_hours"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.integer  "user_id"
     t.string   "photo"
     t.string   "slug"
-    t.string   "company_name"
     t.boolean  "approved"
     t.integer  "state"
+    t.text     "problem"
+    t.string   "short_description"
+    t.text     "long_description"
   end
 
   create_table "projects_users", :id => false, :force => true do |t|
@@ -114,9 +122,10 @@ ActiveRecord::Schema.define(:version => 20130610062246) do
   create_table "questions", :force => true do |t|
     t.string   "question"
     t.string   "input_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "deleted"
+    t.integer  "organization_id"
   end
 
   create_table "users", :force => true do |t|

@@ -24,9 +24,11 @@
       =render :partial=>"shared/project_card", :locals => {:project => p}
     =will_paginate @projects, :param_name => 'projects_page'
 
-  %h1= "Favorited Projects"
-  - if @favorites
-    - @favorites.each do |f|
-      =render :partial=>"shared/project_card", :locals => {:project => f}
-    =will_paginate @favorites, :param_name => 'favorites_page'
+
+/ FOR DEVS
+  / %h1= "Favorited Projects"
+  / - if @favorites
+  /   - @favorites.each do |f|
+  /     =render :partial=>"shared/project_card", :locals => {:project => f}
+  /   =will_paginate @favorites, :param_name => 'favorites_page'
 

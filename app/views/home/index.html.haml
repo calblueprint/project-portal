@@ -1,39 +1,33 @@
-%div#landing-carousel.carousel.slide
-  %ol.carousel-indicators
-    %li.active{"data-target"=>"#landing-carousel", "data-slide-to"=>"0"}
-    %li{"data-target"=>"#landing-carousel", "data-slide-to"=>"1"}
-    %li{"data-target"=>"#landing-carousel", "data-slide-to"=>"2"}
-  %div.carousel-inner
-    %div.active.item
-      %img(src="/assets/carousel/carousel1.png")
-      %div.carousel-caption
-        %h4 Organizations 
-        %p Submit your web application needs to student developers
-    %div.item
-      %img(src="/assets/carousel/carousel2.png")
-      %div.carousel-caption
-        %h4 Beautiful web applications
-        %p  
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+%div{:class=>"home"}
+%div{:class=>"home-banner"}
+  %h2 Connect with student developers to solve engineering problems.
 
-    %div.item
-      %img(src="/assets/carousel/carousel3.png")
-      %div.carousel-caption
-        %h4 Technology Solutions
-        %p 
-  %a.carousel-control.left{:href => "#landing-carousel", "data-slide" => "prev"} &lsaquo;
-  %a.carousel-control.right{:href => "#landing-carousel", "data-slide" => "next"} &rsaquo;
+%div{:class=>"marketing"}
+  %div{:class=>"container"}
+    %div{:class=>"row"}
+      %div{:class=>"span6 about"}
+        %h2 Clients
+        %p Are you looking for a group to develop a web or mobile application for your non-profit or organization? Work with Berkeley students enrolled in the software engineering course at UC Berkeley and in student groups to meet your technology need. Students can work with you to build an application to your specifications and coordinate to fix issues that may arise once the project is in use.
+        %a{:class=>"btn", :href=>"/organization_intro"}Learn More
+        .sign-up-btn{}
+          %div{:class=>"btn btn-large btn-success", :href=>"/volunteer_intro"}Sign up as a Client
+      %div{:class=>"span6 about"}
+        %h2 Developers
+        %p Are you enrolled in CS 169 (Software Engineering), part of Blueprint or looking to get involved in non-profit web application development? Use Project Portal to discover projects to work on. Also search for projects in maintenance mode if you want to focus on fixing specific issues.
+        %a{:class=>"btn", :href=>"/volunteer_intro"}Learn More
 
-%div.hero-unit#landing-title
-  %h1 Project Portal
-  %br
-  %p Connecting organizations seeking technology solutions with computer science students.
+%hr
 
-%div.row
-  %div.span5-75.well
-    %h3 Organizations
-    %p Are you looking for a group to develop a web or mobile application for your non-profit or organization? Work with Berkeley students enrolled in the software engineering course at UC Berkeley and in student groups to meet your technology need. Students can work with you to build an application to your specifications and coordinate to fix issues that may arise once the project is in use. #{link_to 'Learn more', '/organization_intro'}
-  %div.span5-75.well
-    %h3 Volunteers
-    %p Are you enrolled in CS 169 (Software Engineering), part of Blueprint or looking to get involved in non-profit web application development? Use Project Portal to discover projects to work on. Also search for projects in maintenance mode if you want to focus on fixing specific issues. #{link_to 'Learn more', '/volunteer_intro'}
-
-
+%div{:class=>"list-organizations"}
+  %div{:class=>"container"}
+    %h2 Learn about the Development Organizations
+    %div{:class=>"row"}
+      %div{:class=>"span6"}
+        %a{:href=>"http://www.calblueprint.org/"}
+          %img{:class=>"org-logo", :src=>"assets/blueprintlogo_600x380.png"}
+      %div{:class=>"span6"}
+        %a{:href=>"https://sites.google.com/site/ucbsaas/"}
+          %img{:class=>"org-logo", :src=>"assets/UCBlogo_600x380.png"}
