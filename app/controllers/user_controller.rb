@@ -16,7 +16,7 @@ class UserController < ApplicationController
   protected
   def organization_dashboard   #MICHELLE
     @questions = current_rolable.questions
-    @projects = Project.all
+    @projects = current_rolable.projects
 
     render(:template => 'user/organization_dashboard')
   end

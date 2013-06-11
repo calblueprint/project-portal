@@ -7,7 +7,6 @@ class ProjectsController < ApplicationController
   def org_questions
     @project = Project.new
 
-    #need to pass these as hidden variables
     org_params = params[:project][:organizations]
     params[:project].delete(:organizations)
     proj_params = params[:project]
@@ -15,9 +14,12 @@ class ProjectsController < ApplicationController
     session[:org] = org_params
     session[:proj] = proj_params
 
+    puts 'org params'
+    puts org_params
+
     @organizations = []
     Organization.all.each do |org|
-      if org_params[org.sname]
+      if org_params[org.sname] == "1"
         @organizations << org
       end
     end
@@ -31,10 +33,10 @@ class ProjectsController < ApplicationController
     # @project = Project.new(proj_params, :as => :owner)
     @project.client = current_rolable
 
-    @project.questions = params[:project]
+    @project.questions = params[:project][:questions]
 
     Organization.all.each do |org|
-      if org_params[org.sname]
+      if org_params[org.sname] == "1"
         puts org.name
         @project.organizations << org
       end
@@ -83,18 +85,18 @@ class ProjectsController < ApplicationController
     users.each do |u|
       @emails.append("#{u['fname']} #{u['lname']} (#{u['email']})")
     end
-    unless user_signed_in? and (current_user.admin? or (@project.user_id and current_user.id == @project.user.id))
+    unless user_can_update?(@project)
       redirect_to @project, notice: 'You do not have permission to edit this project.'
     end
-    @user = @project.user
+    @user = @project.client
   end
 
   def update
     @project = Project.find(params[:id])
     permission_to_update(@project)
-    if params[:project][:project_owner]
-      params[:project][:user_id] = get_user_id_from_email(params[:project][:project_owner])
-    end
+    # if params[:project][:project_owner]
+    #   params[:project][:user_id] = get_user_id_from_email(params[:project][:project_owner])
+    # end
     params[:project].delete(:project_owner)
     if @project.approved == false
       params[:project][:approved] = nil
@@ -180,12 +182,8 @@ class ProjectsController < ApplicationController
 
   private
 
-  def user_can_update(project)
-    user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
-  end
-
   def permission_to_update(project)
-    unless user_can_update(project)
+    unless user_can_update?(project)
       flash[:error] = 'Youd do not have permission to edit this project.'
       return redirect_to project
     end

@@ -136,6 +136,7 @@ proj = Project.create({
   long_description: "We want an interactive map to show all the trips, so that if you hover over a trip location, a pop-up is displayed with the trip information. We also want trip pages. And we want an internal forum where people from trips can communicate with each other and with people from other trips.",
   })
 proj.client = altbreaks
+proj.organizations << bp
 proj.save
 # questions: {'question_1' => true, 'question_2' => true, 'question_3' => true}
 
