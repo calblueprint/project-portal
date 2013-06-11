@@ -1,15 +1,11 @@
-<%= f.input :company_name, :label => false, :placeholder => "Organization Name",
+<%= f.input :company_name, :label => "Organization Name", :required => true %>
+<%= f.input :company_site, :label => "Organization Site", :required => true %>
+<%= f.input :company_address, :label => "Organization Address", 
             :required => true %>
-<%= f.input :company_site, :label => false, :placeholder => "Organization Site",
-            :required => true %>
-<%= f.input :company_address, :label => false,
-            :placeholder => "Organization Address", :required => true %>
 <%= f.input :nonprofit, :label => "Nonprofit?", :required => false %>
 <%= f.input :five_01c3, :label => "501(c)3?", :required => false %>
-<%= f.input :mission_statement, :label => false,
-            :placeholder => "Mission Statement", :required => true %>
-<%= f.input :contact_email, :label => false, :placeholder => "Contact Email",
+<%= f.input :mission_statement, :label => "Mission Statement", 
             :required => true %>
-<%= f.input :contact_number, :label => false, :placeholder => "Contact Number",
-            :required => true %>
+<%= f.input :contact_email, :label => "Contact Email", :required => true %>
+<%= f.input :contact_number, :label => "Contact Number", :required => true %>
 <%= f.file_field :photo, :label => "Upload Logo", :required => false %>
