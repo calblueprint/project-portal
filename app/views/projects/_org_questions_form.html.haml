@@ -21,9 +21,16 @@
       ="#{t(:questions)}"
     =f.simple_fields_for :questions do |questions|
       -@organizations.each do |org|
-        = org.name
-        - org.questions.each do |q|
-          =questions.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, |
-          :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
+        .org-questions
+          = org.name
+          - org.questions.each do |q|
+            - input_type = q.input_type.to_sym
+            - if input_type == :boolean
+              %label.checkbox
+                =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:value => @project.questions[Project::question_key(q)] }
+            - elsif input_type == :text
+              =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:rows => 4, :class => 'span12', :value => @project.questions[Project::question_key(q)] }
+            - elsif input_type == :string
+              =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:rows => 1, :class => 'span12', :value => @project.questions[Project::question_key(q)] }
 
   =f.button :submit, 'Submit Project', :class => "btn"
