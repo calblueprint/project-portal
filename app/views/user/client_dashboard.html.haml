@@ -12,6 +12,7 @@
             %a.btn.btn-large-square{:href => projects_path}
               .btn-large-text
                 Browse Projects!
+
 -else
   %h1.inline-title= "Projects I Own"
   .btn-group#new-proj-btn
@@ -25,10 +26,5 @@
     =will_paginate @projects, :param_name => 'projects_page'
 
 
-/ FOR DEVS
-  / %h1= "Favorited Projects"
-  / - if @favorites
-  /   - @favorites.each do |f|
-  /     =render :partial=>"shared/project_card", :locals => {:project => f}
-  /   =will_paginate @favorites, :param_name => 'favorites_page'
+
 

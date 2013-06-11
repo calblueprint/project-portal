@@ -1,4 +1,12 @@
 ---
+PAW_20x20.png: PAW_20x20-53b123dbfd63fecc3537d1649b180c60.png
+PAW_20x20/index.png: PAW_20x20-53b123dbfd63fecc3537d1649b180c60.png
+PAW_30x30.png: PAW_30x30-fdb132653dfe7b93251c4c8f551202af.png
+PAW_30x30/index.png: PAW_30x30-fdb132653dfe7b93251c4c8f551202af.png
+UCBlogo_600x380.png: UCBlogo_600x380-8ea2dd0379faa72d0dc00e344648e680.png
+UCBlogo_600x380/index.png: UCBlogo_600x380-8ea2dd0379faa72d0dc00e344648e680.png
+blueprintlogo_600x380.png: blueprintlogo_600x380-b1a78da62eb4740626f8ad1ac2838061.png
+blueprintlogo_600x380/index.png: blueprintlogo_600x380-b1a78da62eb4740626f8ad1ac2838061.png
 carousel/carousel1.png: carousel/carousel1-dfa5054e0fb577da048204329d376999.png
 carousel/carousel1/index.png: carousel/carousel1-dfa5054e0fb577da048204329d376999.png
 carousel/carousel2.png: carousel/carousel2-f79f71317a71665f74fff09d335a02a1.png
@@ -41,10 +49,10 @@ volunteer_intro/sign_up.png: volunteer_intro/sign_up-d1cf931ab6a21cd3164bbea3570
 volunteer_intro/sign_up/index.png: volunteer_intro/sign_up-d1cf931ab6a21cd3164bbea357046925.png
 volunteer_intro/star_proj.png: volunteer_intro/star_proj-ceed5db46f967e26f800db24016887d0.png
 volunteer_intro/star_proj/index.png: volunteer_intro/star_proj-ceed5db46f967e26f800db24016887d0.png
-application.js: application-a12141c6a63922304efd2d37bde5ce65.js
-application/index.js: application-a12141c6a63922304efd2d37bde5ce65.js
-application.css: application-40bf93993659ec3be0e23ac0292b4726.css
-application/index.css: application-40bf93993659ec3be0e23ac0292b4726.css
+application.js: application-592710419d3852fba055e3c549557cd0.js
+application/index.js: application-592710419d3852fba055e3c549557cd0.js
+application.css: application-e32897541b23f4d69847f935c9341f85.css
+application/index.css: application-e32897541b23f4d69847f935c9341f85.css
 fontawesome-webfont.eot: fontawesome-webfont-635909f146e208b3509acdf3b154bf0d.eot
 fontawesome-webfont/index.eot: fontawesome-webfont-635909f146e208b3509acdf3b154bf0d.eot
 fontawesome-webfont.ttf: fontawesome-webfont-6a4e273908b7e43d9e479d38b8ae5957.ttf

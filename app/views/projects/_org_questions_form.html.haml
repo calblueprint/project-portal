@@ -10,13 +10,27 @@
 
   .hero-section
     %h4.details-title
-      ="#{t(:questions)}"
-    -@organizations.each do |org|
-      - org.questions.each do |q|
-        =f.input Project::question_key(q), label: q.question, :as => q.input_type.to_sym, |
-        :input_html => {:rows => 4, :value => @project.questions[Project::question_key(q)] }
+      ="#{t(:project_description)}"
+    =f.input :problem, label: "What current problems does your organization face that you are trying to address with this project?", as: :text, :input_html => {:rows => 6, :class=>"span8"}
+    =f.input :short_description, label: "How would you summarize in a sentence the technology you wish to develop?", :input_html => {:class=>"span8"}
+    =f.input :long_description, label: "Please provide a more detailed description of your project", as: :text, :input_html => {:rows => 6, :class=>"span8"}
 
-    / =f.input :project_params, :as => :hidden, :input_html => { :value => @proj_params}
-    / =f.input :org_params, :as => :hidden, :input_html => { :value => @org_params}
+  / - if not @organizations.empty?
+  .hero-section
+    %h4.details-title
+      ="#{t(:questions)}"
+    =f.simple_fields_for :questions do |questions|
+      -@organizations.each do |org|
+        .org-questions
+          = org.name
+          - org.questions.each do |q|
+            - input_type = q.input_type.to_sym
+            - if input_type == :boolean
+              %label.checkbox
+                =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:value => @project.questions[Project::question_key(q)] }
+            - elsif input_type == :text
+              =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:rows => 4, :class => 'span12', :value => @project.questions[Project::question_key(q)] }
+            - elsif input_type == :string
+              =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:rows => 1, :class => 'span12', :value => @project.questions[Project::question_key(q)] }
 
   =f.button :submit, 'Submit Project', :class => "btn"

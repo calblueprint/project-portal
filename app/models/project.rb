@@ -8,16 +8,16 @@ class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  belongs_to :user
+  belongs_to :client
   has_many   :issues
   has_many   :favorites, :dependent => :destroy
   has_many   :favorited, :through => :favorites, :source => :user
   has_and_belongs_to_many :favorite_users, :class_name => "User"
   has_and_belongs_to_many :organizations
 
-  attr_accessible :github_site, :application_site, :as => [:default, :admin, :owner]
-  attr_accessible :questions, :title, :comment, :state, :as => [ :owner, :admin ]
-  attr_accessible :problem, :short_description, :long_description, :as => [ :owner, :admin ]
+  attr_accessible :github_site, :application_site#, :as => [:default, :admin, :owner]
+  attr_accessible :questions, :title, :comment, :state#, :as => [ :owner, :admin ]
+  attr_accessible :problem, :short_description, :long_description#, :as => [ :owner, :admin ]
   attr_accessible :approved, :as => :admin
   attr_accessor :project_params, :org_params
   attr_accessible :organization
@@ -101,12 +101,14 @@ class Project < ActiveRecord::Base
 
   def merge_questions
     updated_questions = questions.blank? ? {} : questions
-    project_questions.each do |q|
-      question_key = Project.question_key(q)
-      question = self.send(question_key)
-      updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
+    if project_questions != nil
+      project_questions.each do |q|
+        question_key = Project.question_key(q)
+        question = self.send(question_key)
+        updated_questions[question_key] = question unless questions[question_key] == question or question.nil?
+      end
+      self.questions = updated_questions
     end
-    self.questions = updated_questions
   end
 
   def project_questions

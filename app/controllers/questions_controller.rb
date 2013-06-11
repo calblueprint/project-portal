@@ -1,8 +1,9 @@
 class QuestionsController < ApplicationController
-  before_filter :authorize_user
-  
+  # before_filter :authorize_user
+
   def index
-    @questions = Question.current_questions
+    @questions = current_rolable.questions
+    @question = Question.new
   end
 
   def show
@@ -20,7 +21,8 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(params[:question])
     if @question.save
-      flash[:notice] = 'Question was successfully created.' 
+      current_rolable.questions << @question
+      flash[:notice] = 'Question was successfully created.'
       redirect_to action: "index"
     else
       render action: "new"
@@ -30,7 +32,7 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find(params[:id])
     if @question.update_attributes(params[:question])
-      flash[:notice] = 'Question was successfully updated.' 
+      flash[:notice] = 'Question was successfully updated.'
       redirect_to action: "index"
     else
       render action: "edit"
@@ -38,10 +40,11 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    puts 'deleting question'
+
     @question = Question.find(params[:id])
-    @question.deleted = true
-    @question.save
+    @question.delete
     redirect_to session[:return_to]
   end
-  
+
 end

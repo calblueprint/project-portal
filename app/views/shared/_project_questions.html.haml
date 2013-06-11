@@ -5,5 +5,10 @@
     %p
       %b.questions
         ="#{Question.find(Project.get_question_id(q)).question}:"
-      =q[1]
+      -if q[1] == '1'
+        yes
+      -elsif q[1] == '0'
+        no
+      -else
+        =q[1]
       %br

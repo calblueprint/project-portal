@@ -10,11 +10,13 @@ ProjectPortal::Application.routes.draw do
   resources :projects do
     resources :issues
     collection do
-      post 'org_questions'
+      match 'org_questions'
     end
   end
 
   resources :email_notifications
+
+  get "home/index"
 
   resources :project_steps
 
@@ -23,6 +25,7 @@ ProjectPortal::Application.routes.draw do
   get "user/admin_dashboard"
   match 'dashboard' => 'user#dashboard', :as => :dashboard
 
+  match 'delete_question/:id' => 'questions#destroy', :as => 'delete_question'
 
   get "home/index"
 
@@ -41,9 +44,10 @@ ProjectPortal::Application.routes.draw do
 
   match 'projects/:id/comment' => 'projects#comment', :as => :comment
   match 'projects/:id/delete_comment' => 'projects#delete_comment', :as => :delete_comment
-
   match 'volunteer_intro' => 'home#volunteer_intro'
   match 'organization_intro' => 'home#organization_intro'
+
+  match 'projects/org_questions' => 'projects#org_questions', :as => :project_questions
 
   # Adds separate URLs to sign up for client and developers. Removed for two-stage sign up process.
 

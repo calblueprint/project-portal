@@ -1,4 +1,4 @@
-= simple_form_for :project, :url => org_questions_projects_path do |f|
+= simple_form_for :project, :url => project_questions_path do |f|
   / - if @project.errors.any?
   /   #error_explanation
   /     %h2
@@ -10,20 +10,20 @@
 
   .hero-section
     %h4.details-title
-      ="#{t(:project_description)}"
+      Basics
     =f.input :title, label: "Project Title"
     =f.input :state, label: "Project Type", as: :select, default: Project::UNFINISHED, collection: [['New Project', Project::UNFINISHED], ['Maintenance Project', Project::FINISHED]]
-    =f.input :problem, label: "What current problems does your organization face that you are trying to address with this project?", as: :text, :input_html => {:rows => 6, :class=>"span8"}
-    =f.input :short_description, label: "How would you summarize in a sentence the technology you wish to develop?", :input_html => {:class=>"span8"}
-    =f.input :long_description, label: "Please provide a more detailed description of your project", as: :text, :input_html => {:rows => 6, :class=>"span8"}
   .hero-section
     %h4.details-title
       ="#{t(:organizations)}"
-
     =f.simple_fields_for :organizations do |organizations|
-      =organizations.label :blueprint, label: 'Organizations I wish to work with'
-
+      =organizations.label :blueprint, label: 'Organizations I wish to work exclusively with'
       - Organization.all.each do |org|
-        =organizations.input org.sname, as: :boolean, inline_label: org.name
+        - if params[org.sname] == "1"
+          %label.checkbox
+            =organizations.input org.sname, as: :boolean, label: org.name, :input_html => { checked: true }
+        - else
+          %label.checkbox
+            =organizations.input org.sname, as: :boolean, label: org.name
 
   =f.button :submit, 'Continue', :class => "btn"

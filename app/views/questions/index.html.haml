@@ -1,8 +1,29 @@
 %p#notice
-%h1
-  Project Form Questions
+%h1 Project Form Questions
+.row-fluid
+  %br
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Question
+        %th Input Type
+        %th
+    %tbody
+      - @questions.each do |q|
+        %tr
+          %td= q.question
+          %td= q.input_type
+          %td
+            .btn-delete
+              %a{:class=>"btn btn-mini btn-danger", :href=>"/delete_question/#{q.id}", :onclick =>"return confirm('Are you sure you want to delete a question?')"} x
 
-=render :partial => 'question_list'
+      =simple_form_for @question do |f|
+        %tr
+          %td
+            = f.input :question, as: :text, label: false, :input_html => {:rows => 1, :class => 'span12'}
+          %td
+            = f.input :input_type, collection: ['text', 'string', 'boolean'], as: :select, selected: 'text', label: false, :input_html => {:style => "width:100px"}
+          %td
+            = f.button :submit, 'New', :class => "btn btn-primary"
 
-    
-  
+

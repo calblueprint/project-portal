@@ -3,5 +3,6 @@ class Client < ActiveRecord::Base
                   :five_01c3, :mission_statement, :contact_email,
                   :contact_number, :photo
   has_one :user, :as => :rolable
+  has_many :projects, :dependent => :destroy
   mount_uploader :photo, PhotoUploader
 end

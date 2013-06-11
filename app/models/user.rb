@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
 
   belongs_to :rolable, :polymorphic => true
-  has_many :projects, :dependent => :destroy
+  # has_many :projects, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
   has_many :favorite_projects, :through => :favorites, :source => :project
   has_one :email_notification, :dependent => :destroy
