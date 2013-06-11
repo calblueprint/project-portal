@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130610180802) do
+ActiveRecord::Schema.define(:version => 20130611054041) do
 
   create_table "clients", :force => true do |t|
     t.datetime "created_at",        :null => false
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20130610180802) do
     t.string   "application_site"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.integer  "user_id"
+    t.integer  "client_id"
     t.string   "photo"
     t.string   "slug"
     t.boolean  "approved"

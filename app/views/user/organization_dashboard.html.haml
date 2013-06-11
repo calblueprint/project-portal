@@ -1,6 +1,16 @@
 %h1 Organization Dashboard
+%br
 .row-fluid
-  %br
-  Questions nonprofits answer when proposing a project to your organization
-  = link_to 'Edit Questions', questions_path
-  %br
+  .well
+    %h2 Questions
+    %div Questions nonprofits answer when proposing a project to your organization
+    %br
+    %div= link_to 'Edit Questions', questions_path
+  %div
+    %h2 Projects Private To My Organization
+
+    %div#proj-content.tab-content
+      %div.tab-pane.active#full-proj-view
+        =render(:partial => 'shared/project_card', :collection => @projects)
+
+

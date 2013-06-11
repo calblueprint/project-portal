@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
     @project = Project.new(proj_params)
     # @project = Project.new(proj_params, :as => :owner)
-    @project["user_id"] = current_user.id
+    @project.client = current_rolable
 
     @project.questions = params[:project]
 
@@ -64,11 +64,6 @@ class ProjectsController < ApplicationController
     #   @projects = Project.where(:approved => true).order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
     # end
     @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
-    puts 'projects: '
-    puts @projects
-    @projects.each do |p|
-      puts p.owner
-    end
     @title = "All Projects"
   end
 

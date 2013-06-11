@@ -4,7 +4,7 @@
     .content
       .span2
         .img-polaroid
-          =link_to(image_tag(project.owner.photo_url.to_s), project_path(project))
+          =link_to(image_tag(project.client.photo_url.to_s), project_path(project))
         / .edit-options
         /   - if user_signed_in? and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
         /     =link_to "Modify Project Details", edit_project_path(project)
@@ -27,11 +27,11 @@
             %p
               %b
                 ="#{t(:organization)}:"
-              =project.owner.company_name
+              =project.client.company_name
             %p
               %b
                 ="#{t(:company_site)}:"
-              =link_to(project.owner.company_site, url_with_http(project.owner.company_site), :target => "_blank")
+              =link_to(project.client.company_site, url_with_http(project.client.company_site), :target => "_blank")
           .span6
             %p
               %b
@@ -57,7 +57,7 @@
               %p
                 %b
                   ="#{t(:mission_statement)}:"
-                =project.owner.mission_statement
+                =project.client.mission_statement
 
 =render :partial => 'projects/submit_form_popup', :locals => {:project => project}
 

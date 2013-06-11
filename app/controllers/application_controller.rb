@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
 
 # Overriding the Devise current_user method
   alias_method :devise_current_user, :current_user
+  helper_method :is_developer?
+  helper_method :is_client?
+  helper_method :is_organization?
+
   def current_user
     super
   end

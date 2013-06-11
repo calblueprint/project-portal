@@ -18,15 +18,20 @@ u.confirmed_at = Time.now
 u.save
 
 #DEVELOPER
-# mc = User.create({
-#   fname: "Michelle",
-#   lname: "Chow",
-#   admin: false,
-#   email: "callmemc@gmail.com",
-#   password: "password"
-#   })
-# u.confirmed_at = Time.now
-# u.save
+mc_user = User.create({
+  fname: "Michelle",
+  lname: "Chow",
+  admin: false,
+  email: "callmemc@gmail.com",
+  password: "password"
+  })
+mc_user.confirmed_at = Time.now
+mc_user.save
+mc = Developer.create
+mc_user.rolable = mc
+mc_user.rolable_type = mc.class.name
+mc_user.save
+
 
 #ORGANIZATION: CS169------------------------
 cs169_user = User.create({
@@ -36,8 +41,8 @@ cs169_user = User.create({
   email: "pattrsn@eecs.berkeley.edu",
   password: "password",
   })
-u.confirmed_at = Time.now
-u.save
+cs169_user.confirmed_at = Time.now
+cs169_user.save
 cs169 = Organization.create({
   sname: 'cs169',
   name: "UC Berkeley CS169 Software Engineering Course",
@@ -72,8 +77,8 @@ bp_user = User.create({
   email: "calblueprint@gmail.com",
   password: "password",
   })
-u.confirmed_at = Time.now
-u.save
+bp_user.confirmed_at = Time.now
+bp_user.save
 bp = Organization.create({
   sname: 'blueprint',
   name: "Blueprint, Technology for Non-Profits",
@@ -103,11 +108,11 @@ altbreaks_user = User.create({
   fname: "Kati",
   lname: "Hinman",
   admin: false,
-  email: "kati.himan@gmail.com",
+  email: "kati.hinman@gmail.com",
   password: "password"
   })
-u.confirmed_at = Time.now
-u.save
+altbreaks_user.confirmed_at = Time.now
+altbreaks_user.save
 altbreaks = Client.create({
   company_name: 'Alternative Breaks',
   company_site:'http://publicservice.berkeley.edu/alternativebreaks',
@@ -130,7 +135,7 @@ proj = Project.create({
   short_description: "Mulipurpose website that serves both marketing purposes and internal purposes",
   long_description: "We want an interactive map to show all the trips, so that if you hover over a trip location, a pop-up is displayed with the trip information. We also want trip pages. And we want an internal forum where people from trips can communicate with each other and with people from other trips.",
   })
-proj.user = altbreaks_user
+proj.client = altbreaks
 proj.save
 # questions: {'question_1' => true, 'question_2' => true, 'question_3' => true}
 

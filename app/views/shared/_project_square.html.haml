@@ -4,7 +4,7 @@
     .span10.offset1
       .img-container
         .img-polaroid
-          =image_tag(project.owner.photo_url.to_s)
+          =image_tag(project.client.photo_url.to_s)
         .fav-star-container
           =render :partial=>"shared/project_favorites", :locals => {:project => project}
   .row-fluid
@@ -16,6 +16,6 @@
     %p.mission-statement
       %b
         ="#{t(:mission_statement)}:"
-      =project.owner.mission_statement
+      =project.client.mission_statement
   .row-fluid.tag
 
