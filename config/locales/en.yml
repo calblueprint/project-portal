@@ -5,7 +5,7 @@ en:
   update_project: "Update Project Details"
   show: "Show"
   back: "Back"
-  company_site: "Client's URL"
+  company_site: "Client's Website"
   github_site: "Github URL"
   application_site: "Application URL"
   questions: "Questions"
@@ -22,6 +22,7 @@ en:
   upload_photo: "Upload Logo/Photo"
   creation_date: "Creation Date"
   recent_comments: "Recent Comments"
+  problem: "Project Purpose"
 
   project_description: "Project Description"
   organizations: "Organizations"

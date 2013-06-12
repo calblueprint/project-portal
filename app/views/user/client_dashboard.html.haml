@@ -1,5 +1,5 @@
-%div{:class=>"banner"}
-  %h2
+/%div{:class=>"banner"}
+%h2
 %div.container.page.client-dashboard
   -if @projects.empty?
     .row-fluid
@@ -16,13 +16,13 @@
                 .btn-large-text
                   Browse Projects!
   -else
-    %h2.inline-title= "My Projects"
+    %h1.inline-title= "My Projects"
     .btn-group.pull-right#new-proj-btn
       %a.btn.btn-success{:href => new_project_path}
         New Project
     - if @projects
       - @projects.each do |p|
-        =render :partial=>"shared/project_card", :locals => {:project => p}
+        =render :partial=>"client_project_card", :locals => {:project => p}
       =will_paginate @projects, :param_name => 'projects_page'
 
 
