@@ -1,9 +1,10 @@
-%h1 New Project Proposal
-- if user_signed_in?
-  =render 'company_form'
-- else
-  %p
-    %br
-    If you would like to submit a project, please create an account.
+%div.container
+  %h1 New Project Proposal
+  - if user_signed_in?
+    =render 'company_form'
+  - else
+    %p
+      %br
+      If you would like to submit a project, please create an account.
 / %p
 /   = link_to 'Back', projects_path
