@@ -51,8 +51,8 @@ volunteer_intro/star_proj.png: volunteer_intro/star_proj-ceed5db46f967e26f800db2
 volunteer_intro/star_proj/index.png: volunteer_intro/star_proj-ceed5db46f967e26f800db24016887d0.png
 application.js: application-592710419d3852fba055e3c549557cd0.js
 application/index.js: application-592710419d3852fba055e3c549557cd0.js
-application.css: application-e32897541b23f4d69847f935c9341f85.css
-application/index.css: application-e32897541b23f4d69847f935c9341f85.css
+application.css: application-17b8331ba0f818578c03fe09d2dbdafc.css
+application/index.css: application-17b8331ba0f818578c03fe09d2dbdafc.css
 fontawesome-webfont.eot: fontawesome-webfont-635909f146e208b3509acdf3b154bf0d.eot
 fontawesome-webfont/index.eot: fontawesome-webfont-635909f146e208b3509acdf3b154bf0d.eot
 fontawesome-webfont.ttf: fontawesome-webfont-6a4e273908b7e43d9e479d38b8ae5957.ttf
