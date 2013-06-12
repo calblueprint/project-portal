@@ -46,6 +46,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
+
     org_params = session[:org]
     proj_params = session[:proj]
 
@@ -54,6 +55,9 @@ class ProjectsController < ApplicationController
     @project.client = current_rolable
 
     @project.questions = params[:project][:questions]
+    @project.problem = params[:project][:problem]
+    @project.short_description = params[:project][:short_description]
+    @project.long_description = params[:project][:long_description]
 
     Organization.all.each do |org|
       if org_params[org.sname] == "1"
