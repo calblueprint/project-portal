@@ -1,4 +1,9 @@
-
+<style media="screen" type="text/css">
+    input#user_remember_me.boolean.optional {
+        float: left;
+        margin-right: 6px;
+    }
+</style>
 <h2>Sign in</h2>
 
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>

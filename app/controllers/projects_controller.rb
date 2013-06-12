@@ -4,6 +4,21 @@ class ProjectsController < ApplicationController
   def new
   end
 
+  def edit
+    @project = Project.find(params[:id])
+    permission_to_update(@project)
+    @questions = @project.project_questions
+    @emails = []
+    users = User.connection.select_all("SELECT email,fname,lname FROM users")
+    users.each do |u|
+      @emails.append("#{u['fname']} #{u['lname']} (#{u['email']})")
+    end
+    unless user_can_update?(@project)
+      redirect_to @project, notice: 'You do not have permission to edit this project.'
+    end
+    @user = @project.client
+  end
+
   def org_questions
     @project = Project.new
 
@@ -56,7 +71,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    @can_edit = user_signed_in?
     @openIssues = Issue.find(:all, :limit => 5, :conditions => ["resolved = ? AND project_id = ?", 0, @project.id], :order => "created_at")
     @pendingIssues = Issue.find(:all, :limit => 3, :conditions => ["resolved = ? AND project_id = ?", 1, @project.id], :order => "created_at")
     @resolvedIssues = Issue.find(:all, :limit => 3, :conditions => ["resolved = ? AND project_id = ?", 2, @project.id], :order => "created_at")
@@ -68,9 +82,8 @@ class ProjectsController < ApplicationController
     # if is_admin
     #   @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
     # else
-    #   @projects = Project.where(:approved => true).order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
-    # end
     @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    #end
     @title = "All Projects"
   end
 
@@ -79,21 +92,6 @@ class ProjectsController < ApplicationController
     @title = "Search Results"
     @prev_search = params
     render :index
-  end
-
-  def edit
-    @project = Project.find(params[:id])
-    permission_to_update(@project)
-    @questions = @project.project_questions
-    @emails = []
-    users = User.connection.select_all("SELECT email,fname,lname FROM users")
-    users.each do |u|
-      @emails.append("#{u['fname']} #{u['lname']} (#{u['email']})")
-    end
-    unless user_can_update?(@project)
-      redirect_to @project, notice: 'You do not have permission to edit this project.'
-    end
-    @user = @project.client
   end
 
   def update
