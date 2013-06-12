@@ -2,7 +2,9 @@
 .hero-section
   .row-fluid
     .span3
-      %h3= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(project.slug,issue.id) 
+      / temp fix
+      %h3= truncate(issue.title, :length => 37, :separator => ' ')
+      / %h3= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(project.slug,issue.id)
     .span8
       %p
         %b.p Description
