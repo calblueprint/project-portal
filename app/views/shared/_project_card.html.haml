@@ -6,9 +6,9 @@
         .img-polaroid
           =link_to(image_tag(project.client.photo_url.to_s), project_path(project))
         .edit-options
-          - if user_can_update?(project)
-            =link_to "Modify Project Details", edit_project_path(project)
-            =render :partial => 'projects/short_approval_form', :locals => {:project => project}
+          / - if user_can_update?(project)
+          /   =link_to "Modify Project Details", edit_project_path(project)
+          =render :partial => 'projects/short_approval_form', :locals => {:project => project}
           - if user_signed_in? and project.approved and project.state == Project::UNFINISHED and (current_user.admin? or (project.user_id and current_user.id == project.user.id))
             %a.btn.btn-primary.btn-small{"data-toggle" => "modal", :href => "#submit-form-popup-#{project.slug}", :role => "button"} Submit
 
@@ -35,9 +35,9 @@
             %p
               %b
                 ="#{t(:github_site)}:"
-              -if @can_edit
-                = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit"
-                %a#github_site_edit.btn-link
+              -if user_can_update?(project)
+                = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit#{project.id}"
+                %a.btn-link{id: "github_site_edit#{project.id}"}
                   %i.icon-pencil
               -else
                 =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")

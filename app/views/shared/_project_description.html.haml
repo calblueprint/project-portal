@@ -1,10 +1,39 @@
 .hero-section
   %h4.details-title
     ="#{t(:problem)}"
-  %p=project.problem
+  .field
+    -if user_can_update?(project)
+      = best_in_place project, :problem, :path => public_edit_path(project), :activator => "#problem#{project.id}"
+      %a.btn-link{id: "problem#{project.id}"}
+        %i.icon-pencil
+    -else
+      =project.problem
+
   %h4.details-title
     ="#{t(:short_description)}"
-  %p=project.short_description
+  .field
+    -if user_can_update?(project)
+      = best_in_place project, :short_description, :path => public_edit_path(project), :activator => "#short_description#{project.id}"
+      %a.btn-link{id: "short_description#{project.id}"}
+        %i.icon-pencil
+    -else
+      =project.short_description
+
   %h4.details-title
     ="#{t(:long_description)}"
-  %p=project.long_description
+  .field
+    -if user_can_update?(project)
+      = best_in_place project, :problem, :path => public_edit_path(project), :activator => "#long_description#{project.id}"
+      %a.btn-link{id: "long_description#{project.id}"}
+        %i.icon-pencil
+    -else
+      %p=project.long_description
+
+
+
+/ -if user_can_update?(project)
+/   = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit#{project.id}"
+/   %a.btn-link{id: "github_site_edit#{project.id}"}
+/     %i.icon-pencil
+/ -else
+/   =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
