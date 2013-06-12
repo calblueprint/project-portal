@@ -94,7 +94,7 @@ class Project < ActiveRecord::Base
       .is_forprofit(params.has_key?('forprofit'))
       .is_finished(params['state'])
 
-      initial.by_organization(params['search_string']).push(initial.by_title(params['search_string'])).flatten
+      initial.by_organization(params['search_string']).push(initial.by_title(params['search_string'])).flatten.uniq
     # else
     #   Project.where(:approved => true)
     #   .is_nonprofit(params.has_key?('nonprofit'))
