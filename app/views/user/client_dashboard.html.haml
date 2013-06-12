@@ -1,29 +1,29 @@
--if @projects.empty?
-  .row-fluid
-    .span12
-      .main-section
-        .hero-unit.centered
-          %h1
-            Welcome to Project Portal!
-          .project-buttons
-            %a.btn.btn-success.btn-large-square{:href => new_project_path}
-              .btn-large-text
-                Create a Project!
-            %a.btn.btn-large-square{:href => projects_path}
-              .btn-large-text
-                Browse Projects!
-
--else
-  %h1.inline-title= "Projects I Own"
-  .btn-group#new-proj-btn
-    %a.btn.btn-success{:href => new_project_path}
-      Propose a project!
-    %a.btn{:href => projects_path}
-      Browse Projects!
-  - if @projects
-    - @projects.each do |p|
-      =render :partial=>"client_project_card", :locals => {:project => p}
-    =will_paginate @projects, :param_name => 'projects_page'
+%div{:class=>"banner"}
+  %h2
+%div.container.page.client-dashboard
+  -if @projects.empty?
+    .row-fluid
+      .span12
+        .main-section
+          .hero-unit.centered
+            %h1
+              Welcome to Project Portal!
+            .project-buttons
+              %a.btn.btn-success.btn-large-square{:href => new_project_path}
+                .btn-large-text
+                  Create a Project!
+              %a.btn.btn-large-square{:href => projects_path}
+                .btn-large-text
+                  Browse Projects!
+  -else
+    %h2.inline-title= "My Projects"
+    .btn-group.pull-right#new-proj-btn
+      %a.btn.btn-success{:href => new_project_path}
+        New Project
+    - if @projects
+      - @projects.each do |p|
+        =render :partial=>"shared/project_card", :locals => {:project => p}
+      =will_paginate @projects, :param_name => 'projects_page'
 
 
 

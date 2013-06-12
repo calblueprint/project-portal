@@ -1,0 +1,48 @@
+.banner {
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 10px;
+  padding: 0px;
+  padding-left: 220px;
+  padding-right: 220px;
+  background-color: rgb(97,85,164);
+  text-align: left;
+}
+
+.banner h2{
+	margin: 0px;
+  color: white;
+  vertical-align:middle; 
+}
+
+.client-dashboard h2 {
+  font-weight: normal;
+}
+
+
+.signin {
+  margin-top: 40px;
+}
+
+.signin-background {
+  background-color: rgb(97,85,164);
+}
+
+.signin .signin-form {
+  max-width: 225px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.signin h2 {
+  font-weight: normal;
+}

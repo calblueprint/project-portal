@@ -1,25 +1,26 @@
-#allow-endless-scroll
-.title-section
-  %h1.inline-title= "#{@title}"
-  .btn-group#new-proj-btn
-    %a.btn.btn-success{:href => new_project_path}
-      I'm ready to propose a project!
-  .btn-toolbar.right-justify
-    .btn-group#proj-tab{"data-toggle" => "buttons-radio"}
-      %a.btn.btn-small.active#full-proj-btn{:href => "#full-proj-view", 'data-toggle' => 'tab'}
-        %i.icon-th-list
-      %a.btn.btn-small#compact-proj-btn{:href => "#compact-proj-view", 'data-toggle' => 'tab'}
-        %i.icon-list
-      %a.btn.btn-small#compact-proj-btn{:href => "#square-proj-view", 'data-toggle' => 'tab'}
-        %i.icon-th-large
-=render :partial=>"search_form", :locals => {:prev_search => @prev_search}
+%div{:class=>"container page projects-index"}
+  #allow-endless-scroll
+  .title-section
+    %h1.inline-title= "#{@title}"
+    .btn-group#new-proj-btn
+      %a.btn.btn-success{:href => new_project_path}
+        I'm ready to propose a project!
+    .btn-toolbar.right-justify
+      .btn-group#proj-tab{"data-toggle" => "buttons-radio"}
+        %a.btn.btn-small.active#full-proj-btn{:href => "#full-proj-view", 'data-toggle' => 'tab'}
+          %i.icon-th-list
+        %a.btn.btn-small#compact-proj-btn{:href => "#compact-proj-view", 'data-toggle' => 'tab'}
+          %i.icon-list
+        %a.btn.btn-small#compact-proj-btn{:href => "#square-proj-view", 'data-toggle' => 'tab'}
+          %i.icon-th-large
+  =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
 
-%div#proj-content.tab-content
-  %div.tab-pane.active#full-proj-view
-    =render(:partial => 'shared/project_card', :collection => @projects)
-  %div.tab-pane#compact-proj-view
-    =render(:partial => 'shared/project_compact', :collection => @projects)
-  .tab-pane#square-proj-view.row
-    =render(:partial => 'shared/project_square', :collection => @projects)
+  %div#proj-content.tab-content
+    %div.tab-pane.active#full-proj-view
+      =render(:partial => 'shared/project_card', :collection => @projects)
+    %div.tab-pane#compact-proj-view
+      =render(:partial => 'shared/project_compact', :collection => @projects)
+    .tab-pane#square-proj-view.row
+      =render(:partial => 'shared/project_square', :collection => @projects)
 
 

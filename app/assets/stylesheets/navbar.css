@@ -13,7 +13,7 @@
   -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25);
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25);
-  background: #DDDDDD;
+  background: #FFFFFF;
 }
 
 .navbar .container {
@@ -43,4 +43,6 @@
   color:  rgb(82,185,233);
 }
 
-
+.navbar .active {
+  color:  rgb(82,185,233) !important;
+}
