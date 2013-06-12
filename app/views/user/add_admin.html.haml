@@ -1,23 +1,24 @@
-%h1
-  All Administrators
-%table.table.table-striped
-  %tr
-    %td
-      Name
-    %td
-      Email
-    %td
-      Member Since
-    %td
-  - if @all_admins
-    - @all_admins.each do |a|
-      %tr
-        %td
-          #{a.fname} #{a.lname}
-        %td
-          #{a.email}
-        %td
-          #{a.created_at.strftime("%b. %e, %Y,  %l:%M%p")}
-        %td
-          =button_to("Remove", remove_admin_path(a), :class=>"btn btn-danger btn-small")
+%div.container
+  %h1
+    All Administrators
+  %table.table.table-striped
+    %tr
+      %td
+        Name
+      %td
+        Email
+      %td
+        Member Since
+      %td
+    - if @all_admins
+      - @all_admins.each do |a|
+        %tr
+          %td
+            #{a.fname} #{a.lname}
+          %td
+            #{a.email}
+          %td
+            #{a.created_at.strftime("%b. %e, %Y,  %l:%M%p")}
+          %td
+            =button_to("Remove", remove_admin_path(a), :class=>"btn btn-danger btn-small")
 

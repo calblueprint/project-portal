@@ -1,7 +1,7 @@
-.row-fluid
-  .questions
-    %h2 Getting Started
-
+%div.container
+  .row-fluid
+    .questions
+      %h2 Getting Started
     .getting-started
       %h4 1) Customize client application
       %div You can edit questions nonprofit applicants answer when proposing a project specifically to your organization
@@ -16,13 +16,13 @@
       / %div Send potential clients the following unique link to apply to your organization through Project Portal
       %div Send them the following link: <a>href="http://projectportal.herokuapp.com/projects/new/#{current_rolable.sname}?=1"</a>
 
-  .projects
-    %h2 Projects Private To My Organization
-    - if @projects == nil
-      No projects yet!
-    - else
-      %div#proj-content.tab-content
-        %div.tab-pane.active#full-proj-view
-          =render(:partial => 'shared/project_card', :collection => @projects)
+    .projects
+      %h2 Projects Private To My Organization
+      - if @projects == nil
+        No projects yet!
+      - else
+        %div#proj-content.tab-content
+          %div.tab-pane.active#full-proj-view
+            =render(:partial => 'shared/project_card', :collection => @projects)
 
 

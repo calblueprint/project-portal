@@ -1,11 +1,12 @@
-%h1
-  All Issues
-=render :partial=>"search_form", :locals => {:prev_search => @prev_search}
--if @openIssues.size == 0
-  %h4.no-results
-    No Matches Found
--else
-  =render :partial => 'shared/issue_card', :collection => @openIssues, :as => :issue
-    
-=render :partial => 'shared/pagination'
+%div.container
+	%h1
+	  All Issues
+	=render :partial=>"search_form", :locals => {:prev_search => @prev_search}
+	-if @openIssues.size == 0
+	  %h4.no-results
+	    No Matches Found
+	-else
+	  =render :partial => 'shared/issue_card', :collection => @openIssues, :as => :issue
+	    
+	=render :partial => 'shared/pagination'
 

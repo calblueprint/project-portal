@@ -7,6 +7,11 @@
   margin-top:15px;
   margin-bottom:15px;
 }
+
+.intro-container .span12 {
+  width: 900px;
+}
+
 .org-logo {
   width: 460px;
   background-color: #FFFFFF;
@@ -62,19 +67,20 @@
 }
 
 .home-banner {
-  margin-top:10px;
-  margin-left: -233px;
-  margin-right: -233px;
-  height: 125px;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 200px;
   padding: 30px;
-  padding-left: 230px;
-  padding-right: 230px;
+  padding-left: 220px;
+  padding-right: 220px;
   background-color: rgb(97,85,164);
   text-align: center;
 }
 
 .home-banner h2{
   color: white;
+  vertical-align:middle; 
 
 }
 

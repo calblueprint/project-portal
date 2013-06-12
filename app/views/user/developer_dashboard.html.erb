@@ -1,7 +1,8 @@
-temp: for devs
+%div.container
+	temp: for devs
 
-/ %h1= "Favorited Projects"
-/ - if @favorites
-/   - @favorites.each do |f|
-/     =render :partial=>"shared/project_card", :locals => {:project => f}
-/   =will_paginate @favorites, :param_name => 'favorites_page'
+	/ %h1= "Favorited Projects"
+	/ - if @favorites
+	/   - @favorites.each do |f|
+	/     =render :partial=>"shared/project_card", :locals => {:project => f}
+	/   =will_paginate @favorites, :param_name => 'favorites_page'
