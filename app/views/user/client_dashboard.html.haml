@@ -22,7 +22,7 @@
       Browse Projects!
   - if @projects
     - @projects.each do |p|
-      =render :partial=>"shared/project_card", :locals => {:project => p}
+      =render :partial=>"client_project_card", :locals => {:project => p}
     =will_paginate @projects, :param_name => 'projects_page'
 
 
