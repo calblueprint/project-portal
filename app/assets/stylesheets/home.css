@@ -3,6 +3,10 @@
 
 /* Center align the text within the three columns below the carousel */
 
+.intro-container {
+  margin-top:15px;
+  margin-bottom:15px;
+}
 .org-logo {
   width: 460px;
   background-color: #FFFFFF;

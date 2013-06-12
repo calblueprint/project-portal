@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class Project < ActiveRecord::Base
   acts_as_commentable
 
@@ -51,31 +53,34 @@ class Project < ActiveRecord::Base
 
   scope :by_organization, lambda { |org|
      if not org.empty?
-       where('company_name like ?', "%#{org}%")
+       joins(:client).where('clients.company_name like ?', "%#{org}%")
      end
   }
 
   scope :is_nonprofit, lambda { |is_nonprofit|
     if is_nonprofit
-      where(:nonprofit => is_nonprofit)
+      joins(:client).where(:clients => {:nonprofit => is_nonprofit})
     end
   }
 
   scope :is_forprofit, lambda { |is_nonprofit|
     if is_nonprofit
-      where(:nonprofit => false)
+      joins(:client).where(:clients => {:nonprofit => false})
     end
   }
 
   scope :is_five_01c3, lambda { |is_five_01c3|
     if is_five_01c3
-      where(:five_01c3 => is_five_01c3)
+      joins(:client).where(:clients => {:five_01c3 => is_five_01c3})
     end
   }
 
   scope :by_title_organization, lambda {|search|
-    project = Project.arel_table
-    where(project[:title].matches("%#{search}%").or(project[:company_name].matches("%#{search}%"))) if search
+    # project = Project.arel_table
+    if search
+      by_organization(search)
+    end
+    # where(project[:title].matches("%#{search}%").or(project.client[:company_name].matches("%#{search}%"))) if search
   }
 
   scope :is_finished, lambda { |is_finished|
@@ -83,20 +88,21 @@ class Project < ActiveRecord::Base
   }
 
   def self.search(params, admin)
-    if admin
-      Project.is_nonprofit(params.has_key?('nonprofit'))
+    # if admin
+      initial = Project.is_nonprofit(params.has_key?('nonprofit'))
       .is_five_01c3(params.has_key?('five_01c3'))
       .is_forprofit(params.has_key?('forprofit'))
-      .by_title_organization(params['search_string'])
       .is_finished(params['state'])
-    else
-      Project.where(:approved => true)
-      .is_nonprofit(params.has_key?('nonprofit'))
-      .is_five_01c3(params.has_key?('five_01c3'))
-      .is_forprofit(params.has_key?('forprofit'))
-      .by_title_organization(params['search_string'])
-      .is_finished(params['state'])
-    end
+
+      initial.by_organization(params['search_string']).push(initial.by_title(params['search_string'])).flatten
+    # else
+    #   Project.where(:approved => true)
+    #   .is_nonprofit(params.has_key?('nonprofit'))
+    #   .is_five_01c3(params.has_key?('five_01c3'))
+    #   .is_forprofit(params.has_key?('forprofit'))
+    #   .by_title_organization(params['search_string'])
+    #   .is_finished(params['state'])
+    # end
   end
 
   def merge_questions
