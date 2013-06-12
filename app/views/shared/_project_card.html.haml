@@ -34,16 +34,6 @@
           .span6
             %p
               %b
-                ="#{t(:github_site)}:"
-              -if user_can_update?(project)
-                = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit#{project.id}"
-                %a.btn-link{id: "github_site_edit#{project.id}"}
-                  %i.icon-pencil
-              -else
-                =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
-
-            %p
-              %b
                 ="#{t(:application_site)}:"
               -if user_can_update?(project)
                 = best_in_place project, :application_site, :path => public_edit_path(project), :activator => "#application_site_edit#{project.id}"
@@ -51,12 +41,12 @@
                   %i.icon-pencil
               -else
                 =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
-          .mission-statement
+          .problem
             .span12
               %p
                 %b
-                  ="#{t(:mission_statement)}:"
-                =project.client.mission_statement
+                  ="#{t(:problem)}:"
+                =truncate(project.problem, :length => 470)
 
 =render :partial => 'projects/submit_form_popup', :locals => {:project => project}
 
