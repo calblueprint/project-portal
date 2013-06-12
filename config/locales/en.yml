@@ -23,6 +23,8 @@ en:
   creation_date: "Creation Date"
   recent_comments: "Recent Comments"
   problem: "Project Purpose"
+  short_description: "Brief Description"
+  long_description: "Specifics"
 
   project_description: "Project Description"
   organizations: "Organizations"
