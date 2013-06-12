@@ -123,6 +123,10 @@ class Project < ActiveRecord::Base
     project_questions
   end
 
+  def owner
+    client
+  end
+
   # Class Methods for questions as virtual attributes
   def self.question_key(q)
     "question_#{q.id}".to_sym

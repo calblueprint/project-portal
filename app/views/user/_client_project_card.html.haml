@@ -25,19 +25,15 @@
           .span6
             %p
               %b
-                ="#{t(:organization)}:"
-              =project.client.company_name
-            %p
-              %b
-                ="#{t(:company_site)}:"
-              =link_to(project.client.company_site, url_with_http(project.client.company_site), :target => "_blank")
+                ="#{t(:creation_date)}:"
+              =project.created_at.strftime("%B %d, %Y")
           .span6
             %p
               %b
                 ="#{t(:github_site)}:"
-              -if user_can_update?(project)
-                = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit#{project.id}"
-                %a.btn-link{id: "github_site_edit#{project.id}"}
+              -if @can_edit
+                = best_in_place project, :github_site, :path => public_edit_path(project), :activator => "#github_site_edit"
+                %a#github_site_edit.btn-link
                   %i.icon-pencil
               -else
                 =link_to(project.github_site, url_with_http(project.github_site), :target => "_blank")
@@ -45,18 +41,22 @@
             %p
               %b
                 ="#{t(:application_site)}:"
-              -if user_can_update?(project)
-                = best_in_place project, :application_site, :path => public_edit_path(project), :activator => "#application_site_edit#{project.id}"
-                %a.btn-link{id: "application_site_edit#{project.id}"}
+              -if @can_edit
+                = best_in_place project, :application_site, :path => public_edit_path(project), :activator => "#application_site_edit"
+                %a#application_site_edit.btn-link
                   %i.icon-pencil
               -else
                 =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
+
           .mission-statement
             .span12
               %p
                 %b
-                  ="#{t(:mission_statement)}:"
-                =project.client.mission_statement
+                  ="#{t(:recent_comments)}:"
+                - get_comments(project, 2).each do |comment|
+                  %p
+                    %b
+                    = truncate(User.find(comment.user_id).fname + " (" + comment.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%h %d %I:%M %p") + "): " + comment.body, :length => 120)
 
 =render :partial => 'projects/submit_form_popup', :locals => {:project => project}
 

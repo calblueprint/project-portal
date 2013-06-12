@@ -10,7 +10,9 @@
       %li No Open Issues
     - else
       - @openIssues.each do |issue|
-        %li= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(@project.slug,issue.id)
+        / temp fix
+        %li= truncate(issue.title, :length => 37, :separator => ' ')
+        / %li= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(@project.slug,issue.id)
 
     .row-fluid
       .span8
@@ -22,7 +24,9 @@
       %li No Pending Issues
     - else
       - @pendingIssues.each do |issue|
-        %li= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(@project.slug,issue.id)
+        / temp fix
+        %li= truncate(issue.title, :length => 37, :separator => ' ')
+        / %li= link_to truncate(issue.title, :length => 37, :separator => ' '), project_issue_path(@project.slug,issue.id)
       %li.view-all= link_to "View All...", issues_path(:project => @project, :resolved => 1)
 
     .row-fluid

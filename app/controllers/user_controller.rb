@@ -87,6 +87,7 @@ class UserController < ApplicationController
       redirect_to user_settings_path
     end
   end
+
 end
 
 
