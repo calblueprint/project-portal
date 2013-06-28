@@ -105,10 +105,10 @@ bp.questions << bp_questions
 
 #CLIENT: ALTBREAKS-------------------------
 altbreaks_user = User.create({
-  fname: "Kati",
-  lname: "Hinman",
+  fname: "Meena",
+  lname: "Nagappan",
   admin: false,
-  email: "kati.hinman@gmail.com",
+  email: "meenanagappan@gmail.com",
   password: "password"
   })
 altbreaks_user.confirmed_at = Time.now
@@ -120,8 +120,8 @@ altbreaks = Client.create({
   nonprofit: true,
   five_01c3: true,
   mission_statement: 'Alternative Breaks is a service-learning program for students to explore social issues through meaningful service, education, and reflection during their academic breaks.',
-  contact_email: 'kati.hinman@gmail.com',
-  contact_number: '123-456-789'
+  contact_email: 'meenanagappan@gmail.com',
+  contact_number: 'N/A'
   })
 altbreaks_user.rolable = altbreaks
 altbreaks_user.rolable_type = altbreaks.class.name
@@ -134,9 +134,10 @@ proj = Project.create({
   application_site: "http://publicservice.berkeley.edu/alternativebreaks",
   short_description: "Mulipurpose website that serves both marketing purposes and internal purposes",
   long_description: "We want an interactive map to show all the trips, so that if you hover over a trip location, a pop-up is displayed with the trip information. We also want trip pages. And we want an internal forum where people from trips can communicate with each other and with people from other trips.",
+  problem: "Solve communication issues internally within and between different break groups, as well as externally in creating a beautiful site that will increase our reputation and attract more applicants."
   })
 proj.client = altbreaks
 proj.organizations << bp
+proj.questions = {'question_1' => true, 'question_2' => true, 'question_3' => true}
 proj.save
-# questions: {'question_1' => true, 'question_2' => true, 'question_3' => true}
 

@@ -7,13 +7,13 @@
   =# render :inline, :controller => "issues", :action => "index"
   .row-fluid
     .span4
+      =render :partial => 'shared/project_questions', :locals => {:project => @project}
       =render :partial => 'shared/project_contact', :locals => {:project => @project}
-      =render :partial => 'shared/project_issues', :locals => {:project => @project}
     .span8
       =render :partial => 'shared/project_description', :locals => {:project => @project}
   .row-fluid
     .span4
-      =render :partial => 'shared/project_questions', :locals => {:project => @project}
+      =render :partial => 'shared/project_issues', :locals => {:project => @project}
     .span8
       .hero-section
         %h4.details-title
