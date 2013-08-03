@@ -23,7 +23,7 @@
     ="#{t(:long_description)}"
   .field
     -if user_can_update?(project)
-      = best_in_place project, :problem, :path => public_edit_path(project), :activator => "#long_description#{project.id}"
+      = best_in_place project, :long_description, :path => public_edit_path(project), :activator => "#long_description#{project.id}"
       %a.btn-link{id: "long_description#{project.id}"}
         %i.icon-pencil
     -else
