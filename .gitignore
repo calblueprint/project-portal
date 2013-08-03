@@ -60,3 +60,6 @@ pickle-email-*.html
 public/uploads
 .DS_Store
 *.sh
+
+# ignoring the environment variable initialization file
+/config/environment_variables.rb

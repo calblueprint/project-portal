@@ -80,3 +80,8 @@ gem 'faker'
 gem 'will_paginate', '~> 3.0'
 gem 'introjs-rails'
 gem 'wicked'
+#photo uploading
+gem 'paperclip', '~> 3.4.1'
+gem "cocaine", "~> 0.5.1"
+gem 'aws-s3'
+gem 'aws-sdk'
