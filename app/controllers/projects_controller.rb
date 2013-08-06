@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-
+    puts "CREATING"
     org_params = session[:org]
     proj_params = session[:proj]
 
