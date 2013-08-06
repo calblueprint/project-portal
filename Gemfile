@@ -71,7 +71,7 @@ end
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'haml'
-gem 'devise'
+gem 'devise', :git => 'git://github.com/plataformatec/devise.git' 
 gem 'simple_form'
 gem 'carrierwave'
 gem 'friendly_id'

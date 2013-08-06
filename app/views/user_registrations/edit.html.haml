@@ -1,17 +1,20 @@
 .container
-  %h2
-    Edit #{resource_name.to_s.humanize}
+  - child_class_name = resource.rolable_type.downcase.camelize
+  - resource.rolable = child_class_name.constantize.new if resource.rolable.nil?
+  %h2 
+    Edit #{resource.rolable_type} Account
   = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
     = f.error_notification
     .form-inputs
       = f.input :email, :required => true, :autofocus => true
       = f.input :fname, :label => "First Name", :required => true
       = f.input :lname, :label => "Last Name", :required => true
-      = f.input :password, :autocomplete => "off", :hint => " leave it blank if you don't want to change it", :required => false
+      = f.input :password, :autocomplete => "off", :hint => " Leave this blank if you don't want to change it", :required => false
       = f.input :password_confirmation, :required => false
-      = f.input :current_password, :hint => " we need your current password to confirm your changes", :required => true
-      - if is_client?()
-        = f.input :rolable_type, :required => true
+      = f.input :current_password, :hint => " We need your current password to confirm your changes", :required => true
+    .specific.form-inputs
+      = f.simple_fields_for resource.rolable do |rf|
+        = render :partial => "#{child_class_name.underscore}_fields", :locals => { :f => rf }
     .form-actions
       = f.button :submit, "Update"
   .email-notifications

@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/plataformatec/devise.git
+  revision: 591f4a97f78c96031458efa046796f4089c197bf
+  specs:
+    devise (3.0.1)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      warden (~> 1.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -44,7 +54,7 @@ GEM
       json (~> 1.4)
       nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.1)
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
@@ -85,11 +95,6 @@ GEM
       cucumber-rails (>= 1.1.1)
     daemons (1.1.9)
     database_cleaner (0.9.1)
-    devise (2.2.3)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (~> 3.1)
-      warden (~> 1.2.1)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -216,7 +221,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     uuidtools (2.1.4)
-    warden (1.2.1)
+    warden (1.2.3)
       rack (>= 1.0)
     wicked (0.6.1)
       activesupport (>= 3.0.7)
@@ -242,7 +247,7 @@ DEPENDENCIES
   cucumber-rails
   cucumber-rails-training-wheels
   database_cleaner
-  devise
+  devise!
   factory_girl_rails (~> 2.0)
   faker
   friendly_id
