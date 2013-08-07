@@ -1,21 +1,21 @@
-#short-approval-buttons
-  -if project.approved.nil?
-    -if user_signed_in? and current_user.admin?
-      %a.btn.btn-success.btn-mini{"data-toggle" => "modal", :href => "#approval-form-popup-#{project.slug}", :role => "button"} Approve
-      %a.btn.btn-danger.btn-mini{"data-toggle" => "modal", :href => "#denial-form-popup-#{project.slug}", :role => "button"} Decline
-    -else
-      %h5
-        Unapproved
-  -elsif project.approved == true and project.state == Project::UNFINISHED
-    %h5.green
-      Approved
-  -elsif project.approved == true and project.state == Project::FINISHED
-    %h5.blue
-      Submitted
-  -elsif project.approved == false
-    %h5.red
-      Denied
+/ #short-approval-buttons
+/   -if project.approved.nil?
+/     -if user_signed_in? and current_user.admin?
+/       %a.btn.btn-success.btn-mini{"data-toggle" => "modal", :href => "#approval-form-popup-#{project.slug}", :role => "button"} Approve
+/       %a.btn.btn-danger.btn-mini{"data-toggle" => "modal", :href => "#denial-form-popup-#{project.slug}", :role => "button"} Decline
+/     -else
+/       %h5
+/         Unapproved
+/   -elsif project.approved == true and project.state == Project::UNFINISHED
+/     %h5.green
+/       Approved
+/   -elsif project.approved == true and project.state == Project::FINISHED
+/     %h5.blue
+/       Submitted
+/   -elsif project.approved == false
+/     %h5.red
+/       Denied
 
 
-=render :partial => 'projects/denial_form_popup', :locals => {:project => project}
-=render :partial => 'projects/approval_form_popup', :locals => {:project => project}
+/ =render :partial => 'projects/denial_form_popup', :locals => {:project => project}
+/ =render :partial => 'projects/approval_form_popup', :locals => {:project => project}
