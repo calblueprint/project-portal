@@ -26,6 +26,8 @@
             %p
               %b
                 ="#{t(:contact_name)}:"
+              -puts project.id
+              -puts "thethe"
               =project.client.user.fname + " " + project.client.user.lname
 
             %p

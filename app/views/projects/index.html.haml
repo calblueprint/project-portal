@@ -2,9 +2,10 @@
   #allow-endless-scroll
   .title-section
     %h1.inline-title= "#{@title}"
-    .btn-group#new-proj-btn
-      %a.btn.btn-success{:href => new_project_path}
-        I'm ready to propose a project!
+    - if user_signed_in? and is_client?
+      .btn-group#new-proj-btn
+        %a.btn.btn-success{:href => new_project_path}
+          I'm ready to propose a project!
     .btn-toolbar.right-justify
       .btn-group#proj-tab{"data-toggle" => "buttons-radio"}
         %a.btn.btn-small.active#full-proj-btn{:href => "#full-proj-view", 'data-toggle' => 'tab'}
@@ -16,11 +17,12 @@
   =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
 
   %div#proj-content.tab-content
-    %div.tab-pane.active#full-proj-view
-      =render(:partial => 'shared/browse_project_card', :collection => @projects)
-    %div.tab-pane#compact-proj-view
-      =render(:partial => 'shared/project_compact', :collection => @projects)
-    .tab-pane#square-proj-view.row
-      =render(:partial => 'shared/project_square', :collection => @projects)
-
-
+    - if !user_signed_in? or is_client?
+      No publicly available projects yet.
+    - else
+      %div.tab-pane.active#full-proj-view
+        =render(:partial => 'shared/browse_project_card', :collection => @projects)
+      %div.tab-pane#compact-proj-view
+        =render(:partial => 'shared/project_compact', :collection => @projects)
+      .tab-pane#square-proj-view.row
+        =render(:partial => 'shared/project_square', :collection => @projects)
