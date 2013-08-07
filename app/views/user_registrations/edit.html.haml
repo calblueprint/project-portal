@@ -13,8 +13,9 @@
       = f.input :password_confirmation, :required => false
       = f.input :current_password, :hint => " We need your current password to confirm your changes", :required => true
     .specific.form-inputs
-      = f.simple_fields_for resource.rolable do |rf|
-        = render :partial => "#{child_class_name.underscore}_fields", :locals => { :f => rf }
+      -if !is_organization?
+        = f.simple_fields_for resource.rolable do |rf|
+          = render :partial => "#{child_class_name.underscore}_fields", :locals => { :f => rf }
     .form-actions
       = f.button :submit, "Update"
   .email-notifications
