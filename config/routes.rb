@@ -8,6 +8,9 @@ ProjectPortal::Application.routes.draw do
   resources :questions
 
   resources :projects do
+    member do
+      put :edit_question
+    end
     resources :issues
     collection do
       match 'org_questions'

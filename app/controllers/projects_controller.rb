@@ -174,7 +174,21 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit_question
+    @project = Project.find(params[:id])
+    question = params[:question]
+    answer = params["string"][:to_s]
+    @project.questions[question] = answer
+    if @project.save
+      head :ok
+    else
+      flash[:error] = 'Editing questions failed.'
+    end
+  end
+
+
   private
+
   def approve_deny_project(project)
     comment = params[:project][:comment]
     enotifer_on = current_user.email_notification.proj_approval
@@ -186,8 +200,6 @@ class ProjectsController < ApplicationController
       flash[:notice] = "Project: '#{project.title}' was successfully denied."
     end
   end
-
-  private
 
   def permission_to_update(project)
     unless user_can_update?(project)
