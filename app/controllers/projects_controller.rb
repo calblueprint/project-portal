@@ -186,6 +186,31 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def add_org
+    project = Project.find(params[:id])
+    org = Organization.find(params[:org_id])
+    questions = {}
+    org.questions.each do |q|
+      questions[Project.question_key(q).to_s] = ""
+    end
+    project.questions = questions
+    project.organizations << org
+    if project.save
+      redirect_to :back
+    else
+    end
+  end
+
+  def remove_orgs
+    project = Project.find(params[:id])
+    project.questions = nil
+    project.organizations = []
+    if project.save
+      redirect_to :back
+    else
+    end
+  end
+
 
   private
 

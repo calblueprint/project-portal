@@ -17,7 +17,7 @@
     %h4.details-title
       ="#{t(:organizations)}"
     =f.simple_fields_for :organizations do |organizations|
-      =organizations.label :blueprint, label: 'Organizations I wish to work exclusively with'
+      =organizations.label :blueprint, label: 'Organizations I wish to work with'
       - Organization.all.each do |org|
         - if params[org.sname] == "1"
           %label.checkbox
