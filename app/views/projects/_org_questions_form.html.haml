@@ -27,7 +27,8 @@
             - input_type = q.input_type.to_sym
             - if input_type == :boolean
               %label.checkbox
-                =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:value => @project.questions[Project::question_key(q)] }
+                = questions.check_box Project::question_key(q), {}, "yes", "no"
+                = q.question
             - elsif input_type == :text
               =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:rows => 4, :class => 'span12', :value => @project.questions[Project::question_key(q)] }
             - elsif input_type == :string
