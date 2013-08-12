@@ -174,7 +174,46 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit_question
+    @project = Project.find(params[:id])
+    question = params[:question]
+    answer = params["string"][:to_s]
+    @project.questions[question] = answer
+    if @project.save
+      head :ok
+    else
+      flash[:error] = 'Editing questions failed.'
+    end
+  end
+
+  def add_org
+    project = Project.find(params[:id])
+    org = Organization.find(params[:org_id])
+    questions = {}
+    org.questions.each do |q|
+      questions[Project.question_key(q).to_s] = ""
+    end
+    project.questions = questions
+    project.organizations << org
+    if project.save
+      redirect_to :back
+    else
+    end
+  end
+
+  def remove_orgs
+    project = Project.find(params[:id])
+    project.questions = nil
+    project.organizations = []
+    if project.save
+      redirect_to :back
+    else
+    end
+  end
+
+
   private
+
   def approve_deny_project(project)
     comment = params[:project][:comment]
     enotifer_on = current_user.email_notification.proj_approval
@@ -186,8 +225,6 @@ class ProjectsController < ApplicationController
       flash[:notice] = "Project: '#{project.title}' was successfully denied."
     end
   end
-
-  private
 
   def permission_to_update(project)
     unless user_can_update?(project)
