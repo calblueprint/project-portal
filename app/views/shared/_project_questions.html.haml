@@ -1,7 +1,7 @@
 .hero-section
   %h4.details-title
     ="#{t(:questions)}"
-  -if project.organizations.empty?
+  -if project.organizations.empty? and user_can_update?(project)
     .field
       You currently have not opted to work with any organizations.
     %br
@@ -19,7 +19,8 @@
             %i.icon-pencil
         - else
           = q[1]
-    %br
-    .btn.btn-secondary
-      - org = project.organizations.first
-      = link_to "Unapply to #{org.sname.capitalize}", remove_orgs_project_path, method: :post, confirm: "Are you sure you want to withdraw your application from #{org.name}? Your project will become public."
+    - if user_can_update?(project)
+      .btn.btn-secondary
+
+        - org = project.organizations.first
+        = link_to "Unapply to #{org.sname.capitalize}", remove_orgs_project_path, method: :post, confirm: "Are you sure you want to withdraw your application from #{org.name}? Your project will become public."
