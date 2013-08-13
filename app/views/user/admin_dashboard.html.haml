@@ -1,11 +1,10 @@
 %div.container
-	.row-fluid
-	  -if current_user.admin?
-	    .span4
-	      %h4.details-title
-	        Project Form Questions
-	      =render :partial => 'questions/question_list'
-	    .span8
-	      =render :partial => 'createadmins'
-	      =render :partial => 'projects/unapproved_list', :locals => {:unapproved_projects => @unapproved_projects,  :denied_projects => @denied_projects}
+  .row-fluid
+    -if current_user.admin?
+      / .span4
+      /   %h4.details-title Project Form Questions
+      /   =render :partial => 'questions/question_list'
+      .span12
+        =render :partial => 'createadmins'
+        =render :partial => 'projects/unapproved_list', :locals => {:unapproved_projects => @unapproved_projects,  :denied_projects => @denied_projects}
 

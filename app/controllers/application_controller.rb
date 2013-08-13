@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   helper_method :is_developer?
   helper_method :is_client?
   helper_method :is_organization?
+  helper_method :is_admin?
   helper_method :current_rolable
   helper_method :current_rolable_type
   helper_method :user_can_update?
@@ -38,6 +39,9 @@ class ApplicationController < ActionController::Base
   end
   def is_organization?
     current_user.rolable.class.name == 'Organization'
+  end
+  def is_admin?
+    current_user.admin?
   end
 
   def user_can_update?(project)

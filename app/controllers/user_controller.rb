@@ -1,6 +1,5 @@
 class UserController < ApplicationController
   def dashboard
-    puts 'current rolable type' + current_rolable_type
     case
     when is_organization?
       organization_dashboard
@@ -8,25 +7,27 @@ class UserController < ApplicationController
       client_dashboard
     when is_developer?
       developer_dashboard
+    when is_admin?
+      admin_dashboard
     else
       #error
     end
   end
 
   protected
-  def organization_dashboard   #MICHELLE
+  def organization_dashboard
     @questions = current_rolable.questions
     @projects = current_rolable.projects
 
     render(:template => 'user/organization_dashboard')
   end
 
-  def client_dashboard   #KEVIN
+  def client_dashboard
     @projects = current_rolable.projects.order("created_at DESC").paginate(:page => params[:projects_page], :per_page => 5)
     render(:template => 'user/client_dashboard')
   end
 
-  def developer_dashboard #LATER
+  def developer_dashboard
     render(:template => 'user/developer_dashboard')
   end
 
@@ -40,6 +41,7 @@ class UserController < ApplicationController
     users.each do |u|
       @emails.append(u['fname'] + " " + u['lname'] + " " + "(" + u['email'] + ")")
     end
+    render(:template => 'user/admin_dashboard')
   end
 
   def add_admin
