@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :fname, :lname, :email, :password, :password_confirmation, :remember_me, :admin, :rolable_type
   # attr_accessible :title, :body
 
-  validates :fname, :lname, :email, :rolable_type, :presence => true
+  validates :fname, :lname, :email, :presence => true
   validates_presence_of :password, :on => :create
   validates_confirmation_of :password
 
