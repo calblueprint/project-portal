@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
     # if is_admin
     #   @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
     # else
-    @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10).is_public
     #end
     @title = "All Projects"
   end
