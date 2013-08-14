@@ -45,6 +45,9 @@ class Project < ActiveRecord::Base
   before_save :merge_questions
   # mount_uploader :photo, PhotoUploader
 
+  scope :is_public, lambda { Project.where("id not in (?)", Project.joins(:organizations)) }
+  scope :is_private, lambda { Project.joins(:organizations) }
+
   scope :by_title, lambda { |search_string|
     if not search_string.empty?
       where('title like ?', "%#{search_string}%")

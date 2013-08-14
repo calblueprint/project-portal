@@ -1,15 +1,31 @@
 %h4.details-title
-  Unapproved Projects
--if unapproved_projects.empty?
-  No Unapproved Projects
--unapproved_projects.each do |p| 
+  Public Projects
+-if public_projects.empty?
+  No Public Projects
+-public_projects.each do |p|
   =render :partial=>"shared/project_card", :locals => {:project => p}
-=will_paginate unapproved_projects, :param_name => 'unapproved_page'
-  
+=will_paginate public_projects, :param_name => 'public_page'
+
 %h4.details-title
-  Denied Projects
--if denied_projects.empty?
-  No Denied Projects
--denied_projects.each do |p| 
+  Private Projects
+-if private_projects.empty?
+  No Private Projects
+-private_projects.each do |p|
   =render :partial=>"shared/project_card", :locals => {:project => p}
-=will_paginate denied_projects, :param_name => 'denied_page'
+=will_paginate private_projects, :param_name => 'private_page'
+
+/ %h4.details-title
+/   Unapproved Projects
+/ -if unapproved_projects.empty?
+/   No Unapproved Projects
+/ -unapproved_projects.each do |p|
+/   =render :partial=>"shared/project_card", :locals => {:project => p}
+/ =will_paginate unapproved_projects, :param_name => 'unapproved_page'
+
+/ %h4.details-title
+/   Denied Projects
+/ -if denied_projects.empty?
+/   No Denied Projects
+/ -denied_projects.each do |p|
+/   =render :partial=>"shared/project_card", :locals => {:project => p}
+/ =will_paginate denied_projects, :param_name => 'denied_page'

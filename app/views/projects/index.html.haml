@@ -17,7 +17,7 @@
   =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
 
   %div#proj-content.tab-content
-    - if !user_signed_in? or is_client?
+    - if @projects.empty?
       No publicly available projects yet.
     - else
       %div.tab-pane.active#full-proj-view

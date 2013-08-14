@@ -24,5 +24,6 @@
         %div#proj-content.tab-content
           %div.tab-pane.active#full-proj-view
             =render(:partial => 'orgdev_project_card', :collection => @projects, :locals => {:project =>p})
+            =will_paginate @projects, :param_name => 'projects_page'
 
 
