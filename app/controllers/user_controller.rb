@@ -17,7 +17,7 @@ class UserController < ApplicationController
   protected
   def organization_dashboard
     @questions = current_rolable.questions
-    @projects = current_rolable.projects
+    @projects = current_rolable.projects.order("created_at DESC").paginate(:page => params[:projects_page], :per_page => 5)
 
     render(:template => 'user/organization_dashboard')
   end
@@ -34,8 +34,13 @@ class UserController < ApplicationController
 
   def admin_dashboard
     # @questions = Question.current_questions
-    @unapproved_projects = Project.order("created_at DESC").unapproved_projects.paginate(:page => params[:unapproved_page], :per_page => 5)
-    @denied_projects = Project.order("created_at DESC").denied_projects.paginate(:page => params[:denied_page], :per_page => 5)
+    # @unapproved_projects = Project.order("created_at DESC").unapproved_projects.paginate(:page => params[:unapproved_page], :per_page => 5)
+    # @denied_projects = Project.order("created_at DESC").denied_projects.paginate(:page => params[:denied_page], :per_page => 5)
+
+    @public_projects = Project.order("created_at DESC").is_public.paginate(:page => params[:public_page], :per_page => 5)
+    @private_projects = Project.order("created_at DESC").is_private.paginate(:page => params[:private_page], :per_page => 5)
+
+
     @emails = []
     users = User.connection.select_all("SELECT email,fname,lname FROM users")
     users.each do |u|
