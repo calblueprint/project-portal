@@ -21,6 +21,5 @@
           = q[1]
     - if user_can_update?(project)
       .btn.btn-secondary
-
         - org = project.organizations.first
-        = link_to "Unapply to #{org.sname.capitalize}", remove_orgs_project_path, method: :post, confirm: "Are you sure you want to withdraw your application from #{org.name}? Your project will become public."
+        = link_to "Unapply", remove_orgs_project_path, method: :post, confirm: "Are you sure you want to withdraw your application? Your project will become public."
