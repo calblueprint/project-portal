@@ -16,6 +16,8 @@
           %ul.nav
             - if user_signed_in?
               %li= link_to "Dashboard", dashboard_path, :class=>"text #{'active' if current_page?(dashboard_path)}"
+              - if is_admin?
+                %li= link_to "Admin Dashboard", admin_dashboard_path, :class=>"text #{'active' if current_page?(admin_dashboard_path)}"
               - if is_developer?
                 %li= link_to "Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
                 %li= link_to "Issues", issues_path, :class=>"#{'active' if current_page?(issues_path)}"
