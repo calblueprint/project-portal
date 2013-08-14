@@ -6,13 +6,17 @@
   =render :partial=>"shared/project_card", :locals => {:project => p}
 =will_paginate public_projects, :param_name => 'public_page'
 
-%h4.details-title
-  Private Projects
--if private_projects.empty?
-  No Private Projects
--private_projects.each do |p|
-  =render :partial=>"shared/project_card", :locals => {:project => p}
-=will_paginate private_projects, :param_name => 'private_page'
+- Organization.all.each do |org|
+  - name = "#{org.sname}_page".to_sym
+  %h4.details-title
+    = "#{org.name} Projects"
+  - projects = org.projects.order("created_at DESC").paginate(:page => params[name], :per_page => 5)
+  -if projects.empty?
+    No Private Projects
+  -projects.each do |p|
+    =render :partial=>"shared/project_card", :locals => {:project => p}
+  =will_paginate projects, :param_name => name
+
 
 / %h4.details-title
 /   Unapproved Projects
