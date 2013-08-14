@@ -1,5 +1,6 @@
 class UserController < ApplicationController
   def dashboard
+    puts "yo"
     case
     when is_organization?
       organization_dashboard
@@ -12,6 +13,22 @@ class UserController < ApplicationController
     else
       #error
     end
+  end
+
+  def admin_dashboard
+    # @questions = Question.current_questions
+    # @unapproved_projects = Project.order("created_at DESC").unapproved_projects.paginate(:page => params[:unapproved_page], :per_page => 5)
+    # @denied_projects = Project.order("created_at DESC").denied_projects.paginate(:page => params[:denied_page], :per_page => 5)
+    puts "admin dashboard"
+    @public_projects = Project.order("created_at DESC").is_public.paginate(:page => params[:public_page], :per_page => 5)
+    @private_projects = Project.order("created_at DESC").is_private.paginate(:page => params[:private_page], :per_page => 5)
+
+    @emails = []
+    users = User.connection.select_all("SELECT email,fname,lname FROM users")
+    users.each do |u|
+      @emails.append(u['fname'] + " " + u['lname'] + " " + "(" + u['email'] + ")")
+    end
+    render(:template => 'user/admin_dashboard')
   end
 
   protected
@@ -29,24 +46,6 @@ class UserController < ApplicationController
 
   def developer_dashboard
     render(:template => 'user/developer_dashboard')
-  end
-
-
-  def admin_dashboard
-    # @questions = Question.current_questions
-    # @unapproved_projects = Project.order("created_at DESC").unapproved_projects.paginate(:page => params[:unapproved_page], :per_page => 5)
-    # @denied_projects = Project.order("created_at DESC").denied_projects.paginate(:page => params[:denied_page], :per_page => 5)
-
-    @public_projects = Project.order("created_at DESC").is_public.paginate(:page => params[:public_page], :per_page => 5)
-    @private_projects = Project.order("created_at DESC").is_private.paginate(:page => params[:private_page], :per_page => 5)
-
-
-    @emails = []
-    users = User.connection.select_all("SELECT email,fname,lname FROM users")
-    users.each do |u|
-      @emails.append(u['fname'] + " " + u['lname'] + " " + "(" + u['email'] + ")")
-    end
-    render(:template => 'user/admin_dashboard')
   end
 
   def add_admin

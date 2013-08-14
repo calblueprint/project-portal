@@ -29,7 +29,7 @@ ProjectPortal::Application.routes.draw do
 
   get "user/show"
   get "user/settings"
-  get "user/admin_dashboard"
+  match "admin_dashboard" => 'user#admin_dashboard', :as => :admin_dashboard
   match 'dashboard' => 'user#dashboard', :as => :dashboard
 
   match 'delete_question/:id' => 'questions#destroy', :as => 'delete_question'
