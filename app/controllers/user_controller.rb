@@ -1,6 +1,5 @@
 class UserController < ApplicationController
   def dashboard
-    puts "yo"
     case
     when is_organization?
       organization_dashboard
@@ -19,7 +18,6 @@ class UserController < ApplicationController
     # @questions = Question.current_questions
     # @unapproved_projects = Project.order("created_at DESC").unapproved_projects.paginate(:page => params[:unapproved_page], :per_page => 5)
     # @denied_projects = Project.order("created_at DESC").denied_projects.paginate(:page => params[:denied_page], :per_page => 5)
-    puts "admin dashboard"
     @public_projects = Project.order("created_at DESC").is_public.paginate(:page => params[:public_page], :per_page => 5)
     @private_projects = Project.order("created_at DESC").is_private.paginate(:page => params[:private_page], :per_page => 5)
 
