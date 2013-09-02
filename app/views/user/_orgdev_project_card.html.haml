@@ -3,8 +3,7 @@
   .project-card.hero-section.span12
     .content
       .span2
-        .img-polaroid
-          =link_to(image_tag(project.client.photo.to_s), project_path(project))
+        =render :partial => 'projects/client_photo', :locals => {:project => project}
         .edit-options
           - if user_can_update?(project)
             =link_to "Modify Project Details", edit_project_path(project)
