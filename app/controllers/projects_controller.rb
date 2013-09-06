@@ -83,11 +83,11 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    # if is_admin
-    #   @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
-    # else
-    @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10).is_public
-    #end
+    if org_id = params[:organization_id]
+      @projects = Organization.find(org_id).projects
+    else
+      @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10).is_public
+    end
     @title = "All Projects"
   end
 
