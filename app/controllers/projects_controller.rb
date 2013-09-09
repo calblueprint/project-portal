@@ -84,7 +84,7 @@ class ProjectsController < ApplicationController
 
   def index
     if org_id = params[:organization_id]
-      @projects = Organization.find(org_id).projects
+      @projects = Organization.find(org_id).projects.paginate(:page => params[:page], :per_page => 5)
     else
       @projects = Project.order("created_at DESC").paginate(:page => params[:page], :per_page => 10).is_public
     end

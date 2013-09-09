@@ -16,7 +16,7 @@
           %i.icon-th-large
   =render :partial=>"search_form", :locals => {:prev_search => @prev_search}
 
-  %div#proj-content.tab-content
+  #proj-content.tab-content
     - if @projects.empty?
       No publicly available projects yet.
     - else
@@ -26,3 +26,5 @@
         =render(:partial => 'shared/project_compact', :collection => @projects)
       .tab-pane#square-proj-view.row
         =render(:partial => 'shared/project_square', :collection => @projects)
+
+    -will_paginate @projects, :param_name => 'page'
