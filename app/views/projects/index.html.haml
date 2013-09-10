@@ -2,6 +2,8 @@
   #allow-endless-scroll
   .title-section
     %h1.inline-title= "#{@title}"
+    .message
+      %i Note: These projects are public. To view an organization's private projects, contact that organization for the link.
     - if user_signed_in? and is_client?
       .btn-group#new-proj-btn
         %a.btn.btn-success{:href => new_project_path}
