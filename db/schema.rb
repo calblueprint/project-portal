@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20130803233538) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "resolved",     :default => 0
-    t.string   "project_id",                  :null => false
+    t.integer  "project_id",                  :null => false
     t.string   "authors"
     t.string   "github"
     t.integer  "submitter_id"

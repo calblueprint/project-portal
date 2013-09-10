@@ -26,7 +26,7 @@
               - elsif is_organization?
                 %li= link_to "All Public Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
             - else
-              %li= link_to "Browse Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
+              %li= link_to "Browse Public Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
           %ul{:class=>"nav pull-right"}
             - if user_signed_in?
               %li.dropdown
