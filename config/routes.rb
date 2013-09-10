@@ -67,7 +67,7 @@ ProjectPortal::Application.routes.draw do
 
 
   resources :organizations do
-    resources :projects, only: [:index] #organizations/1/projects
+    resources :projects, only: [:index]
   end
 
 
