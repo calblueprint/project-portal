@@ -1,8 +1,6 @@
 var currentPage = 1;
 
 function checkScroll(callback) {
-  alert("hi");
-  console.log("hi");
   path = window.location.pathname + window.location.search;
   path = path + ((path.indexOf('?') == -1) ? '?page=' : '&page=');
   if (nearBottomOfPage() && allowScroll()) {
@@ -13,7 +11,7 @@ function checkScroll(callback) {
       success: function(data){
         if(data && data != false){
           callback(data);
-          checkScrollTimeout(callback, 1000);
+          checkScrollTimeout(callback, 200);
         }
       }
     })
