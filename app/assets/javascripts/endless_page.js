@@ -1,6 +1,8 @@
 var currentPage = 1;
 
 function checkScroll(callback) {
+  alert("hi");
+  console.log("hi");
   path = window.location.pathname + window.location.search;
   path = path + ((path.indexOf('?') == -1) ? '?page=' : '&page=');
   if (nearBottomOfPage() && allowScroll()) {
@@ -21,7 +23,7 @@ function checkScroll(callback) {
 }
 
 function nearBottomOfPage() {
-  return scrollDistanceFromBottom() < 150;
+  return scrollDistanceFromBottom() < 600;
 }
 
 function scrollDistanceFromBottom(argument) {
