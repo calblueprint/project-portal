@@ -11,7 +11,7 @@ function checkScroll(callback) {
       success: function(data){
         if(data && data != false){
           callback(data);
-          checkScrollTimeout(callback, 1000);
+          checkScrollTimeout(callback, 200);
         }
       }
     })
@@ -21,7 +21,7 @@ function checkScroll(callback) {
 }
 
 function nearBottomOfPage() {
-  return scrollDistanceFromBottom() < 150;
+  return scrollDistanceFromBottom() < 1000;
 }
 
 function scrollDistanceFromBottom(argument) {

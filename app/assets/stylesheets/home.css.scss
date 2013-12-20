@@ -2,24 +2,30 @@
 -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
+@import "twitter/bootstrap/mixins";
+@import "twitter/bootstrap/variables";
+
+$bg-gray: #fafafa;
 
 .intro-container {
   margin-top:15px;
   margin-bottom:15px;
+  .span12 {
+    width: 900px;
+  }
 }
 
-.intro-container .span12 {
-  width: 900px;
+hr {
+  margin: 0;
 }
-
 .org-logo {
-  width: 460px;
+  width: 400px;
   background-color: #FFFFFF;
 }
 
 .org-logo {
   display: block;
-  padding: 4px;
+  padding: 15px;
   line-height: 20px;
   border: 1px solid;
   border-color: #DDDDDD;
@@ -45,27 +51,6 @@
           box-shadow: 0 0 10px 3px rgba(230, 230, 230, 1);
 }
 
-.marketing {
-  margin-left: -233px;
-  margin-right: -233px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.marketing .about {
-}
-
-.marketing h2 {
-  font-weight: normal;
-}
-.marketing .span4 p {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.marketing p {
-  line-height: 20px;
-}
-
 .home-banner {
   margin-top: 0px;
   margin-left: auto;
@@ -75,25 +60,72 @@
   padding-left: 220px;
   padding-right: 220px;
   background-color: rgb(97,85,164);
+  background: url(https://d3bx4m5kpe3htc.cloudfront.net/assets/jumbotron-c526dc40217a43d3944b9291665396e3.png);
   text-align: center;
+  h2 {
+    color: white;
+    vertical-align: middle;
+    font-weight: 300;
+  }
 }
 
-.home-banner h2{
-  color: white;
-  vertical-align:middle; 
-
+.marketing {
+  padding-top: 25px;
+  padding-bottom: 50px;
+  h2 {
+    font-weight: normal;
+  }
+  .span4 p {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  p {
+    line-height: 20px;
+  }
+  .about {
+    @include make-sm-column(8);
+    @include make-sm-column-offset(2);
+    margin: 30px auto 0;
+    float:none;
+    .content {
+      @include make-sm-column(12);
+      .heading {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 40px;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 300px;
+        color: #959bae;  //should change to variable
+      }
+    }
+  }
 }
 
 .list-organizations {
-  margin-left: -233px;
-  margin-right: -233px;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 70px;
   background-color: rgb(255,255,255);
-}
-
-.list-organizations h2 {
-  font-weight: normal;
+  background-color: $bg-gray;
+  .heading {
+    font-weight: 300px;
+    font-size: 27px;
+    line-height: 70px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .org {
+    @include make-sm-column(6);
+    margin: 0 auto;
+    float: left;
+    box-sizing: border-box;
+    img {
+      margin: auto;
+    }
+  }
 }
 
 .sign-up-btn {

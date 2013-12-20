@@ -69,9 +69,11 @@ end
 
 # our app specific gems
 gem 'bootstrap-sass'
+gem 'bootstrap-sass-rails'
+
 gem 'jquery-rails'
 gem 'haml'
-gem 'devise', :git => 'git://github.com/plataformatec/devise.git' 
+gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem 'simple_form'
 gem 'carrierwave'
 gem 'friendly_id'
