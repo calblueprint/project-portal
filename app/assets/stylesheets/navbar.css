@@ -7,7 +7,7 @@
 .navbar .navbar-inner {
 	height: 60px;
 	margin-top: -40px;
-	padding: 0px;
+	padding: 0 30px;
 	border: 0px;
   border-color: #000000;
   -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25);
@@ -26,7 +26,8 @@
 .navbar .brand {
 	padding-top: 20px;
 	font-weight: 500;
-	color: rgb(97,85,164);
+	/*color: rgb(97,85,164);*/
+  color: #2b2f3e;
 }
 
 .navbar .brand:hover {
