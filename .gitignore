@@ -58,6 +58,7 @@ rerun.txt
 pickle-email-*.html
 .project
 public/uploads
+public/assets
 .DS_Store
 *.sh
 
