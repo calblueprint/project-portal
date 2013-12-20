@@ -70,11 +70,8 @@ hr {
 }
 
 .marketing {
-  margin-left: -233px;
-  margin-right: -233px;
   padding-top: 25px;
   padding-bottom: 50px;
-  width: 960px;
   h2 {
     font-weight: normal;
   }
@@ -109,8 +106,6 @@ hr {
 }
 
 .list-organizations {
-  margin-left: -233px;
-  margin-right: -233px;
   padding-top: 20px;
   padding-bottom: 70px;
   background-color: rgb(255,255,255);
@@ -127,6 +122,9 @@ hr {
     margin: 0 auto;
     float: left;
     box-sizing: border-box;
+    img {
+      margin: auto;
+    }
   }
 }
 
