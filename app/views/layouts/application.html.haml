@@ -11,36 +11,35 @@
     = favicon_link_tag 'favicon.ico'
   %body
     %div{:class=>"navbar navbar-top"}
-      %div.navbar-inner
-        %div.container
-          %a{:class=>"brand", :href=>root_path}= "Project Portal"
-          %ul.nav
-            - if user_signed_in?
-              %li= link_to "Dashboard", dashboard_path, :class=>"text #{'active' if current_page?(dashboard_path)}"
-              - if is_developer?
-                %li= link_to "Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
-                %li= link_to "Issues", issues_path, :class=>"#{'active' if current_page?(issues_path)}"
-              - elsif is_client?
-                %li= link_to "Browse Other Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
-                %li= link_to "Propose A Project", new_project_path, :class=>"#{'active' if current_page?(new_project_path)}"
-              - elsif is_organization?
-                %li= link_to "All Public Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
-            - else
-              %li= link_to "All CS169 Projects", '/organizations/cs169/projects', :class=>"#{'active' if current_page?('/organizations/cs169/projects')}"
-          %ul{:class=>"nav pull-right"}
-            - if user_signed_in?
-              %li.dropdown
-                %a{:class=>"dropdown-toggle", "data-toggle"=>"dropdown"}
-                  #{current_user.fname} #{current_user.lname}
-                  %b.caret
-                %ul{:class=>"dropdown-menu pull-right"}
-                  -if current_user.admin?
-                    %li= link_to 'Admin', admin_dashboard_path
-                  %li= link_to 'Settings', edit_user_registration_path
-                  %li= link_to 'Logout', destroy_user_session_path, :method => :delete
+      .navbar-inner
+        %a{:class=>"brand", :href=>root_path}= "Project Portal"
+        %ul.nav
+          - if user_signed_in?
+            %li= link_to "Dashboard", dashboard_path, :class=>"text #{'active' if current_page?(dashboard_path)}"
+            - if is_developer?
+              %li= link_to "Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
+              %li= link_to "Issues", issues_path, :class=>"#{'active' if current_page?(issues_path)}"
+            - elsif is_client?
+              %li= link_to "Browse Other Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
+              %li= link_to "Propose A Project", new_project_path, :class=>"#{'active' if current_page?(new_project_path)}"
+            - elsif is_organization?
+              %li= link_to "All Public Projects", projects_path, :class=>"#{'active' if current_page?(projects_path)}"
+          - else
+            / %li= link_to "All CS169 Projects", '/organizations/cs169/projects', :class=>"#{'active' if current_page?('/organizations/cs169/projects')}"
+        %ul{:class=>"nav pull-right"}
+          - if user_signed_in?
+            %li.dropdown
+              %a{:class=>"dropdown-toggle", "data-toggle"=>"dropdown"}
+                #{current_user.fname} #{current_user.lname}
+                %b.caret
+              %ul{:class=>"dropdown-menu pull-right"}
+                -if current_user.admin?
+                  %li= link_to 'Admin', admin_dashboard_path
+                %li= link_to 'Settings', edit_user_registration_path
+                %li= link_to 'Logout', destroy_user_session_path, :method => :delete
 
-            - else
-              %li= link_to 'Login', new_user_session_path
+          - else
+            %li= link_to 'Login', new_user_session_path
 
     %div{:class=>"content-wrapper #{'signin-background' if current_page?(new_user_session_path)}"}
       %div{:class=>"container"}

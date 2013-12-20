@@ -19,11 +19,12 @@
     =f.simple_fields_for :organizations do |organizations|
       =organizations.label :blueprint, label: 'Organizations I wish to work with'
       - Organization.all.each do |org|
-        - if params[org.sname] == "1"
+        - if org.sname == "blueprint"
           %label.checkbox
-            =organizations.input org.sname, as: :boolean, label: org.name, :input_html => { checked: true }
+            =organizations.input org.sname, as: :boolean, label: org.name, :input_html => { checked: true}
         - else
-          %label.checkbox
-            =organizations.input org.sname, as: :boolean, label: org.name
+          %label.checkbox.disabled
+            =organizations.input org.sname, as: :boolean, disabled: true, label: org.name
+            .note (Applications for CS169 open in Fall 2014)
 
   = f.button :submit, 'Continue', :class => "btn"
