@@ -16,7 +16,7 @@
   -else
     .heading.inline-title= "My Projects"
     .btn-group.pull-right#new-proj-btn
-      %a.btn.btn-success{:href => new_project_path}
+      %a.btn.btn-primary{:href => new_project_path}
         New Project
     - if @projects
       - @projects.each do |p|
