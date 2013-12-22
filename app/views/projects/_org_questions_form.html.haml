@@ -22,7 +22,9 @@
     =f.simple_fields_for :questions do |questions|
       -@organizations.each do |org|
         .org-questions
-          = org.name
+          .org-name
+            .inline For
+            .inline.italic #{org.name}
           - org.questions.each do |q|
             - input_type = q.input_type.to_sym
             - if input_type == :boolean
@@ -34,4 +36,4 @@
             - elsif input_type == :string
               =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:rows => 1, :class => 'span12', :value => @project.questions[Project::question_key(q)] }
 
-  =f.button :submit, 'Submit Project', :class => "btn"
+  =f.button :submit, 'Submit Project', :class => "btn form-btn"

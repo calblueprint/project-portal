@@ -24,7 +24,7 @@
             =organizations.input org.sname, as: :boolean, label: org.name, :input_html => { checked: true}
         - else
           %label.checkbox.disabled
-            =organizations.input org.sname, as: :boolean, disabled: true, label: org.name
-            .note (Applications for CS169 open in Fall 2014)
+            .inline=organizations.input org.sname, as: :boolean, disabled: true, label: org.name
+            .note.inline (Applications for CS169 open in Fall 2014)
 
-  = f.button :submit, 'Continue', :class => "btn"
+  = f.button :submit, 'Continue', :class => "btn form-btn"
