@@ -1,13 +1,11 @@
 /%div{:class=>"banner"}
-%h2
-%div.container.page.client-dashboard
+.container.page.client-dashboard
   -if @projects.empty?
     .row-fluid
       .span12
         .main-section
           .hero-unit.centered
-            %h1
-              Welcome to Project Portal!
+            .heading Welcome to Project Portal!
             .project-buttons
               %a.btn.btn-success.btn-large-square{:href => new_project_path}
                 .btn-large-text
@@ -16,9 +14,9 @@
                 .btn-large-text
                   Browse Projects!
   -else
-    %h1.inline-title= "My Projects"
+    .heading.inline-title= "My Projects"
     .btn-group.pull-right#new-proj-btn
-      %a.btn.btn-success{:href => new_project_path}
+      %a.btn.btn-primary{:href => new_project_path}
         New Project
     - if @projects
       - @projects.each do |p|
