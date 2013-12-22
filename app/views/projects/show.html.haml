@@ -1,4 +1,4 @@
-%div.container
+.container.page
   %p#notice
   %p#error
   -if user_signed_in? and current_user.admin?
@@ -11,10 +11,6 @@
       =render :partial => 'shared/project_contact', :locals => {:project => @project}
     .span8
       =render :partial => 'shared/project_description', :locals => {:project => @project}
-  .row-fluid
-    .span4
-      =render :partial => 'shared/project_issues', :locals => {:project => @project}
-    .span8
       .hero-section
         %h4.details-title
           ="Comments"
@@ -23,4 +19,8 @@
           .comment-form
             -if user_signed_in?
               =render :partial => 'shared/comment', :locals => { :comment => @new_comment }
-          =#render :partial => 'shared/project_comments', :locals => { :comments => @comments }
+  / .row-fluid
+  /   .span4
+  /     / =render :partial => 'shared/project_issues', :locals => {:project => @project}
+  /   .span8
+
