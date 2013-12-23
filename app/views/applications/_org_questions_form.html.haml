@@ -1,0 +1,19 @@
+= simple_form_for [@project, @application] do |f|
+
+  .hero-section
+    %h4.details-title Questions
+    =f.simple_fields_for :questions do |questions|
+      - @organization.questions.each do |q|
+        - input_type = q.input_type.to_sym
+        - if input_type == :boolean
+          %label.checkbox
+            = questions.check_box Project::question_key(q), {}, "yes", "no"
+            = q.question
+        - elsif input_type == :text || input_type == :string
+          - if input_type == :text
+            - rows = 4
+          - else
+            - rows = 1
+          =questions.input Project::question_key(q), label: q.question, :as => input_type, :input_html => {:rows => rows, :class => 'span12', :value => @project.questions[Project::question_key(q)] }
+
+  =f.button :submit, 'Submit Project', :class => "btn form-btn"
