@@ -4,10 +4,9 @@
   -if user_signed_in? and current_user.admin?
     =render :partial => 'project_approval_form', :locals => {:project => @project}
   =render :partial => 'shared/project_card', :locals => {:project => @project, :user_edit => true}
-  =# render :inline, :controller => "issues", :action => "index"
   .row-fluid
     .span4
-      =render :partial => 'shared/project_questions', :locals => {:project => @project}
+      =render :partial => 'shared/applications', :locals => {:project => @project}
       =render :partial => 'shared/project_contact', :locals => {:project => @project}
     .span8
       =render :partial => 'shared/project_description', :locals => {:project => @project}

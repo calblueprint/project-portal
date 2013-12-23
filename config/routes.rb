@@ -16,6 +16,7 @@ ProjectPortal::Application.routes.draw do
       post :remove_orgs
     end
     resources :issues
+    resources :applications
     collection do
       match 'org_questions'
     end

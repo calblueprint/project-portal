@@ -1,0 +1,27 @@
+.hero-section
+  %h4.details-title Applications
+  -if project.organizations.empty? and user_can_update?(project)
+    .field
+      You currently have not applied to any organizations.
+    %br
+    - Organization.all.each do |org|
+      .btn.btn-secondary
+        = link_to "Apply to #{org.sname.capitalize}", add_org_project_path(:org_id => org.id), method: :post, confirm: "Are you sure you want to apply exclusively to #{org.name}? Your project will no longer be public."
+  -else
+    - project.organizations.to_a.each do |org|
+      %p
+        = org.name
+      / - app.questions.each do |q|
+      /   %p
+      /     %b.questions
+      /       ="#{Question.find(Project.get_question_id(q)).question}:"
+      /     - if user_can_update?(project)
+      /       = best_in_place q[1], :to_s, :type => :input, :path => edit_question_project_path(:question => q[0]), :activator => "#question#{q[0]}"
+      /       %a.btn-link{id: "question#{q[0]}"}
+      /         %i.icon-pencil
+      /     - else
+      /       = q[1]
+      / - if user_can_update?(project)
+      /   .btn.btn-secondary
+      /     - org = project.organizations.first
+      /     = link_to "Unapply", remove_orgs_project_path, method: :post, confirm: "Are you sure you want to withdraw your application? Your project will become public."

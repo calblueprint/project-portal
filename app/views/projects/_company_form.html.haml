@@ -1,30 +1,27 @@
-= simple_form_for :project, :url => project_questions_path do |f|
-  / - if @project.errors.any?
-  /   #error_explanation
-  /     %h2
-  /       = pluralize(@project.errors.count, "error")
-  /       prohibited this project from being saved:
-  /     %ul
-  /       - @project.errors.full_messages.each do |msg|
-  /         %li= msg
+= simple_form_for @project do |f|
 
   .hero-section
-    %h4.details-title
-      Basics
+    %h4.details-title Basics
     =f.input :title, label: "Project Title"
     =f.input :state, label: "Project Type", as: :select, default: Project::UNFINISHED, collection: [['New Project', Project::UNFINISHED], ['Maintenance Project', Project::FINISHED]]
+
   .hero-section
-    %h4.details-title
-      ="#{t(:organizations)}"
+    %h4.details-title Project Description
+    =f.input :problem, label: "What current problems does your organization face that you are trying to address with this project?", as: :text, :input_html => {:rows => 6, :class=>"span8"}
+    =f.input :short_description, label: "How would you summarize in a sentence the technology you wish to develop?", :input_html => {:class=>"span8"}
+    =f.input :long_description, label: "Please provide a more detailed description of your project", as: :text, :input_html => {:rows => 6, :class=>"span8"}
+
+  .hero-section
+    %h4.details-title Organizations
     =f.simple_fields_for :organizations do |organizations|
       =organizations.label :blueprint, label: 'Organizations I wish to work with'
       - Organization.all.each do |org|
         - if org.sname == "blueprint"
           %label.checkbox
-            =organizations.input org.sname, as: :boolean, label: org.name, :input_html => { checked: true}
+            =organizations.input org.id, as: :boolean, label: org.name, :input_html => { checked: true}
         - else
           %label.checkbox.disabled
-            .inline=organizations.input org.sname, as: :boolean, disabled: true, label: org.name
+            .inline=organizations.input org.id, as: :boolean, disabled: true, label: org.name
             .note.inline (Applications for CS169 open in Fall 2014)
 
   = f.button :submit, 'Continue', :class => "btn form-btn"
