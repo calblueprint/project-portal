@@ -20,27 +20,6 @@ class ProjectsController < ApplicationController
     @user = @project.client
   end
 
-  #second step in new/edit project form
-  # def org_questions
-  #   @project = Project.new
-
-  #   if params[:project].nil?
-  #     org_ids = session[:org]
-  #     proj_params = session[:proj]
-  #   else
-  #     org_ids = []
-  #     params[:project][:organizations].each do |key, value|
-  #       org_ids << key if value == "1"
-  #     end
-  #     params[:project].delete(:organizations)
-
-  #     session[:org] = org_ids   #keeps org info on refresh
-  #     session[:proj] = params[:project]
-  #   end
-
-  #   @organizations = org_ids.map { |id| Organization.find(id)}
-  # end
-
   def create
     org_params = params[:project][:organizations]
     params[:project].delete(:organizations)

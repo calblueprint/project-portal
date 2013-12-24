@@ -1,0 +1,14 @@
+.container.page.applications
+  .heading= "#{@project.title} Applications"
+  .project-apps
+    -@applications.each do |app|
+      .app
+        = app.organization.name
+        = link_to edit_project_application_path(@project, app) do
+          %i.icon-pencil.blue
+        = link_to "Unapply", project_application_path(@project, app), :method => :delete, :class => "btn btn-danger"
+
+  .orgs
+    -@other_orgs.to_a.each do |org|
+      = org.name
+      = link_to "Apply", project_applications_path(:project_id => @project.id, :organization_id => org.id), :method => :post, :class => "btn btn-primary"

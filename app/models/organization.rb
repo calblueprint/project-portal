@@ -9,4 +9,10 @@ class Organization < ActiveRecord::Base
   has_many :projects, :through => :applications
 
   attr_accessible :description, :name, :website, :sname, :organization_id
+
+  scope :not_applied, lambda { |project|
+    where("id NOT IN (?)", Organization.joins(:applications).where("applications.project_id = ?", project.id) )
+  }
+
+  scope :is_public, lambda { Project.where("id not in (?)", Project.joins(:organizations)) }
 end
