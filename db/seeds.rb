@@ -57,7 +57,7 @@ cs169_questions = Question.create([
   { question: "If selected, is the contact listed above available to speak on a weekly basis with a student from CS169?",
     input_type: "boolean"
   },
-  { question: "If selected, will you and your organization fully commit to an engagement with CS169 for 8 weeks in Fall 2013?",
+  { question: "If selected, will you and your organization fully commit to an engagement with CS169 for 8 weeks in Spring 2014?",
     input_type: "boolean"
   },
   { question: "Does the contact above have the ability to implement software solutions developed by the CS169 team?",
@@ -94,7 +94,7 @@ bp_questions = Question.create([
   { question: "Do you have the technical capabilities to deploy any solutions that Blueprint makes? (eg if Blueprint makes a website, will you be able to set up the domain name and server? Or will you require assistance from the Blueprint team?)",
     input_type: "boolean"
   },
-  { question: "If selected, will you and your organization fully commit to an engagement with Blueprint for 11 weeks in Fall 2013?",
+  { question: "If selected, will you and your organization fully commit to an engagement with Blueprint for 11 weeks in Spring 2014?",
     input_type: "boolean"
   },
   { question: " If selected, will a representative of your company be available to meet at two-week intervals with the project team that Blueprint assigns to you?",
