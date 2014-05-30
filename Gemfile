@@ -1,24 +1,17 @@
-Encoding.default_external = Encoding::UTF_8
-Encoding.default_internal = Encoding::UTF_8
-
-if RUBY_VERSION =~ /1.9/
-  Encoding.default_external = Encoding::UTF_8
-  Encoding.default_internal = Encoding::UTF_8
-end
-
 source 'https://rubygems.org'
 
-ruby '1.9.3'
-gem 'rails', '3.2.12'
+ruby '2.1.1'
+gem 'rails', '3.2.18'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'factory_girl_rails', '~>2.0'
+  gem 'factory_girl_rails', '~> 2.0'
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'commands'
 end
 
 
@@ -33,7 +26,6 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -71,14 +63,14 @@ end
 gem 'bootstrap-sass'
 gem 'bootstrap-sass-rails'
 
-gem 'jquery-rails'
 gem 'haml'
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem 'simple_form'
 gem 'carrierwave'
+gem 'figaro'
 gem 'friendly_id'
 gem 'populator'
-gem 'faker'
+gem 'ffaker'
 gem 'will_paginate', '~> 3.0'
 gem 'introjs-rails'
 gem 'wicked'
