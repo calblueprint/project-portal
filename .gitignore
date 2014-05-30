@@ -62,5 +62,5 @@ public/assets
 .DS_Store
 *.sh
 
-# ignoring the environment variable initialization file
-/config/environment_variables.rb
+# Ignore application configuration
+/config/application.yml
