@@ -47,6 +47,7 @@ GEM
     arel (3.0.3)
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
+    awesome_print (1.2.0)
     aws-s3 (0.6.3)
       builder
       mime-types
@@ -247,6 +248,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_commentable_with_threading
+  awesome_print
   aws-s3
   aws-sdk
   best_in_place

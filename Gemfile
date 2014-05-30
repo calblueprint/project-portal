@@ -79,3 +79,4 @@ gem 'paperclip', '~> 3.4.1'
 gem "cocaine", "~> 0.5.1"
 gem 'aws-s3'
 gem 'aws-sdk'
+gem 'awesome_print'
