@@ -12,6 +12,8 @@ group :development, :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'commands'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 
