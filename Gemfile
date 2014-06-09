@@ -73,6 +73,7 @@ gem 'ffaker', '~> 1.24.0'
 gem 'will_paginate', '~> 3.0'
 gem 'introjs-rails', '~> 0.5.0'
 gem 'wicked', '~> 1.0.3'
+gem 'newrelic_rpm'
 #photo uploading
 gem 'paperclip', '~> 3.4.1'
 gem "cocaine", "~> 0.5.1"
