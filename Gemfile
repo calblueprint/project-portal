@@ -1,24 +1,19 @@
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
-if RUBY_VERSION =~ /1.9/
-  Encoding.default_external = Encoding::UTF_8
-  Encoding.default_internal = Encoding::UTF_8
-end
-
 source 'https://rubygems.org'
 
-ruby '1.9.3'
-gem 'rails', '3.2.12'
+ruby '2.1.1'
+gem 'rails', '3.2.18'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.9'
   gem 'factory_girl_rails', '~>2.0'
-  gem 'launchy'
-  gem 'rspec-rails'
+  gem 'launchy', '~> 2.4.2'
+  gem 'rspec-rails', '2.14.2'
 end
 
 
@@ -33,16 +28,15 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'twitter-bootstrap-rails'
-gem 'best_in_place'
+gem 'jquery-rails', '~> 3.1.0'
+gem 'twitter-bootstrap-rails', '~> 2.2.8'
+gem 'best_in_place', '2.1.0'
 #for adding comments to projects
-gem 'acts_as_commentable_with_threading'
-gem 'rails_autolink'
+gem 'acts_as_commentable_with_threading', '~> 1.2.0'
+gem 'rails_autolink', '1.1.5'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -68,18 +62,17 @@ group :test do
 end
 
 # our app specific gems
-gem 'bootstrap-sass'
-gem 'jquery-rails'
-gem 'haml'
-gem 'devise', :git => 'git://github.com/plataformatec/devise.git' 
-gem 'simple_form'
-gem 'carrierwave'
-gem 'friendly_id'
-gem 'populator'
-gem 'faker'
+gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'haml', '~> 4.0.5'
+gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
+gem 'simple_form', '~> 2.1.1'
+gem 'carrierwave', '~> 0.10.0'
+gem 'friendly_id', '~> 4.0.10.1'
+gem 'populator', '~> 1.0.0'
+gem 'ffaker', '~> 1.24.0'
 gem 'will_paginate', '~> 3.0'
-gem 'introjs-rails'
-gem 'wicked'
+gem 'introjs-rails', '~> 0.5.0'
+gem 'wicked', '~> 1.0.3'
 #photo uploading
 gem 'paperclip', '~> 3.4.1'
 gem "cocaine", "~> 0.5.1"
