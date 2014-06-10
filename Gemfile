@@ -14,6 +14,11 @@ group :development, :test do
   gem 'factory_girl_rails', '~>2.0'
   gem 'launchy', '~> 2.4.2'
   gem 'rspec-rails', '2.14.2'
+  gem 'zeus', '~> 0.15.1'
+  gem 'better_errors', '~> 1.1.0'
+  gem 'binding_of_caller', '~> 0.7.2'
+  gem 'annotate', '~> 2.6.1'
+  gem 'awesome_print', '1.2.0', require: 'awesome_print'
 end
 
 
