@@ -15,14 +15,14 @@ class Project < ActiveRecord::Base
   has_many   :favorites, :dependent => :destroy
   has_many   :favorited, :through => :favorites, :source => :user
   has_and_belongs_to_many :favorite_users, :class_name => "User"
-  has_and_belongs_to_many :organizations
+  has_many :applications
+  has_many :organizations, :through => :applications
 
   attr_accessible :github_site, :application_site#, :as => [:default, :admin, :owner]
-  attr_accessible :questions, :title, :comment, :state#, :as => [ :owner, :admin ]
+  attr_accessible :title, :comment, :state#, :as => [ :owner, :admin ]
   attr_accessible :problem, :short_description, :long_description#, :as => [ :owner, :admin ]
   attr_accessible :approved, :as => :admin
-  attr_accessor :project_params, :org_params
-  attr_accessible :organization
+  attr_accessor :questions
 
   attr_accessible :user_id, :as=>:admin
 
@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
   # validate emails, regex from StackOverflow (http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address)
   # validates_format_of :contact_email, :with => /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/
 
-  serialize :questions, Hash
+  # serialize :questions, Hash
   before_save :merge_questions
   # mount_uploader :photo, PhotoUploader
 

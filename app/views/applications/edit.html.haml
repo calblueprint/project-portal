@@ -1,0 +1,11 @@
+.container
+  .heading.lower
+    .inline Application to
+    .inline= @application.organization.name
+
+  - if user_signed_in?
+    =render 'org_questions_form'
+  - else
+    %p
+      If you would like to submit a project, please
+      =link_to "create an account", new_user_registration_path

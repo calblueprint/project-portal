@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   respond_to :html, :json
 
   def new
+    @project = Project.new
   end
 
   def edit
@@ -19,56 +20,26 @@ class ProjectsController < ApplicationController
     @user = @project.client
   end
 
-  def org_questions
-    @project = Project.new
-
-    if params[:project].nil?
-      org_params = session[:org]
-      proj_params = session[:proj]
-    else
-      org_params = params[:project][:organizations]
-      params[:project].delete(:organizations)
-      proj_params = params[:project]
-    end
-
-    session[:org] = org_params
-    session[:proj] = proj_params
-
-    puts 'org params'
-    puts org_params
-
-    @organizations = []
-    Organization.all.each do |org|
-      if org_params[org.sname] == "1"
-        @organizations << org
-      end
-    end
-  end
-
   def create
-    puts "CREATING"
-    org_params = session[:org]
-    proj_params = session[:proj]
+    org_params = params[:project][:organizations]
+    params[:project].delete(:organizations)
 
-    @project = Project.new(proj_params)
-    # @project = Project.new(proj_params, :as => :owner)
+    @project = Project.new(params[:project])
     @project.client = current_rolable
 
-    @project.questions = params[:project][:questions]
-    @project.problem = params[:project][:problem]
-    @project.short_description = params[:project][:short_description]
-    @project.long_description = params[:project][:long_description]
-
-    Organization.all.each do |org|
-      if org_params[org.sname] == "1"
-        puts org.name
-        @project.organizations << org
-      end
+    org_params.each do |id, val|
+      @project.applications.build(:organization_id => id) if val == "1"
     end
 
     if @project.save
+      @project.applications.to_a.each do |app|
+        if app.questions.empty?
+          redirect_to edit_project_application_path(@project, app) and return
+        end
+      end
       redirect_to @project, notice: 'Project was successfully created.'
     else
+      flash[:warning] = "Project creation was unsuccessful."
       render action: "new"
     end
   end
@@ -192,6 +163,7 @@ class ProjectsController < ApplicationController
   def add_org
     project = Project.find(params[:id])
     org = Organization.find(params[:org_id])
+
     questions = {}
     org.questions.each do |q|
       questions[Project.question_key(q).to_s] = ""

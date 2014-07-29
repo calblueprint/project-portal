@@ -40,8 +40,6 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    puts 'deleting question'
-
     @question = Question.find(params[:id])
     @question.delete
     redirect_to session[:return_to]

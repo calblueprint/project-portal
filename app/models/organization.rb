@@ -3,9 +3,16 @@ class Organization < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
 
-  has_and_belongs_to_many :projects
   has_many :questions
   has_one :user, :as => :rolable
+  has_many :applications
+  has_many :projects, :through => :applications
 
   attr_accessible :description, :name, :website, :sname, :organization_id
+
+  scope :not_applied, lambda { |project|
+    where("id NOT IN (?)", Organization.joins(:applications).where("applications.project_id = ?", project.id) )
+  }
+
+  scope :is_public, lambda { Project.where("id not in (?)", Project.joins(:organizations)) }
 end
