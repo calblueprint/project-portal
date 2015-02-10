@@ -39,6 +39,11 @@
                   %i.icon-pencil
               -else
                 =link_to(project.application_site, url_with_http(project.application_site), :target => "_blank")
+          .span6
+            %p
+              - if user_can_update?(project)
+                %b
+                  Contact Email: #{project.client.contact_email}
           .problem
             .span12
               %p
